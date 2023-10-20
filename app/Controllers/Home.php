@@ -6,6 +6,6 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return $this->cv->pageView('pages/home/index', $this->headerInfo);
+        return view("adminlte/pages/home", $this->viewData);
     }
 }

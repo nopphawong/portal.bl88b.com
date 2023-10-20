@@ -8,7 +8,6 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use App\Libraries\CustomView;
 
 /**
  * Class BaseController
@@ -36,15 +35,8 @@ abstract class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
-    protected $headerInfo = [];
+    protected $helpers = ["html"];
     protected $viewData = [];
-
-    /**
-     * Custom the view.
-     * @var CustomView
-     */
-    protected $cv;
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
@@ -59,13 +51,7 @@ abstract class BaseController extends Controller
     {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
-
-        helper('html');
-
-        // Custom View.
-        $this->cv = new CustomView();
-
-        // Set headers.
-        $this->headerInfo['title'] = 'UFA PORTAL';
+        
+        $this->viewData['title'] = 'UFA PORTAL';
     }
 }
