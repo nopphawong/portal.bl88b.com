@@ -13,7 +13,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
-    <?= link_tag("assets/dist/css/adminlte.min.css") ?>
+    <?= link_tag("assets/css/adminlte.min.css") ?>
 
 </head>
 
@@ -30,13 +30,13 @@
     <!-- Bootstrap 4 -->
     <?= script_tag("assets/plugins/bootstrap/js/bootstrap.bundle.min.js") ?>
     <!-- AdminLTE App -->
-    <?= script_tag("assets/dist/js/adminlte.js") ?>
+    <?= script_tag("assets/js/adminlte.js") ?>
 
     <!-- OPTIONAL SCRIPTS -->
     <!-- ChartJS -->
     <?= script_tag("assets/plugins/chart.js/Chart.min.js") ?>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <?= script_tag("assets/dist/js/pages/dashboard3.js") ?>
+    <?= script_tag("assets/js/pages/dashboard3.js") ?>
 </body>
 
 </html>
