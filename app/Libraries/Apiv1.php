@@ -12,7 +12,7 @@ class Apiv1
     public function __construct($secret = null)
     {
         $this->curl = service("curlrequest", ["baseURI" => "{$_ENV["app.apiUrl"]}"]);
-        $this->set_secret($secret);
+        if ($secret) $this->set_secret($secret);
     }
 
     public function set_secret($secret)
@@ -23,22 +23,20 @@ class Apiv1
     // WEB
     public function web_info()
     {
-        return self::post("{$_ENV["app.apiUrl"]}web/info");
+        return self::post("web/info");
     }
     public function web_info_update($data = array())
     {
-        return self::post("{$_ENV["app.apiUrl"]}web/info/update", $data);
+        return self::post("web/info/update", $data);
     }
 
     /* ========================================================================== */
 
     protected function post($path, $data = array())
     {
-        $data = (object) $data;
-        $data->secret = $this->secret;
         $body = self::hash_data($data);
         log_message("alert", "path: {$path} :: " . $body);
-        $response = $this->curl->post($path, ["json" => $data]);
+        $response = $this->curl->post("{$this->secret}/{$path}", ["json" => $data]);
         $result = self::prepare_result($response);
         log_message("alert", "path: {$path} :: " . json_encode($result));
         return $result;

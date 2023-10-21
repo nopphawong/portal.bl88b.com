@@ -25,7 +25,7 @@ $routes->post('web/info/update', 'serv\Web::info_update', $servauth);
 
 
 // API
-$routes->group('api', static function ($routes) {
+$routes->group('api/(:segment)', static function ($routes) {
     /*
         api/web/info                web info
         api/web/info/update         web info update
