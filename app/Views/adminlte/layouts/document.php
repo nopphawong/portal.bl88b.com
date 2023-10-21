@@ -14,10 +14,15 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <?= link_tag("assets/css/adminlte.min.css") ?>
+    
+    <? foreach ($includes_js as $js) : ?>
+        <?= script_tag($js) ?>
+    <? endforeach ?>
 
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body>
     <div class="wrapper">
 
         <?= $this->renderSection('content') ?>
@@ -32,11 +37,8 @@
     <!-- AdminLTE App -->
     <?= script_tag("assets/js/adminlte.js") ?>
 
-    <!-- OPTIONAL SCRIPTS -->
-    <!-- ChartJS -->
-    <?= script_tag("assets/plugins/chart.js/Chart.min.js") ?>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <?= script_tag("assets/js/pages/dashboard3.js") ?>
+    <?= script_tag("https://cdn.jsdelivr.net/npm/sweetalert2@11") ?>
+
 </body>
 
 </html>

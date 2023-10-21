@@ -9,6 +9,9 @@ use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
 
+use App\Filters\ServAuth;
+use App\Filters\PageAuth;
+
 class Filters extends BaseConfig
 {
     /**
@@ -24,6 +27,8 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'pageauth'      => PageAuth::class,
+        'servauth'      => ServAuth::class,
     ];
 
     /**

@@ -2,9 +2,6 @@
 
 <?= $this->section("content") ?>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <?= $this->renderSection('content') ?>
-    </div>
+<?= $this->renderSection('content') ?>
 
 <?= $this->endSection() ?>

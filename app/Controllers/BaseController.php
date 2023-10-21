@@ -51,7 +51,10 @@ abstract class BaseController extends Controller
     {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
-        
+
+        $this->viewData['includes_js'][] = site_url("js/utils.js");
+
         $this->viewData['title'] = 'UFA PORTAL';
+        $this->viewData['path'] = implode("/", $request->uri->getSegments());
     }
 }
