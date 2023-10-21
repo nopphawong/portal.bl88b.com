@@ -14,15 +14,15 @@
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
-# CI_ENVIRONMENT = production
+CI_ENVIRONMENT = production
 
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = http://localhost:8080/
+app.baseURL = https://portal.bl88b.com/
 
-# app.apiUrl = http://localhost:8080/api/
+app.apiUrl = https://portal.bl88b.com/api/
 
 # If you have trouble with `.`, you could also use `_`.
 # app_baseURL = ''
@@ -33,13 +33,13 @@
 # DATABASE
 #--------------------------------------------------------------------
 
-# database.default.hostname = localhost
-# database.default.database = db_portal
-# database.default.username = root
-# database.default.password = 
-# database.default.DBDriver = MySQLi
-# database.default.DBPrefix =
-# database.default.port = 3306
+database.default.hostname = 119.8.165.218
+database.default.database = db_portal
+database.default.username = adminportal
+database.default.password = 3b3ba745b80668241dde24d23e6f41fa
+database.default.DBDriver = MySQLi
+database.default.DBPrefix =
+database.default.port = 3306
 
 # database.tests.hostname = localhost
 # database.tests.database = ci4_test
