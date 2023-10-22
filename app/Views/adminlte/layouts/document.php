@@ -15,9 +15,9 @@
     <!-- Theme style -->
     <?= link_tag("assets/css/adminlte.min.css") ?>
     
-    <? foreach ($includes_js as $js) : ?>
+    <?php foreach ($includes_js as $js) : ?>
         <?= script_tag($js) ?>
-    <? endforeach ?>
+    <?php endforeach ?>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 </head>
