@@ -7,28 +7,34 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
+
+
+// PAGE
 $routes->get('login', 'Page::login');
 $routes->get('logout', 'Page::logout');
 
 $pageauth = ['filter' => 'pageauth'];
 $routes->get('/', 'Page::index', $pageauth);
-$routes->get('web/info', 'Page::web_info', $pageauth);
+$routes->get('agent/info', 'Page::agent_info', $pageauth);
+
+
+
 
 // SERV
 $routes->post('auth/login', 'serv\Auth::login');
 
 $servauth = ['filter' => 'servauth'];
-$routes->post('web/info', 'serv\Web::info', $servauth);
-$routes->post('web/info/update', 'serv\Web::info_update', $servauth);
+$routes->post('agent/info', 'serv\Agent::info', $servauth);
+$routes->post('agent/info/update', 'serv\Agent::info_update', $servauth);
 
 
 // API
-$routes->group('api/(:segment)', static function ($routes) {
+$routes->group('api', static function ($routes) {
     /*
-        api/web/info                web info
-        api/web/info/update         web info update
+        api/agent/info                agent info
+        api/agent/info/update         agent info update
     */
-    $routes->post('web/(:any)', 'api\Web::execute_path/$1/$2/$3');
+    $routes->post('agent/(:any)', 'api\Agent::execute_path/$1/$2/$3');
 });
 
 /*

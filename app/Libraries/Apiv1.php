@@ -20,23 +20,25 @@ class Apiv1
         $this->secret = $secret;
     }
 
-    // WEB
-    public function web_info()
+    // Agent
+    public function agent_info()
     {
-        return self::post("web/info");
+        return self::post("agent/info");
     }
-    public function web_info_update($data = array())
+    public function agent_info_update($data = array())
     {
-        return self::post("web/info/update", $data);
+        return self::post("agent/info/update", $data);
     }
 
     /* ========================================================================== */
 
     protected function post($path, $data = array())
     {
+        $data = (object) $data;
+        $data->secret = $this->secret;
         $body = self::hash_data($data);
         log_message("alert", "path: {$path} :: " . $body);
-        $response = $this->curl->post("{$this->secret}/{$path}", ["json" => $data]);
+        $response = $this->curl->post("{$path}", ["json" => $data]);
         $result = self::prepare_result($response);
         log_message("alert", "path: {$path} :: " . json_encode($result));
         return $result;

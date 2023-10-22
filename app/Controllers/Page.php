@@ -15,8 +15,8 @@ class Page extends BaseController
         return redirect()->to(site_url("login"));
     }
 
-    public function web_info()
+    public function agent_info()
     {
-        return view("adminlte/pages/web_info", $this->viewData);
+        return view("adminlte/pages/agent_info", $this->viewData);
     }
 }

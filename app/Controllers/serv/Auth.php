@@ -30,7 +30,7 @@ class Auth extends BaseController
         if (!$agent->status) return $this->response(null, "Agent inactived !", false);
         $user->secret = $agent->secret;
         $this->set_session($user);
-        return $this->response(["url" => site_url("web/info")], "Welcome !");
+        return $this->response(["url" => site_url("agent/info")], "Welcome !");
     }
     protected function set_session($user)
     {

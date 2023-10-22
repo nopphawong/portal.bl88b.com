@@ -6,13 +6,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1 class="text-center">Web info</h1>
+                <h1 class="text-center">Agent info</h1>
             </div>
         </div>
     </div>
 </section>
 
-<section class="content" id="web-info-box">
+<section class="content" id="agent-info-box">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3"></div>
@@ -27,7 +27,7 @@
                                 <img :src="form.logo_new || form.logo" style="max-width: 250px; max-height: 100px;" />
                             </div>
                             <div class="input-group">
-                                <input type="file" id="web_logo" class="form-control" placeholder="Logo" accept="image/png, image/jpeg" @change="onFileChange" :disabled="mode.active == mode.display" />
+                                <input type="file" id="agent_logo" class="form-control" placeholder="Logo" accept="image/png, image/jpeg" @change="onFileChange" :disabled="mode.active == mode.display" />
                                 <span class="input-group-append">
                                     <button type="button" class="btn btn-warning btn-flat" @click="removeImage" :disabled="mode.active == mode.display">Remove</button>
                                 </span>
@@ -96,7 +96,7 @@
             async info(e) {
                 e?.preventDefault()
                 this.loading = true
-                let { status, message, data } = await post(`web/info`)
+                let { status, message, data } = await post(`agent/info`)
                 this.loading = false
                 if (!status) return showAlert.warning(message)
                 this.form.logo = data.logo
@@ -111,7 +111,7 @@
             async submit(e) {
                 e?.preventDefault()
                 this.loading = true
-                let { status, message, data } = await post(`web/info/update`, this.form)
+                let { status, message, data } = await post(`agent/info/update`, this.form)
                 this.loading = false
                 if (!status) return showAlert.warning(message)
                 return showAlert.success(message, () => {
@@ -137,13 +137,13 @@
             removeImage: function(e) {
                 e?.preventDefault()
                 this.form.logo_new = ``
-                $("#web_logo").val(``)
+                $("#agent_logo").val(``)
             }
         },
         mounted() {
             this.info()
         }
-    }).mount('#web-info-box')
+    }).mount('#agent-info-box')
 </script>
 
 <?= $this->endSection() ?>
