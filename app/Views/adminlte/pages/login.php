@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <div class="login-logo">
-                    <a><b>Admin</b>LTE</a>
+                    <a><b>BL88B</b></a>
                 </div>
                 <form @submit="submit">
                     <div class="input-group mb-3">
