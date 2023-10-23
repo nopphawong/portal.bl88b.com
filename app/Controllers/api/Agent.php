@@ -34,10 +34,13 @@ class Agent extends BaseController
 
     protected function info_update()
     {
+        $file = new Base64fileUploads();
         if (!empty($this->body->logo_new)) {
-            $file = new Base64fileUploads();
-            $upload = $file->du_uploads("images", $this->body->logo_new);
-            $this->body->logo = base_url($upload->file_path);
+            $logo = $file->du_uploads($this->body->logo_new, "images", "{$this->agent->code}logo");
+            $this->body->logo = site_url($logo->file_path);
+
+            $image = \Config\Services::image();
+            $image->withFile($logo->file_path)->resize(250, 250, true, 'auto')->save($logo->file_path);
         }
         $this->body->id = $this->agent->id;
         $this->body->edit_date = date("Y-m-d H:i:s");

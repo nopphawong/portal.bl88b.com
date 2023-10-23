@@ -16,10 +16,19 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            <a class="nav-link text-danger" href="<?= site_url("logout") ?>" role="button">
+            <a class="nav-link text-danger" onclick="logout(event)" role="button">
                 <i class="fa fa-power-off" aria-hidden="true"></i>
             </a>
         </li>
     </ul>
 </nav>
 <!-- /.navbar -->
+<script>
+    function logout(e) {
+        e?.preventDefault()
+        return showConfirm(`Confirm logout !`, (_f) => {
+            if (!_f.isConfirmed) return
+            location.href = `<?= site_url("logout") ?>`
+        })
+    }
+</script>

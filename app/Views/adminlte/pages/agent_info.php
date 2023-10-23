@@ -47,8 +47,12 @@
                             <input type="text" class="form-control" placeholder="Description" v-model="form.description" :disabled="mode.active == mode.display" />
                         </div>
                         <div class="form-group">
-                            <label>Line official</label>
-                            <input type="text" class="form-control" placeholder="Line official" v-model="form.line" :disabled="mode.active == mode.display" />
+                            <label>Line id</label>
+                            <input type="text" class="form-control" placeholder="Line id" v-model="form.line_id" :disabled="mode.active == mode.display" />
+                        </div>
+                        <div class="form-group">
+                            <label>Line link</label>
+                            <input type="text" class="form-control" placeholder="Line link" v-model="form.line_link" :disabled="mode.active == mode.display" />
                         </div>
                     </div>
                     <div class="card-footer">
@@ -88,7 +92,8 @@
                     url: ``,
                     name: ``,
                     description: ``,
-                    line: ``,
+                    line_id: ``,
+                    line_link: ``,
                 },
             }
         },
@@ -99,11 +104,9 @@
                 let { status, message, data } = await post(`agent/info`)
                 this.loading = false
                 if (!status) return showAlert.warning(message)
-                this.form.logo = data.logo
-                this.form.url = data.url
-                this.form.name = data.name
-                this.form.description = data.description
-                this.form.line = data.line
+
+                let { logo, url, name, description, line_id, line_link } = data
+                this.form = { logo, url, name, description, line_id, line_link }
 
                 this.mode.active = this.mode.display
                 this.removeImage(e)

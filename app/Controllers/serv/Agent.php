@@ -3,7 +3,6 @@
 namespace App\Controllers\serv;
 
 use App\Libraries\Apiv1;
-use App\Libraries\Base64fileUploads;
 
 class Agent extends BaseController
 {
@@ -19,11 +18,6 @@ class Agent extends BaseController
     public function info_update()
     {
         $body = $this->getPost();
-        if (!empty($body->logo_new)) {
-            $file = new Base64fileUploads();
-            $upload = $file->du_uploads("images", $body->logo_new);
-            $body->logo = base_url($upload->file_path);
-        }
         $body->edit_by = $this->session->get("username");
         $api = new Apiv1();
         $api->set_secret($this->session->get("secret"));
