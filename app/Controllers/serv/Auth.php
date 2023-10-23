@@ -25,20 +25,23 @@ class Auth extends BaseController
         if (!$user->status) return $this->response(null, "Username inactived !", false);
 
         $agentModel = new AgentModel();
-        $agent = $agentModel->where("code", $user->agent)->first();
+        $agent = $agentModel->where("key", $user->agent)->first();
         if (empty($agent)) return $this->response(null, "Agent not found !", false);
         if (!$agent->status) return $this->response(null, "Agent inactived !", false);
-        $user->secret = $agent->secret;
-        $this->set_session($user);
+        $this->set_session($user, $agent);
         return $this->response(["url" => site_url("agent/info")], "Welcome !");
     }
-    protected function set_session($user)
+    protected function set_session($user, $agent)
     {
         $data = [
             "logged_in" => true,
             "username" => $user->username,
             "role" => $user->role,
-            "secret" => $user->secret,
+            "agent" => (object) [
+                "code" => $agent->code,
+                "key" => $agent->key,
+                "secret" => $agent->secret,
+            ],
         ];
         session()->set($data);
     }

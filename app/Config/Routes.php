@@ -18,8 +18,6 @@ $routes->get('/', 'Page::index', $pageauth);
 $routes->get('agent/info', 'Page::agent_info', $pageauth);
 
 
-
-
 // SERV
 $routes->post('auth/login', 'serv\Auth::login');
 
@@ -30,11 +28,9 @@ $routes->post('agent/info/update', 'serv\Agent::info_update', $servauth);
 
 // API
 $routes->group('api', static function ($routes) {
-    /*
-        api/agent/info                agent info
-        api/agent/info/update         agent info update
-    */
-    $routes->post('agent/(:any)', 'api\Agent::execute_path/$1/$2/$3');
+    $routes->post('agent/add', 'api\Agent::add');
+    $routes->post('agent/info', 'api\Agent::info');
+    $routes->post('agent/info/update', 'api\Agent::info_update');
 });
 
 /*
