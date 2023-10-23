@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <div class="login-logo">
-                    <a>Admin <b>Protal</b></a>
+                    <a>Admin <b>Portal</b></a>
                 </div>
                 <form @submit="submit">
                     <div class="input-group mb-3">
