@@ -18,8 +18,10 @@
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
                 <form class="card card-default" @submit="submit">
-                    <div class="card-header">
-
+                    <div class="card-header d-flex align-items-baseline">
+                        <i class="fa fa-store mr-2"></i>
+                        <h5 v-if="form.name">{{form.name}}</h5>
+                        <h5 v-else>Agent info</h5>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -27,7 +29,10 @@
                                 <img :src="form.logo_new || form.logo" style="max-width: 250px; max-height: 100px;" />
                             </div>
                             <div class="input-group">
-                                <input type="file" id="agent_logo" class="form-control" placeholder="Logo" accept="image/png, image/jpeg" @change="onFileChange" :disabled="mode.active == mode.display" />
+                                <div class="custom-file">
+                                    <input type="file" id="agent_logo" class="custom-file-input" placeholder="Logo" accept="image/png, image/jpeg" @change="onFileChange" :disabled="mode.active == mode.display">
+                                    <label class="custom-file-label" for="agent_logo">Choose file</label>
+                                </div>
                                 <span class="input-group-append">
                                     <button type="button" class="btn btn-warning btn-flat" @click="removeImage" :disabled="mode.active == mode.display">Remove</button>
                                 </span>
@@ -58,13 +63,13 @@
                     <div class="card-footer">
                         <div class="d-flex justify-content-end gap-1">
                             <button v-if="mode.active == mode.display" type="button" class="btn btn-primary" @click="mode.active = mode.edit" :disabled="loading">
-                                <span>Edit</span>
+                                <i class="fa fa-wrench"></i> <span>Edit</span>
                             </button>
-                            <button v-if="mode.active == mode.edit" type="submit" class="btn btn-primary" style="margin-right: .25rem;" :disabled="loading">
-                                <span>Save</span>
+                            <button v-if="mode.active == mode.edit" type="submit" class="btn btn-success" style="margin-right: .25rem;" :disabled="loading">
+                                <i class="fa fa-save"></i> <span>Save</span>
                             </button>
                             <button v-if="mode.active == mode.edit" type="button" class="btn btn-outline-secondary" @click="info" :disabled="loading">
-                                <span>Cancel</span>
+                                <i class="fa fa-ban"></i> <span>Cancel</span>
                             </button>
                         </div>
                     </div>
