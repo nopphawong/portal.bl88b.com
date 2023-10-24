@@ -25,14 +25,14 @@ class Agent extends BaseController
         if (!empty($body->logo_new)) {
             $this->unlink_image($body->logo);
             $logo = $file->du_uploads($body->logo_new, "images", "{$this->session->agent->key}logo_" . uniqid());
-            $this->resize_image($logo->file_path, 150, 150);
+            $this->resize_image($logo->file_path, 320, 100);
             $body->logo = site_url($logo->file_path);
         }
 
         if (!empty($body->banner_new)) {
             $this->unlink_image($body->banner);
             $banner = $file->du_uploads($body->banner_new, "images", "{$this->session->agent->key}banner_" . uniqid());
-            $this->resize_image($banner->file_path, 450, 150);
+            $this->resize_image($banner->file_path, 1000, 480);
             $body->banner = site_url($banner->file_path);
         }
 

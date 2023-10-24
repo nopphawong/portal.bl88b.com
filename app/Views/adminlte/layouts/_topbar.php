@@ -16,6 +16,11 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
+            <a class="nav-link" role="button">
+                <b><?=session()->username ?></b>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link text-danger" onclick="logout(event)" role="button">
                 <i class="fa fa-power-off" aria-hidden="true"></i>
             </a>
