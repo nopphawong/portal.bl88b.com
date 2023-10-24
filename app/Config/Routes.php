@@ -13,9 +13,9 @@ $routes->get('login', 'Page::login');
 $routes->get('logout', 'Page::logout');
 
 $pageauth = ['filter' => 'pageauth'];
-$routes->get('/', 'Page::index', $pageauth);
+$routes->get('/', 'Page::agent_info', $pageauth);
 $routes->get('agent/info', 'Page::agent_info', $pageauth);
-
+$routes->get('banner', 'Page::banner', $pageauth);
 
 // SERV
 $routes->post('auth/login', 'serv\Auth::login');
@@ -24,18 +24,36 @@ $servauth = ['filter' => 'servauth'];
 $routes->post('agent/info', 'serv\Agent::info', $servauth);
 $routes->post('agent/info/update', 'serv\Agent::info_update', $servauth);
 
+$routes->post('banner/list', 'serv\Banner::list', $servauth);
+$routes->post('banner/add', 'serv\Banner::add', $servauth);
+$routes->post('banner/info', 'serv\Banner::info', $servauth);
+$routes->post('banner/info/update', 'serv\Banner::info_update', $servauth);
+$routes->post('banner/remove', 'serv\Banner::remove', $servauth);
+$routes->post('banner/reuse', 'serv\Banner::reuse', $servauth);
 
 // API
 $routes->group('api', static function ($routes) {
 
     $routes->group('agent', static function ($routes) {
+        // api/agent/{{ function }}
         $routes->post('add', 'api\Agent::add');
         $routes->post('list', 'api\Agent::list');
         $routes->post('info', 'api\Agent::info');
         $routes->post('info/update', 'api\Agent::info_update');
     });
-    
+
+    $routes->group('banner', static function ($routes) {
+        // api/banner/{{ function }}
+        $routes->post('add', 'api\Banner::add');
+        $routes->post('list', 'api\Banner::list');
+        $routes->post('info', 'api\Banner::info');
+        $routes->post('info/update', 'api\Banner::info_update');
+        $routes->post('remove', 'api\Banner::remove');
+        $routes->post('reuse', 'api\Banner::reuse');
+    });
+
     $routes->group('user', static function ($routes) {
+        // api/user/{{ function }}
         $routes->post('add', 'api\User::add');
         $routes->post('list', 'api\User::list');
         $routes->post('info', 'api\User::info');

@@ -30,6 +30,32 @@ class Apiv1
         return self::post("agent/info/update", $data);
     }
 
+    // banner
+    public function banner_list()
+    {
+        return self::post("banner/list");
+    }
+    public function banner_add($data = array())
+    {
+        return self::post("banner/add", $data);
+    }
+    public function banner_info($data = array())
+    {
+        return self::post("banner/info", $data);
+    }
+    public function banner_info_update($data = array())
+    {
+        return self::post("banner/info/update", $data);
+    }
+    public function banner_remove($data = array())
+    {
+        return self::post("banner/remove", $data);
+    }
+    public function banner_reuse($data = array())
+    {
+        return self::post("banner/reuse", $data);
+    }
+
     /* ========================================================================== */
 
     protected function post($path, $data = array())

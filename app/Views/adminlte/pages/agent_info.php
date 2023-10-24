@@ -27,7 +27,7 @@
                         <div class="form-group">
                             <label class="form-label">Logo</label>
                             <div class="d-flex justify-content-center mb-3">
-                                <img :src="form.logo_new || form.logo" style="max-width: 100px; max-height: 100px;" />
+                                <img :src="form.logo_upload || form.logo" style="max-width: 100px; max-height: 100px;" />
                             </div>
                             <div class="input-group">
                                 <div class="custom-file">
@@ -38,24 +38,8 @@
                                     <button type="button" class="btn btn-warning btn-flat" data-target="logo" @click="removeImage" :disabled="mode.active == mode.display">Remove</button>
                                 </span>
                             </div>
+                            <hr />
                         </div>
-                        <hr />
-                        <div class="form-group">
-                            <label class="form-label">Banner</label>
-                            <div class="d-flex justify-content-center mb-3">
-                                <img :src="form.banner_new || form.banner" style="max-width: 300px; max-height: 100px;" />
-                            </div>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" id="banner" class="custom-file-input" placeholder="Logo" accept="image/png, image/jpeg" @change="onFileChange" :disabled="mode.active == mode.display">
-                                    <label class="custom-file-label" for="banner">Choose file</label>
-                                </div>
-                                <span class="input-group-append">
-                                    <button type="button" class="btn btn-warning btn-flat" data-target="banner" @click="removeImage" :disabled="mode.active == mode.display">Remove</button>
-                                </span>
-                            </div>
-                        </div>
-                        <hr />
                         <div class="form-group">
                             <label class="form-label">Domain</label>
                             <input type="url" class="form-control" placeholder="https://xxxx.xxx" v-model="form.url" :disabled="mode.active == mode.display" />
@@ -110,9 +94,7 @@
                 },
                 form: {
                     logo: ``,
-                    logo_new: ``,
-                    banner: ``,
-                    banner_new: ``,
+                    logo_upload: ``,
                     url: ``,
                     name: ``,
                     description: ``,
@@ -129,8 +111,8 @@
                 this.loading = false
                 if (!status) return showAlert.warning(message)
 
-                let { logo, banner, url, name, description, line_id, line_link } = data
-                this.form = { logo, banner, url, name, description, line_id, line_link }
+                let { logo, url, name, description, line_id, line_link } = data
+                this.form = { logo, url, name, description, line_id, line_link }
 
                 this.mode.active = this.mode.display
                 this.removeImage(e)

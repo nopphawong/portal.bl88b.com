@@ -19,4 +19,8 @@ class Page extends BaseController
     {
         return view("adminlte/pages/agent_info", $this->viewData);
     }
+    public function banner()
+    {
+        return view("adminlte/pages/banner", $this->viewData);
+    }
 }

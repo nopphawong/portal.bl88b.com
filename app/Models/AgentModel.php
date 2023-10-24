@@ -7,6 +7,6 @@ use CodeIgniter\Model;
 class AgentModel extends Model
 {
     protected $table = 'tb_agent';
-    protected $allowedFields = ['code', 'key', 'secret', 'name', 'url', 'description', 'logo', 'banner', 'line_id', 'line_link', 'status', 'add_date', 'add_by', 'edit_date', 'edit_by'];
+    protected $allowedFields = ['code', 'key', 'secret', 'name', 'url', 'description', 'logo', 'line_id', 'line_link', 'status', 'add_date', 'add_by', 'edit_date', 'edit_by'];
     protected $returnType = 'object';
 }

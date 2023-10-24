@@ -3,6 +3,7 @@
 namespace App\Controllers\serv;
 
 use CodeIgniter\RESTful\ResourceController;
+use Exception;
 
 class BaseController extends ResourceController
 {
@@ -26,11 +27,28 @@ class BaseController extends ResourceController
         if ($this->request->is('json')) return !$index ? $this->request->getVar() : $this->request->getVar($index);
         return !$index ? $this->request->getPost() : $this->request->getPost($index);
     }
-    protected function str_censor($str)
+    protected function resize_image($path, $maxw = 100, $maxh = 100)
     {
-        $target = $str;
-        $count = round(strlen($target) * 0.3);
-        $output = substr_replace($target, str_repeat('*', $count), strlen($target) - round($count * 1.5), $count);
-        return $output;
+        if (!$path) return;
+        $lib = \Config\Services::image();
+        $image = $lib->withFile($path);
+        $props = $image->getFile()->getProperties(true);
+
+        if ($props["width"] > $maxw) $image->resize($maxw, $maxh, true);
+        if ($props["height"] > $maxh) $image->resize($maxw, $maxh, true);
+
+        $image->save($path);
+        unset($lib, $image, $props);
+    }
+
+    protected function unlink_image($url)
+    {
+        if (!$url) return;
+        $uri = new \CodeIgniter\HTTP\URI($url);
+        $path = $uri->getPath();
+        try {
+            unlink($_SERVER['DOCUMENT_ROOT'] . $path);
+        } catch (Exception $e) {}
+        unset($uri, $path);
     }
 }

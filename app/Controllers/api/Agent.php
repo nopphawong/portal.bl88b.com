@@ -13,7 +13,7 @@ class Agent extends BaseController
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
 
-        return $this->response($agent, "Successful !");
+        return $this->response($agent);
     }
 
     public function info_update()
