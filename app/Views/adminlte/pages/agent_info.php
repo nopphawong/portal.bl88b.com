@@ -30,7 +30,10 @@
                                 <img :src="form.logo_new || form.logo" style="max-width: 100px; max-height: 100px;" />
                             </div>
                             <div class="input-group">
-                                <input type="file" id="logo" class="form-control" placeholder="Logo" accept="image/png, image/jpeg" @change="onFileChange" :disabled="mode.active == mode.display" />
+                                <div class="custom-file">
+                                    <input type="file" id="logo" class="custom-file-input" placeholder="Logo" accept="image/png, image/jpeg" @change="onFileChange" :disabled="mode.active == mode.display">
+                                    <label class="custom-file-label" for="logo">Choose file</label>
+                                </div>
                                 <span class="input-group-append">
                                     <button type="button" class="btn btn-warning btn-flat" data-target="logo" @click="removeImage" :disabled="mode.active == mode.display">Remove</button>
                                 </span>
@@ -44,8 +47,8 @@
                             </div>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" id="agent_logo" class="custom-file-input" placeholder="Logo" accept="image/png, image/jpeg" @change="onFileChange" :disabled="mode.active == mode.display">
-                                    <label class="custom-file-label" for="agent_logo">Choose file</label>
+                                    <input type="file" id="banner" class="custom-file-input" placeholder="Logo" accept="image/png, image/jpeg" @change="onFileChange" :disabled="mode.active == mode.display">
+                                    <label class="custom-file-label" for="banner">Choose file</label>
                                 </div>
                                 <span class="input-group-append">
                                     <button type="button" class="btn btn-warning btn-flat" data-target="banner" @click="removeImage" :disabled="mode.active == mode.display">Remove</button>
