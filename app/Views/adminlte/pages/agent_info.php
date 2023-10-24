@@ -23,35 +23,49 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
+                            <label class="form-label">Logo</label>
                             <div class="d-flex justify-content-center mb-3">
-                                <img :src="form.logo_new || form.logo" style="max-width: 250px; max-height: 100px;" />
+                                <img :src="form.logo_new || form.logo" style="max-width: 100px; max-height: 100px;" />
                             </div>
                             <div class="input-group">
-                                <input type="file" id="agent_logo" class="form-control" placeholder="Logo" accept="image/png, image/jpeg" @change="onFileChange" :disabled="mode.active == mode.display" />
+                                <input type="file" id="logo" class="form-control" placeholder="Logo" accept="image/png, image/jpeg" @change="onFileChange" :disabled="mode.active == mode.display" />
                                 <span class="input-group-append">
-                                    <button type="button" class="btn btn-warning btn-flat" @click="removeImage" :disabled="mode.active == mode.display">Remove</button>
+                                    <button type="button" class="btn btn-warning btn-flat" data-target="logo" @click="removeImage" :disabled="mode.active == mode.display">Remove</button>
                                 </span>
                             </div>
                         </div>
                         <hr />
                         <div class="form-group">
-                            <label>Domain</label>
+                            <label class="form-label">Banner</label>
+                            <div class="d-flex justify-content-center mb-3">
+                                <img :src="form.banner_new || form.banner" style="max-width: 300px; max-height: 100px;" />
+                            </div>
+                            <div class="input-group">
+                                <input type="file" id="banner" class="form-control" placeholder="banner" accept="image/png, image/jpeg" @change="onFileChange" :disabled="mode.active == mode.display" />
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-warning btn-flat" data-target="banner" @click="removeImage" :disabled="mode.active == mode.display">Remove</button>
+                                </span>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <label class="form-label">Domain</label>
                             <input type="url" class="form-control" placeholder="https://xxxx.xxx" v-model="form.url" :disabled="mode.active == mode.display" />
                         </div>
                         <div class="form-group">
-                            <label>Site name</label>
+                            <label class="form-label">Site name</label>
                             <input type="text" class="form-control" placeholder="Site name" v-model="form.name" :disabled="mode.active == mode.display" />
                         </div>
                         <div class="form-group">
-                            <label>Description</label>
+                            <label class="form-label">Description</label>
                             <input type="text" class="form-control" placeholder="Description" v-model="form.description" :disabled="mode.active == mode.display" />
                         </div>
                         <div class="form-group">
-                            <label>Line id</label>
+                            <label class="form-label">Line id</label>
                             <input type="text" class="form-control" placeholder="Line id" v-model="form.line_id" :disabled="mode.active == mode.display" />
                         </div>
                         <div class="form-group">
-                            <label>Line link</label>
+                            <label class="form-label">Line link</label>
                             <input type="text" class="form-control" placeholder="Line link" v-model="form.line_link" :disabled="mode.active == mode.display" />
                         </div>
                     </div>
@@ -89,6 +103,8 @@
                 form: {
                     logo: ``,
                     logo_new: ``,
+                    banner: ``,
+                    banner_new: ``,
                     url: ``,
                     name: ``,
                     description: ``,
@@ -105,8 +121,8 @@
                 this.loading = false
                 if (!status) return showAlert.warning(message)
 
-                let { logo, url, name, description, line_id, line_link } = data
-                this.form = { logo, url, name, description, line_id, line_link }
+                let { logo, banner, url, name, description, line_id, line_link } = data
+                this.form = { logo, banner, url, name, description, line_id, line_link }
 
                 this.mode.active = this.mode.display
                 this.removeImage(e)
@@ -123,25 +139,26 @@
             },
             onFileChange(e) {
                 e?.preventDefault()
-                var files = e.target.files || e.dataTransfer.files
+                let files = e.target.files || e.dataTransfer.files
                 if (!files.length) return
-                this.createImage(files[0])
+                this.createImage(files[0], e.target.id)
             },
-            createImage(file) {
-                var image = new Image()
-                var reader = new FileReader()
-                var vm = this
+            createImage(file, target) {
+                let image = new Image()
+                let reader = new FileReader()
+                let vm = this
 
                 reader.onload = (e) => {
-                    vm.form.logo_new = e.target.result
-                };
+                    vm.form[`${target}_new`] = e.target.result
+                }
                 reader.readAsDataURL(file)
             },
             removeImage: function(e) {
                 e?.preventDefault()
-                this.form.logo_new = ``
-                $("#agent_logo").val(``)
-            }
+                let target = e.target.dataset.target
+                this.form[`${target}_new`] = ``
+                $(`#${target}`).val(``)
+            },
         },
         mounted() {
             this.info()

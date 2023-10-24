@@ -4,9 +4,8 @@ use CodeIgniter\Router\RouteCollection;
 
 
 /**
- * @var RouteCollection $routes
+ * @var RouteCollection $routes @dm1nCent
  */
-
 
 
 // PAGE
@@ -28,9 +27,21 @@ $routes->post('agent/info/update', 'serv\Agent::info_update', $servauth);
 
 // API
 $routes->group('api', static function ($routes) {
-    $routes->post('agent/add', 'api\Agent::add');
-    $routes->post('agent/info', 'api\Agent::info');
-    $routes->post('agent/info/update', 'api\Agent::info_update');
+
+    $routes->group('agent', static function ($routes) {
+        $routes->post('add', 'api\Agent::add');
+        $routes->post('list', 'api\Agent::list');
+        $routes->post('info', 'api\Agent::info');
+        $routes->post('info/update', 'api\Agent::info_update');
+    });
+    
+    $routes->group('user', static function ($routes) {
+        $routes->post('add', 'api\User::add');
+        $routes->post('list', 'api\User::list');
+        $routes->post('info', 'api\User::info');
+        $routes->post('info/update', 'api\User::info_update');
+    });
+
 });
 
 /*
