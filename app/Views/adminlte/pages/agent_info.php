@@ -163,7 +163,7 @@
             },
             removeImage: function(e) {
                 e?.preventDefault()
-                let target = e.target.dataset.target
+                let target = e?.target.dataset.target
                 this.form[`${target}_new`] = ``
                 $(`#${target}`).val(``)
             },
