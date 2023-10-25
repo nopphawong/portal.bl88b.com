@@ -6,7 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class PageAuth implements FilterInterface
+class PageAgent implements FilterInterface
 {
     /**
      * Do whatever processing this filter needs to do.
@@ -26,7 +26,8 @@ class PageAuth implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         // if user not logged in
-        if (!session()->logged_in) return redirect()->to('/login');
+        if (!session()->logged_in) return redirect()->to(site_url("login"));
+        if (session()->role !== "agent") return redirect()->to(site_url());
     }
 
     /**

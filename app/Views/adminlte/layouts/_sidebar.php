@@ -46,6 +46,14 @@
                           <p>Banners</p>
                       </a>
                   </li>
+                  <?php if (session()->role == "agent") : ?>
+                      <li class="nav-item">
+                          <a href="<?= site_url("admin") ?>" class="nav-link <?= $path == "admin" ? "active" : "" ?>">
+                              <i class="nav-icon fa fa-info-circle"></i>
+                              <p>Admins</p>
+                          </a>
+                      </li>
+                  <?php endif ?>
 
                   <!-- <li class="nav-header">MISCELLANEOUS</li> -->
                   <!-- <li class="nav-item">

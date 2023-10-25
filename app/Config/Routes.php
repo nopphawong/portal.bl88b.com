@@ -17,7 +17,13 @@ $routes->get('/', 'Page::index', $pageauth);
 $routes->get('agent/info', 'Page::agent_info', $pageauth);
 $routes->get('banner', 'Page::banner', $pageauth);
 
+$pageagent = ['filter' => 'pageagent'];
+$routes->get('admin', 'Page::admin', $pageagent);
+
 // SERV
+$routes->get('unauthen', 'serv\Auth::unauthen');
+$routes->get('deny', 'serv\Auth::deny');
+
 $routes->post('auth/login', 'serv\Auth::login');
 
 $servauth = ['filter' => 'servauth'];
@@ -30,6 +36,17 @@ $routes->post('banner/info', 'serv\Banner::info', $servauth);
 $routes->post('banner/info/update', 'serv\Banner::info_update', $servauth);
 $routes->post('banner/remove', 'serv\Banner::remove', $servauth);
 $routes->post('banner/reuse', 'serv\Banner::reuse', $servauth);
+
+// $routes->post('user/list', 'serv\User::list', $servauth);
+// $routes->post('user/add', 'serv\User::add', $servauth);
+$routes->post('user/info', 'serv\User::info', $servauth);
+$routes->post('user/info/update', 'serv\User::info_update', $servauth);
+$routes->post('user/remove', 'serv\User::remove', $servauth);
+$routes->post('user/reuse', 'serv\User::reuse', $servauth);
+
+$servagent = ['filter' => 'servagent'];
+$routes->post('user/admin/list', 'serv\User::list/admin', $servagent);
+$routes->post('user/admin/add', 'serv\User::add/admin', $servagent);
 
 // API
 $routes->group('api', static function ($routes) {
@@ -58,8 +75,9 @@ $routes->group('api', static function ($routes) {
         $routes->post('list', 'api\User::list');
         $routes->post('info', 'api\User::info');
         $routes->post('info/update', 'api\User::info_update');
+        $routes->post('remove', 'api\User::remove');
+        $routes->post('reuse', 'api\User::reuse');
     });
-
 });
 
 /*

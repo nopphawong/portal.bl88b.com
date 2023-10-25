@@ -56,6 +56,32 @@ class Apiv1
         return self::post("banner/reuse", $data);
     }
 
+    // user
+    public function user_list($data = array())
+    {
+        return self::post("user/list", $data);
+    }
+    public function user_add($data = array())
+    {
+        return self::post("user/add", $data);
+    }
+    public function user_info($data = array())
+    {
+        return self::post("user/info", $data);
+    }
+    public function user_info_update($data = array())
+    {
+        return self::post("user/info/update", $data);
+    }
+    public function user_remove($data = array())
+    {
+        return self::post("user/remove", $data);
+    }
+    public function user_reuse($data = array())
+    {
+        return self::post("user/reuse", $data);
+    }
+
     /* ========================================================================== */
 
     protected function post($path, $data = array())

@@ -6,13 +6,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1 class="text-center">Banners</h1>
+                <h1 class="text-center">Admins</h1>
             </div>
         </div>
     </div>
 </section>
 
-<section class="content" id="banner-box">
+<section class="content" id="admin-box">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -21,12 +21,12 @@
                         <div class="row">
                             <div class="col-md-6"></div>
                             <div class="col-md-6">
-                                <input type="search" class="form-control" placeholder="Search..." v-model="filter" @input="filter_banner">
+                                <input type="search" class="form-control" placeholder="Search..." v-model="filter" @input="filter_admin">
                             </div>
                         </div>
                     </div>
                     <div class="card-body table-responsive">
-                        <table id="banner-table" class="table table-striped">
+                        <table id="admin-table" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>
@@ -34,9 +34,9 @@
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </th>
-                                    <th>Image</th>
+                                    <th>Username</th>
                                     <th>Name</th>
-                                    <th>Detail</th>
+                                    <th>Tel</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -47,11 +47,9 @@
                                             <i class="fa fa-pen"></i>
                                         </button>
                                     </td>
-                                    <td>
-                                        <img :src="data.image" :style="{ maxWidth: `100px`, maxHeight: `32px`,}">
-                                    </td>
+                                    <td>{{ data.username }}</td>
                                     <td>{{ data.name }}</td>
-                                    <td>{{ data.detail }}</td>
+                                    <td>{{ data.tel }}</td>
                                     <td>
                                         <div class="btn-group" v-if="+data.status">
                                             <button type="button" class="btn btn-xs btn-success">Active</button>
@@ -75,39 +73,39 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="banner-modal" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="admin-modal" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <form class="modal-content" @submit="submit">
                 <div class="modal-header">
-                    <h4 class="modal-title">Banner info</h4>
+                    <h4 class="modal-title">Admin info</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body" v-if="modal.form">
-                    <div class="form-group">
-                        <label class="form-label">Image</label>
-                        <div class="d-flex justify-content-center mb-3">
-                            <img :src="modal.form.image_upload || modal.form.image" style="max-width: 200px; max-height: 64px;" />
-                        </div>
+                    <div class="form-group" v-if="+modal.form.id">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" placeholder="Username" v-model="modal.form.username" disabled />
+                    </div>
+                    <div class="form-group" v-else>
                         <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" id="image" class="custom-file-input" placeholder="Image" accept="image/png, image/jpeg" @change="onFileChange">
-                                <label class="custom-file-label" for="image">Choose file</label>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><?= session()->agent->key ?></span>
                             </div>
-                            <span class="input-group-append">
-                                <button type="button" class="btn btn-warning btn-flat" data-target="image" @click="removeImage">Remove</button>
-                            </span>
+                            <input type="text" class="form-control" placeholder="Username" v-model="modal.form.username" maxlength="12">
                         </div>
-                        <hr />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" placeholder="Password" v-model="modal.form.password" />
                     </div>
                     <div class="form-group">
                         <label class="form-label">Name</label>
                         <input type="text" class="form-control" placeholder="Name" v-model="modal.form.name" />
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Detail</label>
-                        <input type="text" class="form-control" placeholder="Detail" v-model="modal.form.detail" />
+                        <label class="form-label">tel</label>
+                        <input type="text" class="form-control" placeholder="Tel no." v-model="modal.form.tel" />
                     </div>
                 </div>
                 <div class="modal-footer justify-content-end">
@@ -131,7 +129,7 @@
                 modal: {
                     target: null,
                     form: null,
-                    darft: { id: ``, name: ``, detail: ``, image: ``, image_upload: `` }
+                    darft: { id: ``, username: ``, password: ``, name: ``, tel: `` }
                 },
                 table: {
                     filtered: [],
@@ -142,17 +140,17 @@
         methods: {
             async list() {
                 this.loading = true
-                let { status, message, data } = await post(`banner/list`)
+                let { status, message, data } = await post(`user/admin/list`)
                 this.loading = false
                 if (!status) return showAlert.warning(message)
                 this.table.data = data
-                this.filter_banner()
+                this.filter_admin()
             },
-            filter_banner() {
+            filter_admin() {
                 let _filter = this.filter
                 if (!_filter) return this.table.filtered = this.table.data
                 this.table.filtered = this.table.data?.filter((item) => {
-                    return item.name?.indexOf(_filter) > -1 || item.detail?.indexOf(_filter) > -1
+                    return item.username?.indexOf(_filter) > -1 || item.name?.indexOf(_filter) > -1 || item.tel?.indexOf(_filter) > -1
                 }) || []
             },
             add(e) {
@@ -160,48 +158,48 @@
                 this.modal.form = { ...this.modal.darft }
                 this.modal.target.modal(`show`)
             },
-            async info(banner) {
-                if (!banner) return
+            async info(admin) {
+                if (!admin) return
                 this.loading = true
-                let { status, message, data } = await post(`banner/info`, { id: banner.id })
+                let { status, message, data } = await post(`user/info`, { id: admin.id })
                 this.loading = false
                 if (!status) return showAlert.warning(message)
-                let { id, name, detail, image } = data
-                this.modal.form = { id, name, detail, image, image_upload: `` }
+                let { id, name, tel, username, password } = data
+                this.modal.form = { id, name, tel, username, password }
                 this.modal.target.modal(`show`)
             },
             async submit(e) {
                 e?.preventDefault()
                 this.loading = true
-                let endpoint = this.modal.form.id ? `banner/info/update` : `banner/add`
+                let endpoint = this.modal.form.id ? `user/info/update` : `user/admin/add`
                 let { status, message, data } = await post(endpoint, this.modal.form)
                 this.loading = false
                 if (!status) return showAlert.warning(message)
-                let { id, name, detail, image } = data
-                this.modal.form = { id, name, detail, image, image_upload: `` }
+                let { id, name, tel, username, password } = data
+                this.modal.form = { id, name, tel, username, password }
                 let vm = this
                 return showAlert.success(message, function() {
                     vm.list()
                     vm.modal.target.modal(`hide`)
                 })
             },
-            remove(banner) {
+            remove(admin) {
                 let vm = this
                 return showConfirm(`Confirm remove ?`, function(_f) {
                     if (!_f.isConfirmed) return
-                    return vm.status(`remove`, banner)
+                    return vm.status(`remove`, admin)
                 })
             },
-            reuse(banner) {
+            reuse(admin) {
                 let vm = this
                 return showConfirm(`Confirm reuse ?`, function(_f) {
                     if (!_f.isConfirmed) return
-                    return vm.status(`reuse`, banner)
+                    return vm.status(`reuse`, admin)
                 })
             },
-            async status(type, banner) {
+            async status(type, admin) {
                 this.loading = true
-                let { status, message } = await post(`banner/${type}`, { id: banner.id })
+                let { status, message } = await post(`user/${type}`, { id: admin.id })
                 this.loading = false
                 if (!status) return showAlert.warning(message)
                 let vm = this
@@ -234,10 +232,10 @@
             },
         },
         async mounted() {
-            this.modal.target = $(`#banner-modal`)
+            this.modal.target = $(`#admin-modal`)
             await this.list()
         }
-    }).mount('#banner-box')
+    }).mount('#admin-box')
 </script>
 
 <?= $this->endSection() ?>
