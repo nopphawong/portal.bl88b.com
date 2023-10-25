@@ -12,6 +12,7 @@ class Agent extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->agent) return $this->response(null, "Invalide agent !", false);
 
         return $this->response($agent);
     }
@@ -22,6 +23,7 @@ class Agent extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->agent) return $this->response(null, "Invalide agent !", false);
 
         $body->id = $agent->id;
         $body->edit_date = date("Y-m-d H:i:s");

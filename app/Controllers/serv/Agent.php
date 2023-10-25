@@ -9,8 +9,10 @@ class Agent extends BaseController
 {
     public function info()
     {
+        $body = $this->getPost();
         $api = new Apiv1($this->session->agent->secret);
-        $agent = $api->agent_info();
+        $body->agent = $this->session->agent->key;
+        $agent = $api->agent_info($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
         return $this->response($agent->data);
     }
@@ -28,6 +30,7 @@ class Agent extends BaseController
             $body->logo = site_url($logo->file_path);
         }
 
+        $body->agent = $this->session->agent->key;
         $body->edit_by = $this->session->username;
         $agent = $api->agent_info_update($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
