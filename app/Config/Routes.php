@@ -13,7 +13,7 @@ $routes->get('login', 'Page::login');
 $routes->get('logout', 'Page::logout');
 
 $pageauth = ['filter' => 'pageauth'];
-$routes->get('/', 'Page::agent_info', $pageauth);
+$routes->get('/', 'Page::index', $pageauth);
 $routes->get('agent/info', 'Page::agent_info', $pageauth);
 $routes->get('banner', 'Page::banner', $pageauth);
 

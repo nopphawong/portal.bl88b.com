@@ -40,6 +40,12 @@
                           <p>Agent info</p>
                       </a>
                   </li>
+                  <li class="nav-item">
+                      <a href="<?= site_url("banner") ?>" class="nav-link <?= $path == "banner" ? "active" : "" ?>">
+                          <i class="nav-icon fa fa-info-circle"></i>
+                          <p>Banners</p>
+                      </a>
+                  </li>
 
                   <!-- <li class="nav-header">MISCELLANEOUS</li> -->
                   <!-- <li class="nav-item">

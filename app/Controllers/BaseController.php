@@ -57,4 +57,12 @@ abstract class BaseController extends Controller
         $this->viewData['title'] = 'UFA PORTAL';
         $this->viewData['path'] = implode("/", $request->uri->getSegments());
     }
+
+    public function use_datatable()
+    {
+        $this->viewData["lib_datatable"] = (object) array(
+            "css" => ["//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"],
+            "js" => ["//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"],
+        );
+    }
 }

@@ -4,6 +4,10 @@ namespace App\Controllers;
 
 class Page extends BaseController
 {
+    public function index()
+    {
+        return redirect()->to(site_url("agent/info"));
+    }
     public function login()
     {
         return view("adminlte/pages/login", $this->viewData);
@@ -21,6 +25,7 @@ class Page extends BaseController
     }
     public function banner()
     {
+        // $this->use_datatable();
         return view("adminlte/pages/banner", $this->viewData);
     }
 }

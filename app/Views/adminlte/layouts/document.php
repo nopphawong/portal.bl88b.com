@@ -16,7 +16,28 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <?= link_tag("assets/css/adminlte.min.css") ?>
+    
+    <?php if (isset($lib_datatable)) : ?>
+        <?php foreach ($lib_datatable->css as $css) : ?>
+            <?= link_tag($css) ?>
+        <?php endforeach ?>
+    <?php endif ?>
 
+    <!-- jQuery -->
+    <?= script_tag("assets/plugins/jquery/jquery.min.js") ?>
+    <!-- Bootstrap 4 -->
+    <?= script_tag("assets/plugins/bootstrap/js/bootstrap.bundle.min.js") ?>
+    <!-- AdminLTE App -->
+    <?= script_tag("assets/js/adminlte.js") ?>
+
+    <?= script_tag("https://cdn.jsdelivr.net/npm/sweetalert2@11") ?>
+
+    <?php if (isset($lib_datatable)) : ?>
+        <?php foreach ($lib_datatable->js as $js) : ?>
+            <?= script_tag($js) ?>
+        <?php endforeach ?>
+    <?php endif ?>
+    
     <?php foreach ($includes_js as $js) : ?>
         <?= script_tag($js) ?>
     <?php endforeach ?>
@@ -31,15 +52,6 @@
 
     </div>
     <!-- ./wrapper -->
-
-    <!-- jQuery -->
-    <?= script_tag("assets/plugins/jquery/jquery.min.js") ?>
-    <!-- Bootstrap 4 -->
-    <?= script_tag("assets/plugins/bootstrap/js/bootstrap.bundle.min.js") ?>
-    <!-- AdminLTE App -->
-    <?= script_tag("assets/js/adminlte.js") ?>
-
-    <?= script_tag("https://cdn.jsdelivr.net/npm/sweetalert2@11") ?>
 
 </body>
 
