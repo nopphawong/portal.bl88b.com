@@ -9,8 +9,8 @@ class Banner extends BaseController
 {
     public function list()
     {
-        $api = new Apiv1($this->session->agent->secret);
         $body = $this->getPost();
+        $api = new Apiv1($this->session->agent->secret);
 
         $body->agent = $this->session->agent->key;
         $banners = $api->banner_list($body);
@@ -20,8 +20,8 @@ class Banner extends BaseController
 
     public function add()
     {
-        $api = new Apiv1($this->session->agent->secret);
         $body = $this->getPost();
+        $api = new Apiv1($this->session->agent->secret);
         $file = new Base64fileUploads();
 
         if (!empty($body->image_upload)) {
@@ -40,8 +40,8 @@ class Banner extends BaseController
 
     public function info()
     {
-        $api = new Apiv1($this->session->agent->secret);
         $body = $this->getPost();
+        $api = new Apiv1($this->session->agent->secret);
 
         $body->agent = $this->session->agent->key;
         $banner = $api->banner_info($body);
@@ -51,8 +51,8 @@ class Banner extends BaseController
 
     public function info_update()
     {
-        $api = new Apiv1($this->session->agent->secret);
         $body = $this->getPost();
+        $api = new Apiv1($this->session->agent->secret);
         $file = new Base64fileUploads();
 
         if (!empty($body->image_upload)) {
@@ -71,8 +71,8 @@ class Banner extends BaseController
 
     public function remove()
     {
-        $api = new Apiv1($this->session->agent->secret);
         $body = $this->getPost();
+        $api = new Apiv1($this->session->agent->secret);
 
         $body->agent = $this->session->agent->key;
         $body->edit_by = $this->session->username;
@@ -83,8 +83,8 @@ class Banner extends BaseController
 
     public function reuse()
     {
-        $api = new Apiv1($this->session->agent->secret);
         $body = $this->getPost();
+        $api = new Apiv1($this->session->agent->secret);
 
         $body->agent = $this->session->agent->key;
         $body->edit_by = $this->session->username;

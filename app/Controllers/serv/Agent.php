@@ -19,8 +19,8 @@ class Agent extends BaseController
 
     public function info_update()
     {
-        $api = new Apiv1($this->session->agent->secret);
         $body = $this->getPost();
+        $api = new Apiv1($this->session->agent->secret);
         $file = new Base64fileUploads();
 
         if (!empty($body->logo_upload)) {
