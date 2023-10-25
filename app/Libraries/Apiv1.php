@@ -21,9 +21,9 @@ class Apiv1
     }
 
     // Agent
-    public function agent_info()
+    public function agent_info($data = array())
     {
-        return self::post("agent/info");
+        return self::post("agent/info", $data);
     }
     public function agent_info_update($data = array())
     {
@@ -31,9 +31,9 @@ class Apiv1
     }
 
     // banner
-    public function banner_list()
+    public function banner_list($data = array())
     {
-        return self::post("banner/list");
+        return self::post("banner/list", $data);
     }
     public function banner_add($data = array())
     {

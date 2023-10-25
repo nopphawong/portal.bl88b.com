@@ -125,6 +125,7 @@ function showConfirm(message, callback) {
         document.addEventListener(`keyup`, check_keypress)
         if (typeof callback == `function`) return callback(result)
     })
+    // if (!_f.isConfirmed) return
 }
 
 let check_keypress = function (e) {

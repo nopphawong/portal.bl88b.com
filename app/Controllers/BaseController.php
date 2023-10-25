@@ -61,8 +61,11 @@ abstract class BaseController extends Controller
     public function use_datatable()
     {
         $this->viewData["lib_datatable"] = (object) array(
-            "css" => ["//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"],
-            "js" => ["//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"],
+            "css" => [site_url("assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")],
+            "js" => [
+                site_url("assets/plugins/datatables/jquery.dataTables.min.js"),
+                site_url("assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"),
+            ],
         );
     }
 }

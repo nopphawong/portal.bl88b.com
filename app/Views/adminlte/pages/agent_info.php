@@ -139,14 +139,14 @@
                 let vm = this
 
                 reader.onload = (e) => {
-                    vm.form[`${target}_new`] = e.target.result
+                    vm.form[`${target}_upload`] = e.target.result
                 }
                 reader.readAsDataURL(file)
             },
             removeImage: function(e) {
                 e?.preventDefault()
                 let target = e?.target.dataset.target
-                this.form[`${target}_new`] = ``
+                this.form[`${target}_upload`] = ``
                 $(`#${target}`).val(``)
             },
         },

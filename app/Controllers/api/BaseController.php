@@ -19,7 +19,8 @@ class BaseController extends ResourceController
     }
     protected function getPost($index = false)
     {
-        if ($this->request->is('json')) return !$index ? $this->request->getVar() : $this->request->getVar($index);
-        return !$index ? $this->request->getPost() : $this->request->getPost($index);
+        if ($this->request->is('json')) $body = !$index ? $this->request->getVar() : $this->request->getVar($index);
+        else $body =  !$index ? $this->request->getPost() : $this->request->getPost($index);
+        return (object) $body;
     }
 }

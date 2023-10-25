@@ -4,6 +4,7 @@ namespace App\Controllers\serv;
 
 use CodeIgniter\RESTful\ResourceController;
 use Exception;
+use stdClass;
 
 class BaseController extends ResourceController
 {
@@ -13,7 +14,7 @@ class BaseController extends ResourceController
     {
         $this->session = session();
     }
-    protected function response($data = null, $message = "ดำเนินการเสร็จสิ้น !", $status = true)
+    protected function response($data = null, $message = "Successful !", $status = true)
     {
         $data = array(
             "status" => $status,
@@ -24,8 +25,9 @@ class BaseController extends ResourceController
     }
     protected function getPost($index = false)
     {
-        if ($this->request->is('json')) return !$index ? $this->request->getVar() : $this->request->getVar($index);
-        return !$index ? $this->request->getPost() : $this->request->getPost($index);
+        if ($this->request->is('json')) $body = !$index ? $this->request->getVar() : $this->request->getVar($index);
+        else $body =  !$index ? $this->request->getPost() : $this->request->getPost($index);
+        return (object) $body;
     }
     protected function resize_image($path, $maxw = 100, $maxh = 100)
     {
@@ -48,7 +50,8 @@ class BaseController extends ResourceController
         $path = $uri->getPath();
         try {
             unlink($_SERVER['DOCUMENT_ROOT'] . $path);
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+        }
         unset($uri, $path);
     }
 }
