@@ -31,13 +31,14 @@ class BaseController extends ResourceController
     }
     protected function resize_image($path, $maxw = 100, $maxh = 100)
     {
+        return;
         if (!$path) return;
         $lib = \Config\Services::image();
         $image = $lib->withFile($path);
         $props = $image->getFile()->getProperties(true);
 
-        if ($props["width"] > $maxw) $image->resize($maxw, $maxh, true);
-        if ($props["height"] > $maxh) $image->resize($maxw, $maxh, true);
+        if ($props["width"] > $maxw) $image->resize($maxw, $maxh, true, "width");
+        if ($props["height"] > $maxh) $image->resize($maxw, $maxh, true, "height");
 
         $image->save($path);
         unset($lib, $image, $props);
