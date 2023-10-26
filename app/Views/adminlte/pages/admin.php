@@ -90,7 +90,7 @@
                     <div class="form-group" v-else>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><?= session()->agent->key ?></span>
+                                <span class="input-group-text"><?= session()->agent->code ?></span>
                             </div>
                             <input type="text" class="form-control" placeholder="Username" v-model="modal.form.username" maxlength="12">
                         </div>

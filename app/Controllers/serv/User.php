@@ -24,7 +24,7 @@ class User extends BaseController
         $api = new Apiv1($this->session->agent->secret);
 
         if ($role) $body->role = $role;
-        $body->username = $this->session->agent->key . $body->username;
+        $body->username = $this->session->agent->code . $body->username;
         $body->agent = $this->session->agent->key;
         $body->add_by = $this->session->username;
         $user = $api->user_add($body);
