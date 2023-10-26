@@ -11,7 +11,7 @@ class Agent extends BaseController
     {
         $body = $this->getPost();
         $api = new Apiv1($this->session->agent->secret);
-        $body->agent = $this->session->agent->key;
+        $body->agent = $this->session->agent->code;
         $agent = $api->agent_info($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
         return $this->response($agent->data);
@@ -25,12 +25,12 @@ class Agent extends BaseController
 
         if (!empty($body->logo_upload)) {
             $this->unlink_image($body->logo);
-            $logo = $file->du_uploads($body->logo_upload, "images", "{$this->session->agent->key}logo_" . uniqid());
+            $logo = $file->du_uploads($body->logo_upload, "images", "{$this->session->agent->code}logo_" . uniqid());
             $this->resize_image($logo->file_path, 320, 100);
             $body->logo = site_url($logo->file_path);
         }
 
-        $body->agent = $this->session->agent->key;
+        $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
         $agent = $api->agent_info_update($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
