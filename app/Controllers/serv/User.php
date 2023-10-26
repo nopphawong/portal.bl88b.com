@@ -9,7 +9,7 @@ class User extends BaseController
     public function list($role = null)
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent->secret);
+        $api = new Apiv1($this->session->agent);
 
         if ($role) $body->role = $role;
         $body->agent = $this->session->agent->code;
@@ -21,7 +21,7 @@ class User extends BaseController
     public function add($role = null)
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent->secret);
+        $api = new Apiv1($this->session->agent);
 
         if ($role) $body->role = $role;
         $body->username = $this->session->agent->code . $body->username;
@@ -35,7 +35,7 @@ class User extends BaseController
     public function info()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent->secret);
+        $api = new Apiv1($this->session->agent);
 
         $body->agent = $this->session->agent->code;
         $user = $api->user_info($body);
@@ -46,7 +46,7 @@ class User extends BaseController
     public function info_update()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent->secret);
+        $api = new Apiv1($this->session->agent);
 
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
@@ -58,7 +58,7 @@ class User extends BaseController
     public function remove()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent->secret);
+        $api = new Apiv1($this->session->agent);
 
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
@@ -70,7 +70,7 @@ class User extends BaseController
     public function reuse()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent->secret);
+        $api = new Apiv1($this->session->agent);
 
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;

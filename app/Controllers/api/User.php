@@ -13,7 +13,7 @@ class User extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->code != $body->agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $userModel = new UserModel();
         if ($body->role) $userModel->where("role", $body->role);
@@ -31,7 +31,7 @@ class User extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->code != $body->agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $userModel = new UserModel();
         $user = $userModel->where("username", $body->username)->first();
@@ -49,7 +49,7 @@ class User extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->code != $body->agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $userModel = new UserModel();
         $banner = $userModel->find($body->id);
@@ -63,7 +63,7 @@ class User extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->code != $body->agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         unset($body->username);
 
@@ -80,7 +80,7 @@ class User extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->code != $body->agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $userModel = new UserModel();
         $banner = $userModel->find($body->id);
@@ -96,7 +96,7 @@ class User extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->code != $body->agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $userModel = new UserModel();
         $banner = $userModel->find($body->id);

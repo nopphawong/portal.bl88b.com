@@ -13,10 +13,10 @@ class Banner extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->code != $body->agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $bannerModel = new BannerModel();
-        $banners = $bannerModel->where("agent", $body->agent)->findAll();
+        $banners = $bannerModel->where("agent", $agent->code)->findAll();
 
         return $this->response($banners);
     }
@@ -27,7 +27,7 @@ class Banner extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->code != $body->agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $bannerModel = new BannerModel();
         $body->add_date = date('Y-m-d H:i:s');
@@ -42,7 +42,7 @@ class Banner extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->code != $body->agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $bannerModel = new BannerModel();
         $banner = $bannerModel->find($body->id);
@@ -56,7 +56,7 @@ class Banner extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->code != $body->agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $bannerModel = new BannerModel();
         $body->edit_date = date('Y-m-d H:i:s');
@@ -71,7 +71,7 @@ class Banner extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->code != $body->agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $bannerModel = new BannerModel();
         $banner = $bannerModel->find($body->id);
@@ -87,7 +87,7 @@ class Banner extends BaseController
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->code != $body->agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $bannerModel = new BannerModel();
         $banner = $bannerModel->find($body->id);

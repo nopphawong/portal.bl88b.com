@@ -8,16 +8,18 @@ class Apiv1
 {
     private $curl;
     private $secret;
+    private $key;
 
-    public function __construct($secret = null)
+    public function __construct($agent = null)
     {
         $this->curl = service("curlrequest", ["baseURI" => "{$_ENV["app.apiUrl"]}"]);
-        if ($secret) $this->set_secret($secret);
+        if ($agent) $this->set_agent($agent);
     }
 
-    public function set_secret($secret)
+    public function set_agent($agent)
     {
-        $this->secret = $secret;
+        $this->secret = $agent->secret;
+        $this->key = $agent->key;
     }
 
     // Agent
@@ -88,6 +90,7 @@ class Apiv1
     {
         $data = (object) $data;
         $data->secret = $this->secret;
+        $data->key = $this->key;
         $body = self::hash_data($data);
         log_message("alert", "path: {$path} :: " . $body);
         $response = $this->curl->post("{$path}", ["json" => $data]);

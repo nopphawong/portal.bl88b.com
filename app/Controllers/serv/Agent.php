@@ -10,7 +10,8 @@ class Agent extends BaseController
     public function info()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent->secret);
+        $api = new Apiv1($this->session->agent);
+        
         $body->agent = $this->session->agent->code;
         $agent = $api->agent_info($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
@@ -20,7 +21,7 @@ class Agent extends BaseController
     public function info_update()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent->secret);
+        $api = new Apiv1($this->session->agent);
         $file = new Base64fileUploads();
 
         if (!empty($body->logo_upload)) {
