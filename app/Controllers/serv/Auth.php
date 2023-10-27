@@ -2,6 +2,7 @@
 
 namespace App\Controllers\serv;
 
+use App\Libraries\Apiv1;
 use App\Models\AgentModel;
 use App\Models\UserModel;
 
@@ -18,34 +19,11 @@ class Auth extends BaseController
     public function login()
     {
         $body = $this->getPost();
-        $userModel = new UserModel();
-        $user = $userModel->where("username", $body->username)->first();
-        if (empty($user)) return $this->response(null, "Username not found !", false);
-        if ($user->password != $body->password) return $this->response(null, "Password not match !", false);
-        if (!$user->status) return $this->response(null, "Username inactived !", false);
-
-        $agentModel = new AgentModel();
-        $agent = $agentModel->where("code", $user->agent)->first();
-        if (empty($agent)) return $this->response(null, "Agent not found !", false);
-        if (!$agent->status) return $this->response(null, "Agent inactived !", false);
-        $this->set_session($user, $agent);
-        return $this->response(["url" => site_url("agent/info")], "Welcome !");
+        $api = new Apiv1();
+        $login = $api->login($body);
+        if (!$login->status) return $this->response(null, $login->message, false);
+        return $this->response(["url" => $login->data->url]);
     }
-    protected function set_session($user, $agent)
-    {
-        $data = [
-            "logged_in" => true,
-            "username" => $user->username,
-            "role" => $user->role,
-            "agent" => (object) [
-                "code" => $agent->code,
-                "key" => $agent->key,
-                "secret" => $agent->secret,
-            ],
-        ];
-        session()->set($data);
-    }
-
     public function register()
     {
         $body = $this->getPost();

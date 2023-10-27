@@ -11,6 +11,7 @@ use CodeIgniter\Router\RouteCollection;
 // PAGE
 $routes->get('login', 'Page::login');
 $routes->get('logout', 'Page::logout');
+$routes->get('detect/(:segment)', 'Page::detect/$1');
 
 $pageauth = ['filter' => 'pageauth'];
 $routes->get('/', 'Page::index', $pageauth);
@@ -50,6 +51,12 @@ $routes->post('user/admin/add', 'serv\User::add/admin', $servagent);
 
 // API
 $routes->group('api', static function ($routes) {
+
+    $routes->group('auth', static function ($routes) {
+        // api/auth/{{ function }}
+        $routes->post('detect', 'api\Auth::detect');
+        $routes->post('login', 'api\Auth::login');
+    });
 
     $routes->group('agent', static function ($routes) {
         // api/agent/{{ function }}

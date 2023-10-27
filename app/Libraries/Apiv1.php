@@ -21,6 +21,11 @@ class Apiv1
         $this->secret = $agent->secret;
         $this->key = $agent->key;
     }
+    // Login
+    public function login($data = array())
+    {
+        return self::post("auth/login", $data);
+    }
 
     // Agent
     public function agent_info($data = array())
