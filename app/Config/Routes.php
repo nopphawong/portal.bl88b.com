@@ -32,7 +32,6 @@ $routes->post('agent/info', 'serv\Agent::info', $servauth);
 $routes->post('agent/info/update', 'serv\Agent::info_update', $servauth);
 
 $routes->post('banner/list', 'serv\Banner::list', $servauth);
-$routes->post('banner/list', 'serv\Banner::list', $servauth);
 $routes->post('banner/add', 'serv\Banner::add', $servauth);
 $routes->post('banner/info', 'serv\Banner::info', $servauth);
 $routes->post('banner/info/update', 'serv\Banner::info_update', $servauth);
@@ -70,6 +69,7 @@ $routes->group('api', static function ($routes) {
     $routes->group('banner', static function ($routes) {
         // api/banner/{{ function }}
         $routes->post('add', 'api\Banner::add');
+        $routes->post('list', 'api\Banner::list');
         $routes->post('list/actived', 'api\Banner::list/1');
         $routes->post('info', 'api\Banner::info');
         $routes->post('info/update', 'api\Banner::info_update');
