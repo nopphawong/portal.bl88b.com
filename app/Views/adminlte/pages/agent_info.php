@@ -23,7 +23,7 @@
                         <div class="form-group">
                             <label class="form-label">Logo</label>
                             <div class="d-flex justify-content-center mb-3">
-                                <img :src="form.logo_upload || form.logo" style="max-width: 100px; max-height: 100px;" />
+                                <img :src="form.logo_upload || form.logo" style="max-width: 320px; max-height: 100px;" />
                             </div>
                             <div class="input-group">
                                 <div class="custom-file">
