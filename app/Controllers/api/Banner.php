@@ -7,7 +7,7 @@ use App\Models\BannerModel;
 
 class Banner extends BaseController
 {
-    public function list()
+    public function list($status = null)
     {
         $body = $this->getPost();
         $agentModel = new AgentModel();
@@ -16,6 +16,7 @@ class Banner extends BaseController
         if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $bannerModel = new BannerModel();
+        if ($status) $bannerModel->where("status", $status);
         $banners = $bannerModel->where("agent", $agent->code)->findAll();
 
         return $this->response($banners);

@@ -18,11 +18,7 @@
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
                 <form class="card card-default" @submit="submit">
-                    <div class="card-header d-flex align-items-baseline">
-                        <i class="fa fa-store mr-2"></i>
-                        <h5 v-if="form.name">{{form.name}}</h5>
-                        <h5 v-else>Agent info</h5>
-                    </div>
+                    <div class="card-header d-flex align-items-baseline"></div>
                     <div class="card-body">
                         <div class="form-group">
                             <label class="form-label">Logo</label>
@@ -41,16 +37,16 @@
                             <hr />
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Domain</label>
+                            <label class="form-label">Site title</label>
+                            <input type="text" class="form-control" placeholder="Site title" v-model="form.name" :disabled="mode.active == mode.display" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Site description</label>
+                            <input type="text" class="form-control" placeholder="Site description" v-model="form.description" :disabled="mode.active == mode.display" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Site domain</label>
                             <input type="url" class="form-control" placeholder="https://xxxx.xxx" v-model="form.url" :disabled="mode.active == mode.display" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Site name</label>
-                            <input type="text" class="form-control" placeholder="Site name" v-model="form.name" :disabled="mode.active == mode.display" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Description</label>
-                            <input type="text" class="form-control" placeholder="Description" v-model="form.description" :disabled="mode.active == mode.display" />
                         </div>
                         <div class="form-group">
                             <label class="form-label">Line id</label>

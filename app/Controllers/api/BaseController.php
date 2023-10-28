@@ -21,7 +21,7 @@ class BaseController extends ResourceController
     {
         if ($this->request->is('json')) $body = !$index ? $this->request->getVar() : $this->request->getVar($index);
         else $body =  !$index ? $this->request->getPost() : $this->request->getPost($index);
-        return (object) $body;
+        return (object) (!empty($body) ? $body : array());
     }
 
     protected function is_number($str)
