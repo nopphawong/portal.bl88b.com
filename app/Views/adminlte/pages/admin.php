@@ -54,13 +54,13 @@
                                         <div class="btn-group" v-if="+data.status">
                                             <button type="button" class="btn btn-xs btn-success">Active</button>
                                             <button type="button" class="btn btn-xs btn-success" @click="remove(data)">
-                                                <i class="fa fa-trash-alt"></i>
+                                                <i class="fa fa-redo-alt"></i>
                                             </button>
                                         </div>
                                         <div class="btn-group" v-else>
                                             <button type="button" class="btn btn-xs btn-danger">Inactive</button>
                                             <button type="button" class="btn btn-xs btn-danger" @click="reuse(data)">
-                                                <i class="fa fa-trash-alt"></i>
+                                                <i class="fa fa-redo-alt"></i>
                                             </button>
                                         </div>
                                     </td>

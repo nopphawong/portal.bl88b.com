@@ -18,6 +18,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
+
                         <div class="d-flex flex-row justify-content-between">
                             <input type="search" class="form-control w-50" placeholder="Search..." v-model="filter" @input="filter_banner">
                             <button class="btn btn-success" @click="add" :disabled="loading">
@@ -56,13 +57,13 @@
                                         <div class="btn-group" v-if="+data.status">
                                             <button type="button" class="btn btn-xs btn-success">Active</button>
                                             <button type="button" class="btn btn-xs btn-success" @click="remove(data)">
-                                                <i class="fa fa-trash-alt"></i>
+                                                <i class="fa fa-redo-alt"></i>
                                             </button>
                                         </div>
                                         <div class="btn-group" v-else>
                                             <button type="button" class="btn btn-xs btn-danger">Inactive</button>
                                             <button type="button" class="btn btn-xs btn-danger" @click="reuse(data)">
-                                                <i class="fa fa-trash-alt"></i>
+                                                <i class="fa fa-redo-alt"></i>
                                             </button>
                                         </div>
                                     </td>

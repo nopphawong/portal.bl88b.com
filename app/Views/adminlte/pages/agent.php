@@ -25,54 +25,54 @@
                             </button>
                         </div>
                     </div>
-                    <div class="card-body table-responsive">
-                        <table id="agent-table" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <button class="btn btn-xs btn-success" @click="add" :disabled="loading">
-                                            <i class="fa fa-plus"></i>
+                <div class="card-body table-responsive">
+                    <table id="agent-table" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <button class="btn btn-xs btn-success" @click="add" :disabled="loading">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </th>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Key</th>
+                                <th>Secret</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(data, index) in table.filtered">
+                                <td>
+                                    <button class="btn btn-xs btn-primary" @click="info(data)" :disabled="loading">
+                                        <i class="fa fa-pen"></i>
+                                    </button>
+                                </td>
+                                <td>{{ data.name }}</td>
+                                <td>{{ data.code }}</td>
+                                <td>{{ data.key }}</td>
+                                <td>{{ data.secret }}</td>
+                                <td>
+                                    <div class="btn-group" v-if="+data.status">
+                                        <button type="button" class="btn btn-xs btn-success">Active</button>
+                                        <button type="button" class="btn btn-xs btn-success" @click="remove(data)">
+                                            <i class="fa fa-redo-alt"></i>
                                         </button>
-                                    </th>
-                                    <th>Name</th>
-                                    <th>Code</th>
-                                    <th>Key</th>
-                                    <th>Secret</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(data, index) in table.filtered">
-                                    <td>
-                                        <button class="btn btn-xs btn-primary" @click="info(data)" :disabled="loading">
-                                            <i class="fa fa-pen"></i>
+                                    </div>
+                                    <div class="btn-group" v-else>
+                                        <button type="button" class="btn btn-xs btn-danger">Inactive</button>
+                                        <button type="button" class="btn btn-xs btn-danger" @click="reuse(data)">
+                                            <i class="fa fa-redo-alt"></i>
                                         </button>
-                                    </td>
-                                    <td>{{ data.name }}</td>
-                                    <td>{{ data.code }}</td>
-                                    <td>{{ data.key }}</td>
-                                    <td>{{ data.secret }}</td>
-                                    <td>
-                                        <div class="btn-group" v-if="+data.status">
-                                            <button type="button" class="btn btn-xs btn-success">Active</button>
-                                            <button type="button" class="btn btn-xs btn-success" @click="remove(data)">
-                                                <i class="fa fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                        <div class="btn-group" v-else>
-                                            <button type="button" class="btn btn-xs btn-danger">Inactive</button>
-                                            <button type="button" class="btn btn-xs btn-danger" @click="reuse(data)">
-                                                <i class="fa fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card-footer"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <div class="card-footer"></div>
             </div>
         </div>
+    </div>
     </div>
     <div class="modal fade" id="agent-modal" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
