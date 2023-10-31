@@ -11,7 +11,7 @@ class Agent extends BaseController
     {
         $body = $this->getPost();
         $api = new Apiv1($this->session->agent);
-        
+
         $body->agent = $this->session->agent->code;
         $agent = $api->agent_info($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
@@ -37,7 +37,7 @@ class Agent extends BaseController
         if (!$agent->status) return $this->response(null, $agent->message, false);
         return $this->response($agent->data);
     }
-    
+
     public function list()
     {
         $body = $this->getPost();
@@ -58,25 +58,25 @@ class Agent extends BaseController
         if (!$agent->status) return $this->response(null, $agent->message, false);
         return $this->response($agent->data);
     }
-    
-    public function remove()
+
+    public function status_inactive()
     {
         $body = $this->getPost();
         $api = new Apiv1($body);
 
         $body->edit_by = $this->session->username;
-        $agent = $api->agent_remove($body);
+        $agent = $api->agent_inactive($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
         return $this->response($agent->data);
     }
 
-    public function reuse()
+    public function status_active()
     {
         $body = $this->getPost();
         $api = new Apiv1($body);
 
         $body->edit_by = $this->session->username;
-        $agent = $api->agent_reuse($body);
+        $agent = $api->agent_active($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
         return $this->response($agent->data);
     }

@@ -39,8 +39,8 @@ $routes->post('banner/list', 'serv\Banner::list', $servauth);
 $routes->post('banner/add', 'serv\Banner::add', $servauth);
 $routes->post('banner/info', 'serv\Banner::info', $servauth);
 $routes->post('banner/info/update', 'serv\Banner::info_update', $servauth);
-$routes->post('banner/remove', 'serv\Banner::remove', $servauth);
-$routes->post('banner/reuse', 'serv\Banner::reuse', $servauth);
+$routes->post('banner/inactive', 'serv\Banner::status_inactive', $servauth);
+$routes->post('banner/active', 'serv\Banner::status_active', $servauth);
 
 // $routes->post('user/list', 'serv\User::list', $servauth);
 // $routes->post('user/add', 'serv\User::add', $servauth);
@@ -56,8 +56,8 @@ $routes->post('user/admin/add', 'serv\User::add/admin', $servagent);
 $servmaster = ['filter' => \App\Filters\ServMaster::class];
 $routes->post('agent/list', 'serv\Agent::list', $servmaster);
 $routes->post('agent/add', 'serv\Agent::add', $servmaster);
-$routes->post('agent/remove', 'serv\Agent::remove', $servmaster);
-$routes->post('agent/reuse', 'serv\Agent::reuse', $servmaster);
+$routes->post('agent/active', 'serv\Agent::status_active', $servmaster);
+$routes->post('agent/inactive', 'serv\Agent::status_inactive', $servmaster);
 
 // API
 $routes->group('api', static function ($routes) {
@@ -74,8 +74,8 @@ $routes->group('api', static function ($routes) {
         $routes->post('list', 'api\Agent::list');
         $routes->post('info', 'api\Agent::info');
         $routes->post('info/update', 'api\Agent::info_update');
-        $routes->post('remove', 'api\Agent::remove');
-        $routes->post('reuse', 'api\Agent::reuse');
+        $routes->post('active', 'api\Agent::status_active');
+        $routes->post('inactive', 'api\Agent::status_inactive');
     });
 
     $routes->group('banner', static function ($routes) {
@@ -85,8 +85,8 @@ $routes->group('api', static function ($routes) {
         $routes->post('list/actived', 'api\Banner::list/1');
         $routes->post('info', 'api\Banner::info');
         $routes->post('info/update', 'api\Banner::info_update');
-        $routes->post('remove', 'api\Banner::remove');
-        $routes->post('reuse', 'api\Banner::reuse');
+        $routes->post('inactive', 'api\Banner::status_inactive');
+        $routes->post('active', 'api\Banner::status_active');
     });
 
     $routes->group('user', static function ($routes) {

@@ -69,26 +69,26 @@ class Banner extends BaseController
         return $this->response($banner->data);
     }
 
-    public function remove()
+    public function status_inactive()
     {
         $body = $this->getPost();
         $api = new Apiv1($this->session->agent);
 
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
-        $banner = $api->banner_remove($body);
+        $banner = $api->banner_inactive($body);
         if (!$banner->status) return $this->response(null, $banner->message, false);
         return $this->response($banner->data);
     }
 
-    public function reuse()
+    public function status_active()
     {
         $body = $this->getPost();
         $api = new Apiv1($this->session->agent);
 
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
-        $banner = $api->banner_reuse($body);
+        $banner = $api->banner_active($body);
         if (!$banner->status) return $this->response(null, $banner->message, false);
         return $this->response($banner->data);
     }

@@ -66,7 +66,7 @@ class Banner extends BaseController
         return $this->response($banner);
     }
 
-    public function remove()
+    public function status_inactive()
     {
         $body = $this->getPost();
         $agentModel = new AgentModel();
@@ -82,7 +82,7 @@ class Banner extends BaseController
         return $this->response($banner);
     }
 
-    public function reuse()
+    public function status_active()
     {
         $body = $this->getPost();
         $agentModel = new AgentModel();

@@ -44,13 +44,13 @@ class Apiv1
     {
         return self::post("agent/add", $data);
     }
-    public function agent_remove($data = array())
+    public function agent_inactive($data = array())
     {
-        return self::post("agent/remove", $data);
+        return self::post("agent/inactive", $data);
     }
-    public function agent_reuse($data = array())
+    public function agent_active($data = array())
     {
-        return self::post("agent/reuse", $data);
+        return self::post("agent/active", $data);
     }
 
     // banner
@@ -70,13 +70,13 @@ class Apiv1
     {
         return self::post("banner/info/update", $data);
     }
-    public function banner_remove($data = array())
+    public function banner_inactive($data = array())
     {
-        return self::post("banner/remove", $data);
+        return self::post("banner/inactive", $data);
     }
-    public function banner_reuse($data = array())
+    public function banner_active($data = array())
     {
-        return self::post("banner/reuse", $data);
+        return self::post("banner/active", $data);
     }
 
     // user

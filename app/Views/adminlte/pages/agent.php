@@ -25,54 +25,54 @@
                             </button>
                         </div>
                     </div>
-                <div class="card-body table-responsive">
-                    <table id="agent-table" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <button class="btn btn-xs btn-success" @click="add" :disabled="loading">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </th>
-                                <th>Name</th>
-                                <th>Code</th>
-                                <th>Key</th>
-                                <th>Secret</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(data, index) in table.filtered">
-                                <td>
-                                    <button class="btn btn-xs btn-primary" @click="info(data)" :disabled="loading">
-                                        <i class="fa fa-pen"></i>
-                                    </button>
-                                </td>
-                                <td>{{ data.name }}</td>
-                                <td>{{ data.code }}</td>
-                                <td>{{ data.key }}</td>
-                                <td>{{ data.secret }}</td>
-                                <td>
-                                    <div class="btn-group" v-if="+data.status">
-                                        <button type="button" class="btn btn-xs btn-success">Active</button>
-                                        <button type="button" class="btn btn-xs btn-success" @click="remove(data)">
-                                            <i class="fa fa-redo-alt"></i>
+                    <div class="card-body table-responsive">
+                        <table id="agent-table" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <button class="btn btn-xs btn-success" @click="add" :disabled="loading">
+                                            <i class="fa fa-plus"></i>
                                         </button>
-                                    </div>
-                                    <div class="btn-group" v-else>
-                                        <button type="button" class="btn btn-xs btn-danger">Inactive</button>
-                                        <button type="button" class="btn btn-xs btn-danger" @click="reuse(data)">
-                                            <i class="fa fa-redo-alt"></i>
+                                    </th>
+                                    <th>Name</th>
+                                    <th>Code</th>
+                                    <th>Key</th>
+                                    <th>Secret</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(data, index) in table.filtered">
+                                    <td>
+                                        <button class="btn btn-xs btn-primary" @click="info(data)" :disabled="loading">
+                                            <i class="fa fa-pen"></i>
                                         </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                    <td>{{ data.name }}</td>
+                                    <td>{{ data.code }}</td>
+                                    <td>{{ data.key }}</td>
+                                    <td>{{ data.secret }}</td>
+                                    <td>
+                                        <div class="btn-group" v-if="+data.status">
+                                            <button type="button" class="btn btn-xs btn-success">Active</button>
+                                            <button type="button" class="btn btn-xs btn-success" @click="status_inactive(data)">
+                                                <i class="fa fa-redo-alt"></i>
+                                            </button>
+                                        </div>
+                                        <div class="btn-group" v-else>
+                                            <button type="button" class="btn btn-xs btn-danger">Inactive</button>
+                                            <button type="button" class="btn btn-xs btn-danger" @click="status_active(data)">
+                                                <i class="fa fa-redo-alt"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer"></div>
                 </div>
-                <div class="card-footer"></div>
             </div>
         </div>
-    </div>
     </div>
     <div class="modal fade" id="agent-modal" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
@@ -163,18 +163,18 @@
                     vm.modal.target.modal(`hide`)
                 })
             },
-            remove(agent) {
+            status_inactive(agent) {
                 let vm = this
-                return showConfirm(`Confirm remove ?`, function(_f) {
+                return showConfirm(`Confirm Inactive ?`, function(_f) {
                     if (!_f.isConfirmed) return
-                    return vm.status(`remove`, agent)
+                    return vm.status(`inactive`, agent)
                 })
             },
-            reuse(agent) {
+            status_active(agent) {
                 let vm = this
-                return showConfirm(`Confirm reuse ?`, function(_f) {
+                return showConfirm(`Confirm Active ?`, function(_f) {
                     if (!_f.isConfirmed) return
-                    return vm.status(`reuse`, agent)
+                    return vm.status(`active`, agent)
                 })
             },
             async status(type, agent) {

@@ -56,13 +56,13 @@
                                     <td>
                                         <div class="btn-group" v-if="+data.status">
                                             <button type="button" class="btn btn-xs btn-success">Active</button>
-                                            <button type="button" class="btn btn-xs btn-success" @click="remove(data)">
+                                            <button type="button" class="btn btn-xs btn-success" @click="status_inactive(data)">
                                                 <i class="fa fa-redo-alt"></i>
                                             </button>
                                         </div>
                                         <div class="btn-group" v-else>
                                             <button type="button" class="btn btn-xs btn-danger">Inactive</button>
-                                            <button type="button" class="btn btn-xs btn-danger" @click="reuse(data)">
+                                            <button type="button" class="btn btn-xs btn-danger" @click="status_active(data)">
                                                 <i class="fa fa-redo-alt"></i>
                                             </button>
                                         </div>
@@ -186,18 +186,18 @@
                     vm.modal.target.modal(`hide`)
                 })
             },
-            remove(banner) {
+            status_inactive(banner) {
                 let vm = this
-                return showConfirm(`Confirm remove ?`, function(_f) {
+                return showConfirm(`Confirm Inactive ?`, function(_f) {
                     if (!_f.isConfirmed) return
-                    return vm.status(`remove`, banner)
+                    return vm.status(`inactive`, banner)
                 })
             },
-            reuse(banner) {
+            status_active(banner) {
                 let vm = this
-                return showConfirm(`Confirm reuse ?`, function(_f) {
+                return showConfirm(`Confirm Active ?`, function(_f) {
                     if (!_f.isConfirmed) return
-                    return vm.status(`reuse`, banner)
+                    return vm.status(`active`, banner)
                 })
             },
             async status(type, banner) {

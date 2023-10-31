@@ -65,7 +65,7 @@ class Agent extends BaseController
         return $this->response($agent, "Add successful !");
     }
 
-    public function remove()
+    public function status_inactive()
     {
         $body = $this->getPost();
         $agentModel = new AgentModel();
@@ -80,7 +80,7 @@ class Agent extends BaseController
         return $this->response($agent);
     }
 
-    public function reuse()
+    public function status_active()
     {
         $body = $this->getPost();
         $agentModel = new AgentModel();
