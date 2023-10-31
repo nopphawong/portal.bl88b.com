@@ -58,8 +58,8 @@
                                             </button>
                                         </div>
                                         <div class="btn-group" v-else>
-                                            <button type="button" class="btn btn-xs btn-danger">Inactive</button>
-                                            <button type="button" class="btn btn-xs btn-danger" @click="status_active(data)">
+                                            <button type="button" class="btn btn-xs btn-warning">Inactive</button>
+                                            <button type="button" class="btn btn-xs btn-warning" @click="status_active(data)">
                                                 <i class="fa fa-redo-alt"></i>
                                             </button>
                                         </div>
