@@ -18,11 +18,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6">
-                                <input type="search" class="form-control" placeholder="Search..." v-model="filter" @input="filter_admin">
-                            </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="search" class="form-control w-50" placeholder="Search..." v-model="filter" @input="filter_admin">
+                            <button class="btn btn-success" @click="add" :disabled="loading">
+                                <i class="fa fa-plus"></i> Add
+                            </button>
                         </div>
                     </div>
                     <div class="card-body table-responsive">
