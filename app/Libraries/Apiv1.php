@@ -96,13 +96,13 @@ class Apiv1
     {
         return self::post("user/info/update", $data);
     }
-    public function user_remove($data = array())
+    public function user_inactive($data = array())
     {
-        return self::post("user/remove", $data);
+        return self::post("user/inactive", $data);
     }
-    public function user_reuse($data = array())
+    public function user_active($data = array())
     {
-        return self::post("user/reuse", $data);
+        return self::post("user/active", $data);
     }
 
     /* ========================================================================== */

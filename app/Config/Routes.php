@@ -46,8 +46,8 @@ $routes->post('banner/active', 'serv\Banner::status_active', $servauth);
 // $routes->post('user/add', 'serv\User::add', $servauth);
 $routes->post('user/info', 'serv\User::info', $servauth);
 $routes->post('user/info/update', 'serv\User::info_update', $servauth);
-$routes->post('user/remove', 'serv\User::remove', $servauth);
-$routes->post('user/reuse', 'serv\User::reuse', $servauth);
+$routes->post('user/inactive', 'serv\User::status_inactive', $servauth);
+$routes->post('user/active', 'serv\User::status_active', $servauth);
 
 $servagent = ['filter' => \App\Filters\ServAgent::class];
 $routes->post('user/admin/list', 'serv\User::list/admin', $servagent);
@@ -95,8 +95,8 @@ $routes->group('api', static function ($routes) {
         $routes->post('list', 'api\User::list');
         $routes->post('info', 'api\User::info');
         $routes->post('info/update', 'api\User::info_update');
-        $routes->post('remove', 'api\User::remove');
-        $routes->post('reuse', 'api\User::reuse');
+        $routes->post('inactive', 'api\User::status_inactive');
+        $routes->post('active', 'api\User::status_active');
     });
 });
 

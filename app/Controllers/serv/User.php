@@ -55,26 +55,26 @@ class User extends BaseController
         return $this->response($user->data);
     }
 
-    public function remove()
+    public function status_inactive()
     {
         $body = $this->getPost();
         $api = new Apiv1($this->session->agent);
 
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
-        $user = $api->user_remove($body);
+        $user = $api->user_inactive($body);
         if (!$user->status) return $this->response(null, $user->message, false);
         return $this->response($user->data);
     }
 
-    public function reuse()
+    public function status_active()
     {
         $body = $this->getPost();
         $api = new Apiv1($this->session->agent);
 
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
-        $user = $api->user_reuse($body);
+        $user = $api->user_active($body);
         if (!$user->status) return $this->response(null, $user->message, false);
         return $this->response($user->data);
     }
