@@ -16,3 +16,18 @@ function str_censor($str)
     $output = substr_replace($target, str_repeat('*', $count), strlen($target) - round($count * 1.5), $count);
     return $output;
 }
+
+function is_master($role)
+{
+    return $role == ROLE_MASTER;
+}
+
+function is_agent($role)
+{
+    return $role == ROLE_AGENT;
+}
+
+function is_admin($role)
+{
+    return $role == ROLE_ADMIN;
+}

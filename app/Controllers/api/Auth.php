@@ -18,21 +18,31 @@ class Auth extends BaseController
         if ($user->password != $body->password) return $this->response(null, "Password not match !", false);
         if (!$user->status) return $this->response(null, "Username inactived !", false);
 
+        if (is_master($user->role)) return $this->return_response($user);
+
         $agentModel = new AgentModel();
         $agent = $agentModel->where("code", $user->agent)->first();
         if (empty($agent)) return $this->response(null, "Agent not found !", false);
         if (!$agent->status) return $this->response(null, "Agent inactived !", false);
 
+        return $this->return_response($user, $agent);
+    }
+
+    protected function return_response($user, $agent = null)
+    {
         $session_data = [
             "logged_in" => true,
             "username" => $user->username,
             "role" => $user->role,
-            "agent" => (object) [
+        ];
+        if ($agent) {
+            $agent = (object) $agent;
+            $session_data["agent"] = (object) array(
                 "code" => $agent->code,
                 "key" => $agent->key,
                 "secret" => $agent->secret,
-            ],
-        ];
+            );
+        }
 
         $ect = new Encrypter();
         $plaintext = $ect->data_to_plaintext($session_data);

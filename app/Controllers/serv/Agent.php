@@ -37,4 +37,47 @@ class Agent extends BaseController
         if (!$agent->status) return $this->response(null, $agent->message, false);
         return $this->response($agent->data);
     }
+    
+    public function list()
+    {
+        $body = $this->getPost();
+        $api = new Apiv1();
+
+        $agents = $api->agent_list($body);
+        if (!$agents->status) return $this->response(null, $agents->message, false);
+        return $this->response($agents->data);
+    }
+
+    public function add()
+    {
+        $body = $this->getPost();
+        $api = new Apiv1($body);
+
+        $body->add_by = $this->session->username;
+        $agent = $api->agent_add($body);
+        if (!$agent->status) return $this->response(null, $agent->message, false);
+        return $this->response($agent->data);
+    }
+    
+    public function remove()
+    {
+        $body = $this->getPost();
+        $api = new Apiv1($body);
+
+        $body->edit_by = $this->session->username;
+        $agent = $api->agent_remove($body);
+        if (!$agent->status) return $this->response(null, $agent->message, false);
+        return $this->response($agent->data);
+    }
+
+    public function reuse()
+    {
+        $body = $this->getPost();
+        $api = new Apiv1($body);
+
+        $body->edit_by = $this->session->username;
+        $agent = $api->agent_reuse($body);
+        if (!$agent->status) return $this->response(null, $agent->message, false);
+        return $this->response($agent->data);
+    }
 }

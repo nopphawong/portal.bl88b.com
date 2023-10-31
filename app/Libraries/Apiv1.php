@@ -36,6 +36,22 @@ class Apiv1
     {
         return self::post("agent/info/update", $data);
     }
+    public function agent_list($data = array())
+    {
+        return self::post("agent/list", $data);
+    }
+    public function agent_add($data = array())
+    {
+        return self::post("agent/add", $data);
+    }
+    public function agent_remove($data = array())
+    {
+        return self::post("agent/remove", $data);
+    }
+    public function agent_reuse($data = array())
+    {
+        return self::post("agent/reuse", $data);
+    }
 
     // banner
     public function banner_list($data = array())

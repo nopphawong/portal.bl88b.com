@@ -7,19 +7,23 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes @dm1nCent
  */
 
-
 // PAGE
 $routes->get('login', 'Page::login');
 $routes->get('logout', 'Page::logout');
 $routes->get('detect/(:segment)', 'Page::detect/$1');
 
-$pageauth = ['filter' => 'pageauth'];
+$pageauth = ['filter' => \App\Filters\PageAuth::class];
 $routes->get('/', 'Page::index', $pageauth);
+$routes->get('forbidden', 'Page::forbidden', $pageauth);
 $routes->get('agent/info', 'Page::agent_info', $pageauth);
 $routes->get('banner', 'Page::banner', $pageauth);
 
-$pageagent = ['filter' => 'pageagent'];
+$pageagent = ['filter' => \App\Filters\PageAgent::class];
 $routes->get('admin', 'Page::admin', $pageagent);
+
+$pagemaster = ['filter' => \App\Filters\PageMaster::class];
+$routes->get('agent', 'Page::agent', $pagemaster);
+$routes->get('agent/(:segment)/(:segment)/(:segment)', 'Page::agent_view/$1/$2/$3', $pagemaster);
 
 // SERV
 $routes->get('unauthen', 'serv\Auth::unauthen');
@@ -27,7 +31,7 @@ $routes->get('deny', 'serv\Auth::deny');
 
 $routes->post('auth/login', 'serv\Auth::login');
 
-$servauth = ['filter' => 'servauth'];
+$servauth = ['filter' => \App\Filters\ServAuth::class];
 $routes->post('agent/info', 'serv\Agent::info', $servauth);
 $routes->post('agent/info/update', 'serv\Agent::info_update', $servauth);
 
@@ -45,9 +49,15 @@ $routes->post('user/info/update', 'serv\User::info_update', $servauth);
 $routes->post('user/remove', 'serv\User::remove', $servauth);
 $routes->post('user/reuse', 'serv\User::reuse', $servauth);
 
-$servagent = ['filter' => 'servagent'];
+$servagent = ['filter' => \App\Filters\ServAgent::class];
 $routes->post('user/admin/list', 'serv\User::list/admin', $servagent);
 $routes->post('user/admin/add', 'serv\User::add/admin', $servagent);
+
+$servmaster = ['filter' => \App\Filters\ServMaster::class];
+$routes->post('agent/list', 'serv\Agent::list', $servmaster);
+$routes->post('agent/add', 'serv\Agent::add', $servmaster);
+$routes->post('agent/remove', 'serv\Agent::remove', $servmaster);
+$routes->post('agent/reuse', 'serv\Agent::reuse', $servmaster);
 
 // API
 $routes->group('api', static function ($routes) {
@@ -64,6 +74,8 @@ $routes->group('api', static function ($routes) {
         $routes->post('list', 'api\Agent::list');
         $routes->post('info', 'api\Agent::info');
         $routes->post('info/update', 'api\Agent::info_update');
+        $routes->post('remove', 'api\Agent::remove');
+        $routes->post('reuse', 'api\Agent::reuse');
     });
 
     $routes->group('banner', static function ($routes) {

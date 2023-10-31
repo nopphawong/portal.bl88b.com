@@ -26,7 +26,7 @@ class PageAuth implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         // if user not logged in
-        if (!session()->logged_in) return redirect()->to('/login');
+        if (!session()->logged_in) return redirect()->to(site_url("login"));
     }
 
     /**

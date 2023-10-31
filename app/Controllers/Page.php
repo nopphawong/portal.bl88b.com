@@ -6,11 +6,13 @@ use App\Libraries\Encrypter;
 
 class Page extends BaseController
 {
-    public function unauthen()
+    public function forbidden()
     {
+        return view("adminlte/pages/forbidden", $this->viewData);
     }
     public function index()
     {
+        if (is_master(session()->role)) return redirect()->to(site_url("agent"));
         return redirect()->to(site_url("agent/info"));
     }
 
@@ -29,10 +31,10 @@ class Page extends BaseController
         if (!isset($session_data->logged_in)) return false;
         if (!isset($session_data->username)) return false;
         if (!isset($session_data->role)) return false;
-        if (!isset($session_data->agent)) return false;
-        if (!isset($session_data->agent->key)) return false;
-        if (!isset($session_data->agent->secret)) return false;
-        if (!isset($session_data->agent->code)) return false;
+        // if (!isset($session_data->agent)) return false;
+        // if (!isset($session_data->agent->key)) return false;
+        // if (!isset($session_data->agent->secret)) return false;
+        // if (!isset($session_data->agent->code)) return false;
         session()->set((array) $session_data);
         return true;
     }
@@ -59,5 +61,21 @@ class Page extends BaseController
     public function admin()
     {
         return view("adminlte/pages/admin", $this->viewData);
+    }
+    public function agent()
+    {
+        session()->remove("agent");
+        return view("adminlte/pages/agent", $this->viewData);
+    }
+    public function agent_view($code, $key, $secret)
+    {
+        $session_data = (object) session()->get();
+        $session_data->agent = (object) array(
+            "code" => $code,
+            "key" => $key,
+            "secret" => $secret,
+        );
+        session()->set((array) $session_data);
+        return redirect()->to(site_url("agent/info"));
     }
 }

@@ -6,6 +6,15 @@ use App\Models\AgentModel;
 
 class Agent extends BaseController
 {
+    public function list()
+    {
+        // $body = $this->getPost();
+        $agentModel = new AgentModel();
+        $agents = $agentModel->findAll();
+
+        return $this->response($agents);
+    }
+
     public function info()
     {
         $body = $this->getPost();
@@ -54,5 +63,35 @@ class Agent extends BaseController
         $id = $agentModel->insert($body);
         $agent = $agentModel->find($id);
         return $this->response($agent, "Add successful !");
+    }
+
+    public function remove()
+    {
+        $body = $this->getPost();
+        $agentModel = new AgentModel();
+        $agent = $agentModel->where("secret", $body->secret)->first();
+        if (!$agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
+
+        $agent = $agentModel->find($body->id);
+        $agent->status = 0;
+        $agent->edit_date = date('Y-m-d H:i:s');
+        $agentModel->save($agent);
+        return $this->response($agent);
+    }
+
+    public function reuse()
+    {
+        $body = $this->getPost();
+        $agentModel = new AgentModel();
+        $agent = $agentModel->where("secret", $body->secret)->first();
+        if (!$agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
+
+        $agent = $agentModel->find($body->id);
+        $agent->status = 1;
+        $agent->edit_date = date('Y-m-d H:i:s');
+        $agentModel->save($agent);
+        return $this->response($agent);
     }
 }

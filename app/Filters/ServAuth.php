@@ -26,6 +26,8 @@ class ServAuth implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (!session()->get("logged_in")) return redirect()->to(site_url("unauthen"));
+        // if (!session()->agent) return redirect()->to(site_url("deny"));
+        // if (!session()->agent->code) return redirect()->to(site_url("deny"));
     }
 
     /**

@@ -1,7 +1,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="<?= site_url() ?>" class="brand-link">
           <img src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
           <span class="brand-text font-weight-light">AdminLTE 3</span>
       </a>
@@ -34,80 +34,42 @@
           <nav class="mt-2">
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                  <li class="nav-item">
-                      <a href="<?= site_url("agent/info") ?>" class="nav-link <?= $path == "agent/info" ? "active" : "" ?>">
-                          <i class="nav-icon fa fa-info-circle"></i>
-                          <p>Agent info</p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="<?= site_url("banner") ?>" class="nav-link <?= $path == "banner" ? "active" : "" ?>">
-                          <i class="nav-icon fa fa-info-circle"></i>
-                          <p>Banners</p>
-                      </a>
-                  </li>
-                  <?php if (session()->role == "agent") : ?>
+                  <?php if (is_master(session()->role)) : ?>
                       <li class="nav-item">
-                          <a href="<?= site_url("admin") ?>" class="nav-link <?= $path == "admin" ? "active" : "" ?>">
-                              <i class="nav-icon fa fa-info-circle"></i>
-                              <p>Admins</p>
+                          <a href="<?= site_url("agent") ?>" class="nav-link <?= $path == "agent" ? "active" : "" ?>">
+                              <i class="nav-icon fas fa-th"></i>
+                              <p>Agents</p>
                           </a>
                       </li>
                   <?php endif ?>
+                  <?php if (!empty(session()->agent)) : ?>
+                      <li class="nav-header text-uppercase"><?= session()->agent->code ?></li>
+                      <li class="nav-item">
+                          <a href="<?= site_url("agent/info") ?>" class="nav-link <?= $path == "agent/info" ? "active" : "" ?>">
+                              <i class="nav-icon fa fa-info-circle"></i>
+                              <p>Agent info</p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="<?= site_url("banner") ?>" class="nav-link <?= $path == "banner" ? "active" : "" ?>">
+                              <i class="nav-icon fa fa-layer-group"></i>
+                              <p>Banners</p>
+                          </a>
+                      </li>
+                      <?php if (is_agent(session()->role) || is_master(session()->role)) : ?>
+                          <li class="nav-item">
+                              <a href="<?= site_url("admin") ?>" class="nav-link <?= $path == "admin" ? "active" : "" ?>">
+                                  <i class="nav-icon fa fa-users"></i>
+                                  <p>Admins</p>
+                              </a>
+                          </li>
+                      <?php endif ?>
+                  <?php endif  ?>
 
-                  <!-- <li class="nav-header">MISCELLANEOUS</li> -->
-                  <!-- <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          <i class="nav-icon fas fa-circle"></i>
-                          <p>
-                              Level 1
-                              <i class="right fas fa-angle-left"></i>
-                          </p>
-                      </a>
-                      <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                              <a href="#" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Level 2</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="#" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>
-                                      Level 2
-                                      <i class="right fas fa-angle-left"></i>
-                                  </p>
-                              </a>
-                              <ul class="nav nav-treeview">
-                                  <li class="nav-item">
-                                      <a href="#" class="nav-link">
-                                          <i class="far fa-dot-circle nav-icon"></i>
-                                          <p>Level 3</p>
-                                      </a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a href="#" class="nav-link">
-                                          <i class="far fa-dot-circle nav-icon"></i>
-                                          <p>Level 3</p>
-                                      </a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a href="#" class="nav-link">
-                                          <i class="far fa-dot-circle nav-icon"></i>
-                                          <p>Level 3</p>
-                                      </a>
-                                  </li>
-                              </ul>
-                          </li>
-                          <li class="nav-item">
-                              <a href="#" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Level 2</p>
-                              </a>
-                          </li>
-                      </ul>
-                  </li> -->
+                  <?php  ?>
+                  <?php  ?>
+                  <?php  ?>
+                  <?php  ?>
               </ul>
           </nav>
           <!-- /.sidebar-menu -->

@@ -6,7 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class ServAgent implements FilterInterface
+class PageMaster implements FilterInterface
 {
     /**
      * Do whatever processing this filter needs to do.
@@ -25,9 +25,9 @@ class ServAgent implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (!session()->get("logged_in")) return redirect()->to(site_url("unauthen"));
-        if (!is_agent(session()->role) && !is_master(session()->role)) return redirect()->to(site_url("deny"));
-        // if (!session()->agent) return redirect()->to(site_url("deny"));
+        // if user not logged in
+        if (!session()->logged_in) return redirect()->to(site_url("login"));
+        if (!is_master(session()->role)) return redirect()->to(site_url("deny"));
     }
 
     /**
