@@ -64,6 +64,7 @@
                                                 <i class="fa fa-redo-alt"></i>
                                             </button>
                                         </div>
+                                        <button type="button" class="btn btn-xs btn-danger ml-2"><i class="fa fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
