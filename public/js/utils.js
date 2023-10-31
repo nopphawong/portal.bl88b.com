@@ -95,6 +95,7 @@ function _alert(icon, title, callback, timer = 0) {
     Swal.fire({
         icon: icon,
         html: title,
+        showConfirmButton: !timer,
         confirmButtonText: `OK`,
         timer: timer,
         allowOutsideClick: false,
