@@ -20,7 +20,9 @@
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = http://localhost:8080/
+# app.appKey = 
+# app.baseURL = 
+# app.apiUrl = 
 
 # If you have trouble with `.`, you could also use `_`.
 # app_baseURL = ''
