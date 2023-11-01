@@ -66,6 +66,7 @@
                                                 <i class="fa fa-redo-alt"></i>
                                             </button>
                                         </div>
+                                        <button type="button" class="btn btn-xs btn-danger ml-2" @click="record_delete(data)"><i class="fa fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -198,6 +199,13 @@
                 return showConfirm(`Confirm Active ?`, function(_f) {
                     if (!_f.isConfirmed) return
                     return vm.status(`active`, banner)
+                })
+            },
+            record_delete(banner) {
+                let vm = this
+                return showConfirm(`Confirm Delete ?`, function(_f) {
+                    if (!_f.isConfirmed) return
+                    return vm.status(`delete`, banner)
                 })
             },
             async status(type, banner) {

@@ -50,7 +50,8 @@ class BaseController extends ResourceController
         $uri = new \CodeIgniter\HTTP\URI($url);
         $path = $uri->getPath();
         try {
-            unlink($_SERVER['DOCUMENT_ROOT'] . $path);
+            $full_path = $_SERVER['DOCUMENT_ROOT'] . $path;
+            unlink($full_path);
         } catch (Exception $e) {
         }
         unset($uri, $path);

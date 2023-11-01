@@ -92,4 +92,16 @@ class Banner extends BaseController
         if (!$banner->status) return $this->response(null, $banner->message, false);
         return $this->response($banner->data);
     }
+
+    public function record_delete()
+    {
+        $body = $this->getPost();
+        $api = new Apiv1($this->session->agent);
+
+        $body->agent = $this->session->agent->code;
+        $banner = $api->banner_delete($body);
+        if (!$banner->status) return $this->response(null, $banner->message, false);
+        $this->unlink_image($banner->data->image);
+        return $this->response($banner->data);
+    }
 }

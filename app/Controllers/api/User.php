@@ -39,8 +39,8 @@ class User extends BaseController
 
         $body->add_date = date('Y-m-d H:i:s');
         $id = $userModel->insert($body);
-        $banner = $userModel->find($id);
-        return $this->response($banner);
+        $user = $userModel->find($id);
+        return $this->response($user);
     }
 
     public function info()
@@ -52,9 +52,10 @@ class User extends BaseController
         if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $userModel = new UserModel();
-        $banner = $userModel->find($body->id);
+        $user = $userModel->find($body->id);
+        if (!$user) return $this->response(null, "User not found !", false);
 
-        return $this->response($banner);
+        return $this->response($user);
     }
 
     public function info_update()
@@ -70,8 +71,8 @@ class User extends BaseController
         $userModel = new UserModel();
         $body->edit_date = date('Y-m-d H:i:s');
         $userModel->save($body);
-        $banner = $userModel->find($body->id);
-        return $this->response($banner);
+        $user = $userModel->find($body->id);
+        return $this->response($user);
     }
 
     public function status_inactive()
@@ -83,11 +84,12 @@ class User extends BaseController
         if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $userModel = new UserModel();
-        $banner = $userModel->find($body->id);
-        $banner->status = 0;
-        $banner->edit_date = date('Y-m-d H:i:s');
-        $userModel->save($banner);
-        return $this->response($banner);
+        $user = $userModel->find($body->id);
+        if (!$user) return $this->response(null, "User not found !", false);
+        $user->status = 0;
+        $user->edit_date = date('Y-m-d H:i:s');
+        $userModel->save($user);
+        return $this->response($user);
     }
 
     public function status_active()
@@ -99,10 +101,26 @@ class User extends BaseController
         if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $userModel = new UserModel();
-        $banner = $userModel->find($body->id);
-        $banner->status = 1;
-        $banner->edit_date = date('Y-m-d H:i:s');
-        $userModel->save($banner);
-        return $this->response($banner);
+        $user = $userModel->find($body->id);
+        if (!$user) return $this->response(null, "User not found !", false);
+        $user->status = 1;
+        $user->edit_date = date('Y-m-d H:i:s');
+        $userModel->save($user);
+        return $this->response($user);
+    }
+
+    public function record_delete()
+    {
+        $body = $this->getPost();
+        $agentModel = new AgentModel();
+        $agent = $agentModel->where("secret", $body->secret)->first();
+        if (!$agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
+
+        $userModel = new UserModel();
+        $user = $userModel->find($body->id);
+        if (!$user) return $this->response(null, "User not found !", false);
+        $userModel->delete($user->id);
+        return $this->response($user);
     }
 }

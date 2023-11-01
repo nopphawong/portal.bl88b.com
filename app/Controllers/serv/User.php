@@ -78,4 +78,15 @@ class User extends BaseController
         if (!$user->status) return $this->response(null, $user->message, false);
         return $this->response($user->data);
     }
+
+    public function record_delete()
+    {
+        $body = $this->getPost();
+        $api = new Apiv1($this->session->agent);
+
+        $body->agent = $this->session->agent->code;
+        $user = $api->user_delete($body);
+        if (!$user->status) return $this->response(null, $user->message, false);
+        return $this->response($user->data);
+    }
 }

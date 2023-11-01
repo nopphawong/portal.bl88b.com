@@ -78,6 +78,10 @@ class Apiv1
     {
         return self::post("banner/active", $data);
     }
+    public function banner_delete($data = array())
+    {
+        return self::post("banner/delete", $data);
+    }
 
     // user
     public function user_list($data = array())
@@ -103,6 +107,10 @@ class Apiv1
     public function user_active($data = array())
     {
         return self::post("user/active", $data);
+    }
+    public function user_delete($data = array())
+    {
+        return self::post("user/delete", $data);
     }
 
     /* ========================================================================== */

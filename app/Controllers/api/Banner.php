@@ -47,6 +47,7 @@ class Banner extends BaseController
 
         $bannerModel = new BannerModel();
         $banner = $bannerModel->find($body->id);
+        if (!$banner) return $this->response(null, "Banner not found !", false);
 
         return $this->response($banner);
     }
@@ -76,6 +77,7 @@ class Banner extends BaseController
 
         $bannerModel = new BannerModel();
         $banner = $bannerModel->find($body->id);
+        if (!$banner) return $this->response(null, "Banner not found !", false);
         $banner->status = 0;
         $banner->edit_date = date('Y-m-d H:i:s');
         $bannerModel->save($banner);
@@ -92,9 +94,25 @@ class Banner extends BaseController
 
         $bannerModel = new BannerModel();
         $banner = $bannerModel->find($body->id);
+        if (!$banner) return $this->response(null, "Banner not found !", false);
         $banner->status = 1;
         $banner->edit_date = date('Y-m-d H:i:s');
         $bannerModel->save($banner);
+        return $this->response($banner);
+    }
+
+    public function record_delete()
+    {
+        $body = $this->getPost();
+        $agentModel = new AgentModel();
+        $agent = $agentModel->where("secret", $body->secret)->first();
+        if (!$agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
+
+        $bannerModel = new BannerModel();
+        $banner = $bannerModel->find($body->id);
+        if (!$banner) return $this->response(null, "Banner not found !", false);
+        $bannerModel->delete($banner->id);
         return $this->response($banner);
     }
 }
