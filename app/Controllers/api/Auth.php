@@ -41,6 +41,7 @@ class Auth extends BaseController
                 "code" => $agent->code,
                 "key" => $agent->key,
                 "secret" => $agent->secret,
+                "name" => $agent->name,
             );
         }
 

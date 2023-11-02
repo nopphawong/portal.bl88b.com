@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Libraries\Apiv1;
 use App\Libraries\Encrypter;
 
 class Page extends BaseController
@@ -69,11 +70,15 @@ class Page extends BaseController
     }
     public function agent_view($code, $key, $secret)
     {
+        $api = new Apiv1((object) array("key" => $key, "secret" => $secret,));
+        $agent = $api->agent_info(["code" => $code,]);
+        if (!$agent) return redirect()->to(previous_url());
         $session_data = (object) session()->get();
         $session_data->agent = (object) array(
-            "code" => $code,
-            "key" => $key,
-            "secret" => $secret,
+            "code" => $agent->data->code,
+            "key" => $agent->data->key,
+            "secret" => $agent->data->secret,
+            "name" => $agent->data->name,
         );
         session()->set((array) $session_data);
         return redirect()->to(site_url("agent/info"));

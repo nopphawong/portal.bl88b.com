@@ -43,7 +43,7 @@
                       </li>
                   <?php endif ?>
                   <?php if (!empty(session()->agent)) : ?>
-                      <li class="nav-header text-uppercase"><?= session()->agent->code ?></li>
+                      <li class="nav-header text-uppercase"><?= session()->agent->code . ": " . session()->agent->name ?></li>
                       <li class="nav-item">
                           <a href="<?= site_url("agent/info") ?>" class="nav-link <?= $path == "agent/info" ? "active" : "" ?>">
                               <i class="nav-icon fa fa-info-circle"></i>
