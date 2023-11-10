@@ -53,6 +53,7 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         $this->viewData['includes_js'][] = site_url("js/utils.js?v=0.01");
+        $this->viewData['includes_css'][] = site_url("css/main.css");
 
         $this->viewData['title'] = 'UFA PORTAL';
         $this->viewData['path'] = implode("/", $request->uri->getSegments());
@@ -61,7 +62,9 @@ abstract class BaseController extends Controller
     public function use_datatable()
     {
         $this->viewData["lib_datatable"] = (object) array(
-            "css" => [site_url("assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")],
+            "css" => [
+                site_url("assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"),
+            ],
             "js" => [
                 site_url("assets/plugins/datatables/jquery.dataTables.min.js"),
                 site_url("assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"),

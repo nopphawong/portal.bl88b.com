@@ -44,6 +44,10 @@ class Apiv1
     {
         return self::post("agent/add", $data);
     }
+    public function agent_config($data = array())
+    {
+        return self::post("agent/config", $data);
+    }
     public function agent_inactive($data = array())
     {
         return self::post("agent/inactive", $data);

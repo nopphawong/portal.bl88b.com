@@ -65,6 +65,24 @@ class Agent extends BaseController
         return $this->response($agent, "Add successful !");
     }
 
+    public function config()
+    {
+        $body = $this->getPost();
+        if (empty($body->key) || empty($body->secret))  return $this->response(null, "Agent key or secret is empty !", false);
+
+        $agentModel = new AgentModel();
+        // $agent = $agentModel->where("(")->orWhere("key", $body->key)->orWhere("secret", $body->secret)->where(")")->where("id !=", $body->id)->first();
+        $agent = $agentModel->where("(key = '{$body->key}' or secret = '{$body->secret}')")->where("id !=", $body->id)->first();
+        // $subquery = $agentModel->orWhere("key", $body->key)->orWhere("secret", $body->secret)->getCompiledSelect();
+        // $agent = $agentModel->whereIn("id", $subquery)->where("id !=", $body->id)->first();
+        if ($agent) return $this->response(null, "Agent key or secret is duplicate !", false);
+
+        $body->edit_date = date("Y-m-d H:i:s");
+        $agentModel->save($body);
+        $agent = $agentModel->find($body->id);
+        return $this->response($agent, "Config successful !");
+    }
+
     public function status_inactive()
     {
         $body = $this->getPost();

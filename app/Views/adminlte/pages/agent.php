@@ -46,6 +46,9 @@
                                         <button class="btn btn-xs btn-primary" @click="info(data)" :disabled="loading">
                                             <i class="fa fa-pen"></i>
                                         </button>
+                                        <button class="btn btn-xs btn-secondary ms-1" @click="config(data)" :disabled="loading">
+                                            <i class="fa fa-wrench"></i>
+                                        </button>
                                     </td>
                                     <td>{{ data.name }}</td>
                                     <td>{{ data.code }}</td>
@@ -118,7 +121,7 @@
                 modal: {
                     target: null,
                     form: null,
-                    darft: { key: ``, secret: ``, name: ``, }
+                    darft: { id: ``, key: ``, secret: ``, name: ``, }
                 },
                 table: {
                     filtered: [],
@@ -151,10 +154,15 @@
                 this.modal.form = { ...this.modal.darft }
                 this.modal.target.modal(`show`)
             },
+            config(agent) {
+                this.modal.form = { ...agent }
+                this.modal.target.modal(`show`)
+            },
             async submit(e) {
                 e?.preventDefault()
                 this.loading = true
-                let { status, message, data } = await post(`agent/add`, this.modal.form)
+                let endpoint = !this.modal.form.id ? `agent/add` : `agent/config`
+                let { status, message, data } = await post(endpoint, this.modal.form)
                 this.loading = false
                 if (!status) return showAlert.warning(message)
                 let vm = this

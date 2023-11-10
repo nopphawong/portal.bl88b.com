@@ -58,6 +58,7 @@ $routes->post('user/admin/add', 'serv\User::add/admin', $servagent);
 $servmaster = ['filter' => \App\Filters\ServMaster::class];
 $routes->post('agent/list', 'serv\Agent::list', $servmaster);
 $routes->post('agent/add', 'serv\Agent::add', $servmaster);
+$routes->post('agent/config', 'serv\Agent::config', $servmaster);
 $routes->post('agent/active', 'serv\Agent::status_active', $servmaster);
 $routes->post('agent/inactive', 'serv\Agent::status_inactive', $servmaster);
 
@@ -73,6 +74,7 @@ $routes->group('api', static function ($routes) {
     $routes->group('agent', static function ($routes) {
         // api/agent/{{ function }}
         $routes->post('add', 'api\Agent::add');
+        $routes->post('config', 'api\Agent::config');
         $routes->post('list', 'api\Agent::list');
         $routes->post('info', 'api\Agent::info');
         $routes->post('info/update', 'api\Agent::info_update');

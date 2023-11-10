@@ -59,6 +59,17 @@ class Agent extends BaseController
         return $this->response($agent->data);
     }
 
+    public function config()
+    {
+        $body = $this->getPost();
+        $api = new Apiv1($body);
+
+        $body->edit_by = $this->session->username;
+        $agent = $api->agent_config($body);
+        if (!$agent->status) return $this->response(null, $agent->message, false);
+        return $this->response($agent->data);
+    }
+
     public function status_inactive()
     {
         $body = $this->getPost();

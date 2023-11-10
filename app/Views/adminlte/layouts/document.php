@@ -16,7 +16,11 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <?= link_tag("assets/css/adminlte.min.css") ?>
-    
+
+    <?php foreach ($includes_css as $css) : ?>
+        <?= link_tag($css) ?>
+    <?php endforeach ?>
+
     <?php if (isset($lib_datatable)) : ?>
         <?php foreach ($lib_datatable->css as $css) : ?>
             <?= link_tag($css) ?>
@@ -37,7 +41,7 @@
             <?= script_tag($js) ?>
         <?php endforeach ?>
     <?php endif ?>
-    
+
     <?php foreach ($includes_js as $js) : ?>
         <?= script_tag($js) ?>
     <?php endforeach ?>
