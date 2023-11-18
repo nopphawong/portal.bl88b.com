@@ -16,7 +16,7 @@ class Segment extends BaseController
         if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $segmentModel = new SegmentModel();
-        $segments = $segmentModel->where("wheel", $body->wheel)->where("agent", $agent->code)->findAll();
+        $segments = $segmentModel->where("wheel", $body->wheel)->where("agent", $agent->code)->orderBy("index")->findAll();
 
         return $this->response($segments);
     }
