@@ -2,7 +2,7 @@
 
 namespace App\Controllers\serv;
 
-use App\Libraries\Apiv1;
+use App\Libraries\Portal;
 use App\Libraries\Base64fileUploads;
 
 class Agent extends BaseController
@@ -10,10 +10,10 @@ class Agent extends BaseController
     public function info()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent);
+        $portal = new Portal($this->session->agent);
 
         $body->agent = $this->session->agent->code;
-        $agent = $api->agent_info($body);
+        $agent = $portal->agent_info($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
         return $this->response($agent->data);
     }
@@ -21,7 +21,7 @@ class Agent extends BaseController
     public function info_update()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent);
+        $portal = new Portal($this->session->agent);
         $file = new Base64fileUploads();
 
         if (!empty($body->logo_upload)) {
@@ -33,7 +33,7 @@ class Agent extends BaseController
 
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
-        $agent = $api->agent_info_update($body);
+        $agent = $portal->agent_info_update($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
         return $this->response($agent->data);
     }
@@ -41,9 +41,9 @@ class Agent extends BaseController
     public function list()
     {
         $body = $this->getPost();
-        $api = new Apiv1();
+        $portal = new Portal();
 
-        $agents = $api->agent_list($body);
+        $agents = $portal->agent_list($body);
         if (!$agents->status) return $this->response(null, $agents->message, false);
         return $this->response($agents->data);
     }
@@ -51,10 +51,10 @@ class Agent extends BaseController
     public function add()
     {
         $body = $this->getPost();
-        $api = new Apiv1($body);
+        $portal = new Portal($body);
 
         $body->add_by = $this->session->username;
-        $agent = $api->agent_add($body);
+        $agent = $portal->agent_add($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
         return $this->response($agent->data);
     }
@@ -62,10 +62,10 @@ class Agent extends BaseController
     public function config()
     {
         $body = $this->getPost();
-        $api = new Apiv1($body);
+        $portal = new Portal($body);
 
         $body->edit_by = $this->session->username;
-        $agent = $api->agent_config($body);
+        $agent = $portal->agent_config($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
         return $this->response($agent->data);
     }
@@ -73,10 +73,10 @@ class Agent extends BaseController
     public function status_inactive()
     {
         $body = $this->getPost();
-        $api = new Apiv1($body);
+        $portal = new Portal($body);
 
         $body->edit_by = $this->session->username;
-        $agent = $api->agent_inactive($body);
+        $agent = $portal->agent_inactive($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
         return $this->response($agent->data);
     }
@@ -84,10 +84,10 @@ class Agent extends BaseController
     public function status_active()
     {
         $body = $this->getPost();
-        $api = new Apiv1($body);
+        $portal = new Portal($body);
 
         $body->edit_by = $this->session->username;
-        $agent = $api->agent_active($body);
+        $agent = $portal->agent_active($body);
         if (!$agent->status) return $this->response(null, $agent->message, false);
         return $this->response($agent->data);
     }

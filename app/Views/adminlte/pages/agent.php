@@ -34,10 +34,11 @@
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </th>
-                                    <th>Name</th>
+                                    <th>Title</th>
                                     <th>Code</th>
                                     <th>Key</th>
                                     <th>Secret</th>
+                                    <th>Web</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,6 +55,7 @@
                                     <td>{{ data.code }}</td>
                                     <td>{{ data.key }}</td>
                                     <td>{{ data.secret }}</td>
+                                    <td>{{ data.web }}</td>
                                     <td>
                                         <div class="btn-group" v-if="+data.status">
                                             <button type="button" class="btn btn-xs btn-success">Active</button>
@@ -89,8 +91,8 @@
                 </div>
                 <div class="modal-body" v-if="modal.form">
                     <div class="form-group">
-                        <label class="form-label">Name</label>
-                        <input type="text" class="form-control" placeholder="Name" v-model="modal.form.name" />
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-control" placeholder="Title" v-model="modal.form.name" />
                     </div>
                     <div class="form-group">
                         <label class="form-label">Key</label>
@@ -99,6 +101,10 @@
                     <div class="form-group">
                         <label class="form-label">Secret</label>
                         <input type="text" class="form-control" placeholder="Secret" v-model="modal.form.secret" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Web</label>
+                        <input type="text" class="form-control" placeholder="Web" v-model="modal.form.web" />
                     </div>
                 </div>
                 <div class="modal-footer justify-content-end">
@@ -121,7 +127,7 @@
                 modal: {
                     target: null,
                     form: null,
-                    darft: { id: ``, key: ``, secret: ``, name: ``, }
+                    darft: { id: ``, key: ``, secret: ``, web: ``, name: ``, }
                 },
                 table: {
                     filtered: [],
@@ -188,8 +194,8 @@
             },
             async status(type, agent) {
                 this.loading = true
-                let { id, code, key, secret } = agent
-                let { status, message } = await post(`agent/${type}`, { id, code, key, secret })
+                let { id, code, key, secret, web } = agent
+                let { status, message } = await post(`agent/${type}`, { id, code, key, secret, web })
                 this.loading = false
                 if (!status) return showAlert.warning(message)
                 let vm = this

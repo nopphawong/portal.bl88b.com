@@ -2,7 +2,7 @@
 
 namespace App\Controllers\serv;
 
-use App\Libraries\Apiv1;
+use App\Libraries\Portal;
 use App\Libraries\Base64fileUploads;
 
 class Banner extends BaseController
@@ -10,10 +10,10 @@ class Banner extends BaseController
     public function list()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent);
+        $portal = new Portal($this->session->agent);
 
         $body->agent = $this->session->agent->code;
-        $banners = $api->banner_list($body);
+        $banners = $portal->banner_list($body);
         if (!$banners->status) return $this->response(null, $banners->message, false);
         return $this->response($banners->data);
     }
@@ -21,7 +21,7 @@ class Banner extends BaseController
     public function add()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent);
+        $portal = new Portal($this->session->agent);
         $file = new Base64fileUploads();
 
         if (!empty($body->image_upload)) {
@@ -33,7 +33,7 @@ class Banner extends BaseController
 
         $body->agent = $this->session->agent->code;
         $body->add_by = $this->session->username;
-        $banner = $api->banner_add($body);
+        $banner = $portal->banner_add($body);
         if (!$banner->status) return $this->response(null, $banner->message, false);
         return $this->response($banner->data);
     }
@@ -41,10 +41,10 @@ class Banner extends BaseController
     public function info()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent);
+        $portal = new Portal($this->session->agent);
 
         $body->agent = $this->session->agent->code;
-        $banner = $api->banner_info($body);
+        $banner = $portal->banner_info($body);
         if (!$banner->status) return $this->response(null, $banner->message, false);
         return $this->response($banner->data);
     }
@@ -52,7 +52,7 @@ class Banner extends BaseController
     public function info_update()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent);
+        $portal = new Portal($this->session->agent);
         $file = new Base64fileUploads();
 
         if (!empty($body->image_upload)) {
@@ -64,7 +64,7 @@ class Banner extends BaseController
 
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
-        $banner = $api->banner_info_update($body);
+        $banner = $portal->banner_info_update($body);
         if (!$banner->status) return $this->response(null, $banner->message, false);
         return $this->response($banner->data);
     }
@@ -72,11 +72,11 @@ class Banner extends BaseController
     public function status_inactive()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent);
+        $portal = new Portal($this->session->agent);
 
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
-        $banner = $api->banner_inactive($body);
+        $banner = $portal->banner_inactive($body);
         if (!$banner->status) return $this->response(null, $banner->message, false);
         return $this->response($banner->data);
     }
@@ -84,11 +84,11 @@ class Banner extends BaseController
     public function status_active()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent);
+        $portal = new Portal($this->session->agent);
 
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
-        $banner = $api->banner_active($body);
+        $banner = $portal->banner_active($body);
         if (!$banner->status) return $this->response(null, $banner->message, false);
         return $this->response($banner->data);
     }
@@ -96,10 +96,10 @@ class Banner extends BaseController
     public function record_delete()
     {
         $body = $this->getPost();
-        $api = new Apiv1($this->session->agent);
+        $portal = new Portal($this->session->agent);
 
         $body->agent = $this->session->agent->code;
-        $banner = $api->banner_delete($body);
+        $banner = $portal->banner_delete($body);
         if (!$banner->status) return $this->response(null, $banner->message, false);
         $this->unlink_image($banner->data->image);
         return $this->response($banner->data);

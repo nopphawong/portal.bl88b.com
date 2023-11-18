@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Libraries\Apiv1;
+use App\Libraries\Portal;
 use App\Libraries\Encrypter;
 
 class Page extends BaseController
@@ -70,8 +70,8 @@ class Page extends BaseController
     }
     public function agent_view($code, $key, $secret)
     {
-        $api = new Apiv1((object) array("key" => $key, "secret" => $secret,));
-        $agent = $api->agent_info(["code" => $code,]);
+        $portal = new Portal((object) array("key" => $key, "secret" => $secret,));
+        $agent = $portal->agent_info(["code" => $code,]);
         if (!$agent) return redirect()->to(previous_url());
         $session_data = (object) session()->get();
         $session_data->agent = (object) array(

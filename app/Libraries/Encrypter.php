@@ -12,7 +12,7 @@ class Encrypter
     public function __construct()
     {
         $this->config = new Encryption();
-        $this->config->key = $_ENV["app.appKey"];
+        $this->config->key = $_ENV["app.webKey"];
         $this->encrypter = Services::encrypter($this->config);
     }
     public function array_to_plaintext($data = array())

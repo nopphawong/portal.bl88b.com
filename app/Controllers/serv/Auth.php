@@ -2,7 +2,7 @@
 
 namespace App\Controllers\serv;
 
-use App\Libraries\Apiv1;
+use App\Libraries\Portal;
 use App\Models\AgentModel;
 use App\Models\UserModel;
 
@@ -19,8 +19,8 @@ class Auth extends BaseController
     public function login()
     {
         $body = $this->getPost();
-        $api = new Apiv1();
-        $login = $api->login($body);
+        $portal = new Portal();
+        $login = $portal->login($body);
         if (!$login->status) return $this->response(null, $login->message, false);
         return $this->response(["url" => $login->data->url]);
     }

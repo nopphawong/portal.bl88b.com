@@ -4,7 +4,7 @@ namespace App\Libraries;
 
 use Exception;
 
-class Apiv1
+class Portal
 {
     private $curl;
     private $secret;
@@ -12,7 +12,7 @@ class Apiv1
 
     public function __construct($agent = null)
     {
-        $this->curl = service("curlrequest", ["baseURI" => "{$_ENV["app.apiUrl"]}"]);
+        $this->curl = service("curlrequest", ["baseURI" => "{$_ENV["api.portalURL"]}"]);
         if ($agent) $this->set_agent($agent);
     }
 
