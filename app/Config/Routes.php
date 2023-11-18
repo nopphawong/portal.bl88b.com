@@ -104,6 +104,19 @@ $routes->group('api', static function ($routes) {
         $routes->post('active', 'api\User::status_active');
         $routes->post('delete', 'api\User::record_delete');
     });
+
+    $routes->group('wheel', static function ($routes) {
+        // api/wheel/{{ function }}
+        $routes->post('list', 'api\Wheel::list');
+        $routes->post('first', 'api\Wheel::first');
+        $routes->post('roll', 'api\Wheel::roll');
+    });
+
+    $routes->group('segment', static function ($routes) {
+        // api/segment/{{ function }}
+        $routes->post('list', 'api\Segment::list');
+        $routes->post('info', 'api\Segment::info');
+    });
 });
 
 /*
