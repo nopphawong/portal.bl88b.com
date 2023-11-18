@@ -105,6 +105,16 @@ $routes->group('api', static function ($routes) {
         $routes->post('delete', 'api\User::record_delete');
     });
 
+    $routes->group('wheeldaily', static function ($routes) {
+        // api/wheeldaily/{{ function }}
+        $routes->post('list', 'api\WheelDaily::list');
+        $routes->post('list/unused', 'api\WheelDaily::list/unused');
+        $routes->post('list/unclaimed', 'api\WheelDaily::list/unclaimed');
+        $routes->post('add', 'api\WheelDaily::add');
+        $routes->post('roll', 'api\WheelDaily::roll');
+        $routes->post('claim', 'api\WheelDaily::claim');
+    });
+
     $routes->group('wheel', static function ($routes) {
         // api/wheel/{{ function }}
         $routes->post('list', 'api\Wheel::list');
@@ -115,7 +125,7 @@ $routes->group('api', static function ($routes) {
     $routes->group('segment', static function ($routes) {
         // api/segment/{{ function }}
         $routes->post('list', 'api\Segment::list');
-        $routes->post('info', 'api\Segment::info');
+        // $routes->post('info', 'api\Segment::info');
     });
 });
 

@@ -64,6 +64,8 @@ class Wheel extends BaseController
 
         $segmentModel = new SegmentModel();
         $segments = $segmentModel->where("wheel", $body->id)->where("agent", $agent->code)->findAll();
+        if (!$segments) return $this->response(null, "Segment not found !", false);
+        
         shuffle($segments);
         $rate_min = 1;
         $rate_max = array_sum(array_column((array)$segments, "rate"));
