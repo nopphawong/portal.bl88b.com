@@ -8,8 +8,8 @@ use App\Models\WheelDailyModel;
 class WheelDaily extends BaseController
 {
     protected $types = array(
-        "UNUSED" => "unused",
-        "UNCLAIMED" => "unclaimed",
+        "USABLE" => "usable",
+        "CLAIMABLE" => "claimable",
     );
     public function list($type = null)
     {
@@ -20,8 +20,8 @@ class WheelDaily extends BaseController
         if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
 
         $wheelDailyModel = new WheelDailyModel();
-        if ($type == $this->types["UNUSED"]) $wheelDailyModel->where("status", 1)->where("ifnull(date_use,'') = ''");
-        if ($type == $this->types["UNCLAIMED"]) $wheelDailyModel->where("status", 1)->where("ifnull(date_use,'') != ''")->where("ifnull(date_claim,'') = ''");
+        if ($type == $this->types["USABLE"]) $wheelDailyModel->where("status", 1)->where("ifnull(date_use,'') = ''");
+        if ($type == $this->types["CLAIMABLE"]) $wheelDailyModel->where("status", 1)->where("ifnull(date_use,'') != ''")->where("ifnull(date_claim,'') = ''");
         $wheelDailies = $wheelDailyModel->where("agent", $agent->code)->findAll();
 
         return $this->response($wheelDailies);

@@ -108,8 +108,8 @@ $routes->group('api', static function ($routes) {
     $routes->group('wheeldaily', static function ($routes) {
         // api/wheeldaily/{{ function }}
         $routes->post('list', 'api\WheelDaily::list');
-        $routes->post('list/unused', 'api\WheelDaily::list/unused');
-        $routes->post('list/unclaimed', 'api\WheelDaily::list/unclaimed');
+        $routes->post('list/usable', 'api\WheelDaily::list/usable');
+        $routes->post('list/claimable', 'api\WheelDaily::list/claimable');
         $routes->post('add', 'api\WheelDaily::add');
         $routes->post('roll', 'api\WheelDaily::roll');
         $routes->post('claim', 'api\WheelDaily::claim');
