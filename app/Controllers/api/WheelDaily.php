@@ -21,6 +21,7 @@ class WheelDaily extends BaseController
 
         $wheelDailyModel = new WheelDailyModel();
         if ($body->user) $wheelDailyModel->where("user", $body->user);
+        if ($body->wheel) $wheelDailyModel->where("wheel", $body->wheel);
         if ($type == $this->types["USABLE"]) $wheelDailyModel->where("status", 1)->where("ifnull(date_use,'') = ''");
         if ($type == $this->types["CLAIMABLE"]) $wheelDailyModel->where("status", 1)->where("ifnull(date_use,'') != ''")->where("ifnull(date_claim,'') = ''");
         $wheelDailies = $wheelDailyModel->where("agent", $agent->code)->findAll();
@@ -62,6 +63,7 @@ class WheelDaily extends BaseController
         $wheelDailyModel
             ->where("agent", $agent->code)
             ->where("user", $body->user)
+            ->where("wheel", $body->wheel)
             ->where("status", 1)
             ->where("ifnull(date_use,'') = ''");
         $wheelDaily = $wheelDailyModel->first();
@@ -87,6 +89,7 @@ class WheelDaily extends BaseController
             ->where("id", $body->id)
             ->where("agent", $agent->code)
             ->where("user", $body->user)
+            ->where("wheel", $body->wheel)
             ->where("status", 1)
             ->where("ifnull(date_use,'') != ''")
             ->where("ifnull(date_claim,'') = ''");
