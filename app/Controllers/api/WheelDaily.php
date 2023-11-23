@@ -51,6 +51,22 @@ class WheelDaily extends BaseController
         $wheelDaily = $wheelDailyModel->find($id);
         return $this->response($wheelDaily);
     }
+    public function info()
+    {
+        $body = $this->getPost();
+        $agentModel = new AgentModel();
+        $agent = $agentModel->where("secret", $body->secret)->first();
+        if (!$agent) return $this->response(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
+
+        $wheelDailyModel = new WheelDailyModel();
+        $wheelDailyModel->where("id", $body->id);
+        $wheelDailyModel->where("user", $body->user);
+        $wheelDailyModel->where("wheel", $body->wheel);
+        $wheelDaily = $wheelDailyModel->where("agent", $agent->code)->first();
+
+        return $this->response($wheelDaily);
+    }
     public function roll()
     {
         $body = $this->getPost();
