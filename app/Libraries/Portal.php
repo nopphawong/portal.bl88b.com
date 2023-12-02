@@ -161,7 +161,7 @@ class Portal
 
     protected function hash_data($array)
     {
-        if (!is_array($array)) $array = array();
+        if (empty($array)) $array = array();
         return json_encode($array);
     }
 
