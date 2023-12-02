@@ -64,6 +64,12 @@
                               </a>
                           </li>
                       <?php endif ?>
+                      <li class="nav-item">
+                          <a href="<?= site_url("wheel/info") ?>" class="nav-link <?= $path == "wheel/info" ? "active" : "" ?>">
+                              <i class="nav-icon fa fa-circle"></i>
+                              <p>Wheel</p>
+                          </a>
+                      </li>
                   <?php endif  ?>
 
                   <?php  ?>

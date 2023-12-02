@@ -117,6 +117,27 @@ class Portal
         return self::post("user/delete", $data);
     }
 
+    // wheel
+    public function wheel_add($data = array())
+    {
+        return self::post("wheel/add", $data);
+    }
+    public function wheel_list($data = array())
+    {
+        return self::post("wheel/list", $data);
+    }
+    public function wheel_first($data = array())
+    {
+        return self::post("wheel/first", $data);
+    }
+    public function wheel_info($data = array())
+    {
+        return self::post("wheel/info", $data);
+    }
+    public function wheel_info_update($data = array())
+    {
+        return self::post("wheel/info/update", $data);
+    }
     /* ========================================================================== */
 
     protected function post($path, $data = array())

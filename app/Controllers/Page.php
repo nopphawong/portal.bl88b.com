@@ -63,6 +63,10 @@ class Page extends BaseController
     {
         return view("adminlte/pages/admin", $this->viewData);
     }
+    public function wheel_info()
+    {
+        return view("adminlte/pages/wheel_info", $this->viewData);
+    }
     public function agent()
     {
         session()->remove("agent");

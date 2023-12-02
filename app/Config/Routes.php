@@ -17,6 +17,7 @@ $routes->get('/', 'Page::index', $pageauth);
 $routes->get('forbidden', 'Page::forbidden', $pageauth);
 $routes->get('agent/info', 'Page::agent_info', $pageauth);
 $routes->get('banner', 'Page::banner', $pageauth);
+$routes->get('wheel/info', 'Page::wheel_info', $pageauth);
 
 $pageagent = ['filter' => \App\Filters\PageAgent::class];
 $routes->get('admin', 'Page::admin', $pageagent);
@@ -42,6 +43,14 @@ $routes->post('banner/info/update', 'serv\Banner::info_update', $servauth);
 $routes->post('banner/inactive', 'serv\Banner::status_inactive', $servauth);
 $routes->post('banner/active', 'serv\Banner::status_active', $servauth);
 $routes->post('banner/delete', 'serv\Banner::record_delete');
+
+
+$routes->post('wheel/add', 'serv\Wheel::add', $servauth);
+$routes->post('wheel/list', 'serv\Wheel::list', $servauth);
+$routes->post('wheel/first', 'serv\Wheel::first', $servauth);
+$routes->post('wheel/add', 'serv\Wheel::add', $servauth);
+$routes->post('wheel/info', 'serv\Wheel::info', $servauth);
+$routes->post('wheel/info/update', 'serv\Wheel::info_update', $servauth);
 
 // $routes->post('user/list', 'serv\User::list', $servauth);
 // $routes->post('user/add', 'serv\User::add', $servauth);
@@ -118,6 +127,9 @@ $routes->group('api', static function ($routes) {
 
     $routes->group('wheel', static function ($routes) {
         // api/wheel/{{ function }}
+        $routes->post('add', 'api\Wheel::add');
+        $routes->post('info', 'api\Wheel::info');
+        $routes->post('info/update', 'api\Wheel::info_update');
         $routes->post('list', 'api\Wheel::list');
         $routes->post('first', 'api\Wheel::first');
         $routes->post('roll', 'api\Wheel::roll');
