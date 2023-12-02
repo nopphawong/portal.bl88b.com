@@ -138,6 +138,28 @@ class Portal
     {
         return self::post("wheel/info/update", $data);
     }
+
+    // segment
+    public function segment_add($data = array())
+    {
+        return self::post("segment/add", $data);
+    }
+    public function segment_list($data = array())
+    {
+        return self::post("segment/list", $data);
+    }
+    public function segment_shuffle($data = array())
+    {
+        return self::post("segment/shuffle", $data);
+    }
+    public function segment_info($data = array())
+    {
+        return self::post("segment/info", $data);
+    }
+    public function segment_info_update($data = array())
+    {
+        return self::post("segment/info/update", $data);
+    }
     /* ========================================================================== */
 
     protected function post($path, $data = array())

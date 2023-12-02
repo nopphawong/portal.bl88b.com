@@ -44,13 +44,18 @@ $routes->post('banner/inactive', 'serv\Banner::status_inactive', $servauth);
 $routes->post('banner/active', 'serv\Banner::status_active', $servauth);
 $routes->post('banner/delete', 'serv\Banner::record_delete');
 
-
 $routes->post('wheel/add', 'serv\Wheel::add', $servauth);
 $routes->post('wheel/list', 'serv\Wheel::list', $servauth);
 $routes->post('wheel/first', 'serv\Wheel::first', $servauth);
 $routes->post('wheel/add', 'serv\Wheel::add', $servauth);
 $routes->post('wheel/info', 'serv\Wheel::info', $servauth);
 $routes->post('wheel/info/update', 'serv\Wheel::info_update', $servauth);
+
+$routes->post('segment/add', 'serv\Segment::add', $servauth);
+$routes->post('segment/list', 'serv\Segment::list', $servauth);
+$routes->post('segment/shuffle', 'serv\Segment::shuffle', $servauth);
+$routes->post('segment/info', 'serv\Segment::info', $servauth);
+$routes->post('segment/info/update', 'serv\Segment::info_update', $servauth);
 
 // $routes->post('user/list', 'serv\User::list', $servauth);
 // $routes->post('user/add', 'serv\User::add', $servauth);
@@ -137,8 +142,11 @@ $routes->group('api', static function ($routes) {
 
     $routes->group('segment', static function ($routes) {
         // api/segment/{{ function }}
+        $routes->post('add', 'api\Segment::add');
         $routes->post('list', 'api\Segment::list');
-        // $routes->post('info', 'api\Segment::info');
+        $routes->post('shuffle', 'api\Segment::shuffle');
+        $routes->post('info', 'api\Segment::info');
+        $routes->post('info/update', 'api\Segment::info_update');
     });
 });
 

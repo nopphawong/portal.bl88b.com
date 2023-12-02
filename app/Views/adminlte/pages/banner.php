@@ -123,7 +123,6 @@
     </div>
 </section>
 
-
 <script>
     Vue.createApp({
         data() {

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <?= link_tag("assets/css/adminlte.min.css") ?>
-
+    <?= link_tag("assets/vendors/fonts/boxicons.css") ?>
     <?php foreach ($includes_css as $css) : ?>
         <?= link_tag($css) ?>
     <?php endforeach ?>
