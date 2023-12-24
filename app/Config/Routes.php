@@ -148,6 +148,13 @@ $routes->group('api', static function ($routes) {
         $routes->post('info', 'api\Segment::info');
         $routes->post('info/update', 'api\Segment::info_update');
     });
+    
+    $routes->group('bl88', static function ($routes) {
+        // api/bl88/{{ function }}
+        $routes->post('login', 'api\Bl88::login');
+        $routes->post('register', 'api\Bl88::register');
+        $routes->post('bank/list', 'api\Bl88::bank_list');
+    });
 });
 
 /*

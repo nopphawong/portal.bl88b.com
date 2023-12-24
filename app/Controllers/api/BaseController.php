@@ -12,9 +12,10 @@ class BaseController extends ResourceController
     {
         $this->session = session();
     }
-    protected function response($data = null, $message = "Successful !", $status = true)
+    protected function response($data = null, $message = "Successful !", $status = true, $custom = array())
     {
         $data = array("status" => $status, "message" => $message, "data" => $data,);
+        if ($custom) $data = array_merge($data, $custom);
         return $this->respond($data);
     }
     protected function getPost($index = false)
