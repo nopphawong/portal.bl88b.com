@@ -68,12 +68,19 @@ class Bl88 extends BaseController
 
         $response = curl_exec($this->curl);
         curl_close($this->curl);
+
+        // echo print_r($data); exit;
         try {
             $response = json_decode($response);
             if ($response->statusCode == 0) return (object)[
                 "status" => true,
                 "message" => $response->statusDesc,
                 "data" => $response->bean,
+            ];
+            return (object)[
+                "status" => false,
+                "message" => $response->statusDesc,
+                "data" => null,
             ];
         } catch (Exception $e) {
             return (object)[
