@@ -268,7 +268,6 @@
                 if (!status) return showAlert.warning(message)
                 let { id, index, title, type, value, rate, hex, image } = data
                 this.modal.form = { id, index, title, type, value, rate, hex, image, image_upload: `` }
-                console.log(this.modal.form)
                 this.modal.target.modal(`show`)
             },
             async submit(e) {
