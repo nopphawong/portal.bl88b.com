@@ -137,10 +137,21 @@ $routes->group('api', static function ($routes) {
         $routes->post('list', 'api\WheelDaily::list');
         $routes->post('list/usable', 'api\WheelDaily::list/usable');
         $routes->post('list/claimable', 'api\WheelDaily::list/claimable');
+        $routes->post('list/history', 'api\WheelDaily::list/history');
         $routes->post('info', 'api\WheelDaily::info');
         $routes->post('add', 'api\WheelDaily::add');
         $routes->post('roll', 'api\WheelDaily::roll');
         $routes->post('claim', 'api\WheelDaily::claim');
+    });
+    $routes->group('checkindaily', static function ($routes) {
+        // api/checkindaily/{{ function }}
+        $routes->post('list', 'api\CheckinDaily::list');
+        $routes->post('list/claimable', 'api\CheckinDaily::list/claimable');
+        $routes->post('list/history', 'api\CheckinDaily::list/history');
+        $routes->post('info', 'api\CheckinDaily::info');
+        $routes->post('usable', 'api\CheckinDaily::usable');
+        $routes->post('add', 'api\CheckinDaily::add');
+        $routes->post('claim', 'api\CheckinDaily::claim');
     });
 
     $routes->group('wheel', static function ($routes) {

@@ -10,6 +10,7 @@ class WheelDaily extends BaseController
     protected $types = array(
         "USABLE" => "usable",
         "CLAIMABLE" => "claimable",
+        "HISTORY" => "history",
     );
     public function list($type = null)
     {
@@ -22,6 +23,7 @@ class WheelDaily extends BaseController
         $wheelDailyModel = new WheelDailyModel();
         if ($body->user) $wheelDailyModel->where("user", $body->user);
         if ($body->wheel) $wheelDailyModel->where("wheel", $body->wheel);
+        if ($type == $this->types["HISTORY"]) $wheelDailyModel->where("status", 1)->where("ifnull(date_use,'') != ''");
         if ($type == $this->types["USABLE"]) $wheelDailyModel->where("status", 1)->where("ifnull(date_use,'') = ''");
         if ($type == $this->types["CLAIMABLE"]) $wheelDailyModel->where("status", 1)->where("ifnull(date_use,'') != ''")->where("ifnull(date_claim,'') = ''");
         $wheelDailies = $wheelDailyModel->where("agent", $agent->code)->findAll();
