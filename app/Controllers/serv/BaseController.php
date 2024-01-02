@@ -14,7 +14,7 @@ class BaseController extends ResourceController
     {
         $this->session = session();
     }
-    protected function response($data = null, $message = "Successful !", $status = true)
+    protected function sendData($data = null, $message = "Successful !", $status = true)
     {
         $data = array(
             "status" => $status,

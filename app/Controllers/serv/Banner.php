@@ -14,8 +14,8 @@ class Banner extends BaseController
 
         $body->agent = $this->session->agent->code;
         $banners = $portal->banner_list($body);
-        if (!$banners->status) return $this->response(null, $banners->message, false);
-        return $this->response($banners->data);
+        if (!$banners->status) return $this->sendData(null, $banners->message, false);
+        return $this->sendData($banners->data);
     }
 
     public function add()
@@ -34,8 +34,8 @@ class Banner extends BaseController
         $body->agent = $this->session->agent->code;
         $body->add_by = $this->session->username;
         $banner = $portal->banner_add($body);
-        if (!$banner->status) return $this->response(null, $banner->message, false);
-        return $this->response($banner->data);
+        if (!$banner->status) return $this->sendData(null, $banner->message, false);
+        return $this->sendData($banner->data);
     }
 
     public function info()
@@ -45,8 +45,8 @@ class Banner extends BaseController
 
         $body->agent = $this->session->agent->code;
         $banner = $portal->banner_info($body);
-        if (!$banner->status) return $this->response(null, $banner->message, false);
-        return $this->response($banner->data);
+        if (!$banner->status) return $this->sendData(null, $banner->message, false);
+        return $this->sendData($banner->data);
     }
 
     public function info_update()
@@ -65,8 +65,8 @@ class Banner extends BaseController
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
         $banner = $portal->banner_info_update($body);
-        if (!$banner->status) return $this->response(null, $banner->message, false);
-        return $this->response($banner->data);
+        if (!$banner->status) return $this->sendData(null, $banner->message, false);
+        return $this->sendData($banner->data);
     }
 
     public function status_inactive()
@@ -77,8 +77,8 @@ class Banner extends BaseController
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
         $banner = $portal->banner_inactive($body);
-        if (!$banner->status) return $this->response(null, $banner->message, false);
-        return $this->response($banner->data);
+        if (!$banner->status) return $this->sendData(null, $banner->message, false);
+        return $this->sendData($banner->data);
     }
 
     public function status_active()
@@ -89,8 +89,8 @@ class Banner extends BaseController
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
         $banner = $portal->banner_active($body);
-        if (!$banner->status) return $this->response(null, $banner->message, false);
-        return $this->response($banner->data);
+        if (!$banner->status) return $this->sendData(null, $banner->message, false);
+        return $this->sendData($banner->data);
     }
 
     public function record_delete()
@@ -100,8 +100,8 @@ class Banner extends BaseController
 
         $body->agent = $this->session->agent->code;
         $banner = $portal->banner_delete($body);
-        if (!$banner->status) return $this->response(null, $banner->message, false);
+        if (!$banner->status) return $this->sendData(null, $banner->message, false);
         $this->unlink_image($banner->data->image);
-        return $this->response($banner->data);
+        return $this->sendData($banner->data);
     }
 }

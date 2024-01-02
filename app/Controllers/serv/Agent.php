@@ -14,8 +14,8 @@ class Agent extends BaseController
 
         $body->agent = $this->session->agent->code;
         $agent = $portal->agent_info($body);
-        if (!$agent->status) return $this->response(null, $agent->message, false);
-        return $this->response($agent->data);
+        if (!$agent->status) return $this->sendData(null, $agent->message, false);
+        return $this->sendData($agent->data);
     }
 
     public function info_update()
@@ -34,8 +34,8 @@ class Agent extends BaseController
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
         $agent = $portal->agent_info_update($body);
-        if (!$agent->status) return $this->response(null, $agent->message, false);
-        return $this->response($agent->data);
+        if (!$agent->status) return $this->sendData(null, $agent->message, false);
+        return $this->sendData($agent->data);
     }
 
     public function list()
@@ -44,8 +44,8 @@ class Agent extends BaseController
         $portal = new Portal();
 
         $agents = $portal->agent_list($body);
-        if (!$agents->status) return $this->response(null, $agents->message, false);
-        return $this->response($agents->data);
+        if (!$agents->status) return $this->sendData(null, $agents->message, false);
+        return $this->sendData($agents->data);
     }
 
     public function add()
@@ -55,8 +55,8 @@ class Agent extends BaseController
 
         $body->add_by = $this->session->username;
         $agent = $portal->agent_add($body);
-        if (!$agent->status) return $this->response(null, $agent->message, false);
-        return $this->response($agent->data);
+        if (!$agent->status) return $this->sendData(null, $agent->message, false);
+        return $this->sendData($agent->data);
     }
 
     public function config()
@@ -66,8 +66,8 @@ class Agent extends BaseController
 
         $body->edit_by = $this->session->username;
         $agent = $portal->agent_config($body);
-        if (!$agent->status) return $this->response(null, $agent->message, false);
-        return $this->response($agent->data);
+        if (!$agent->status) return $this->sendData(null, $agent->message, false);
+        return $this->sendData($agent->data);
     }
 
     public function status_inactive()
@@ -77,8 +77,8 @@ class Agent extends BaseController
 
         $body->edit_by = $this->session->username;
         $agent = $portal->agent_inactive($body);
-        if (!$agent->status) return $this->response(null, $agent->message, false);
-        return $this->response($agent->data);
+        if (!$agent->status) return $this->sendData(null, $agent->message, false);
+        return $this->sendData($agent->data);
     }
 
     public function status_active()
@@ -88,7 +88,7 @@ class Agent extends BaseController
 
         $body->edit_by = $this->session->username;
         $agent = $portal->agent_active($body);
-        if (!$agent->status) return $this->response(null, $agent->message, false);
-        return $this->response($agent->data);
+        if (!$agent->status) return $this->sendData(null, $agent->message, false);
+        return $this->sendData($agent->data);
     }
 }

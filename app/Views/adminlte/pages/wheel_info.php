@@ -230,12 +230,15 @@
         },
         methods: {
             async shuffle() {
-                this.loading = true
-                let { status, message, data } = await post(`segment/shuffle`, { wheel: this.wheel })
-                this.loading = false
-                if (!status) return showAlert.warning(message)
-                this.table.data = data
-                this.filter_segment()
+                return showConfirm(`Confirm Shuffle !`, async (_f) => {
+                    if(!_f.isConfirmed) return
+                    this.loading = true
+                    let { status, message, data } = await post(`segment/shuffle`, { wheel: this.wheel })
+                    this.loading = false
+                    if (!status) return showAlert.warning(message)
+                    this.table.data = data
+                    this.filter_segment()
+                })
             },
             async list() {
                 this.loading = true

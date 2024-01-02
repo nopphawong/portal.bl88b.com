@@ -14,8 +14,8 @@ class Segment extends BaseController
 
         $body->agent = $this->session->agent->code;
         $segments = $portal->segment_list($body);
-        if (!$segments->status) return $this->response(null, $segments->message, false);
-        if ($segments->data) return $this->response($segments->data);
+        if (!$segments->status) return $this->sendData(null, $segments->message, false);
+        if ($segments->data) return $this->sendData($segments->data);
 
         $segmentMasterModel = new SegmentMasterModel();
         $segments = $segmentMasterModel->where("status", 1)->limit(8)->findAll();
@@ -27,7 +27,7 @@ class Segment extends BaseController
             if (!$new_segment->status) continue;
             $segment = $new_segment->data;
         }
-        return $this->response($segments);
+        return $this->sendData($segments);
     }
     public function shuffle()
     {
@@ -36,8 +36,8 @@ class Segment extends BaseController
 
         $body->agent = $this->session->agent->code;
         $segments = $portal->segment_shuffle($body);
-        if (!$segments->status) return $this->response(null, $segments->message, false);
-        return $this->response($segments->data);
+        if (!$segments->status) return $this->sendData(null, $segments->message, false);
+        return $this->sendData($segments->data);
     }
 
     public function add()
@@ -48,8 +48,8 @@ class Segment extends BaseController
         $body->agent = $this->session->agent->code;
         $body->add_by = $this->session->username;
         $segment = $portal->segment_add($body);
-        if (!$segment->status) return $this->response(null, $segment->message, false);
-        return $this->response($segment->data);
+        if (!$segment->status) return $this->sendData(null, $segment->message, false);
+        return $this->sendData($segment->data);
     }
 
     public function info()
@@ -59,8 +59,8 @@ class Segment extends BaseController
 
         $body->agent = $this->session->agent->code;
         $segment = $portal->segment_info($body);
-        if (!$segment->status) return $this->response(null, $segment->message, false);
-        return $this->response($segment->data);
+        if (!$segment->status) return $this->sendData(null, $segment->message, false);
+        return $this->sendData($segment->data);
     }
 
     public function info_update()
@@ -71,7 +71,7 @@ class Segment extends BaseController
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
         $segment = $portal->segment_info_update($body);
-        if (!$segment->status) return $this->response(null, $segment->message, false);
-        return $this->response($segment->data);
+        if (!$segment->status) return $this->sendData(null, $segment->message, false);
+        return $this->sendData($segment->data);
     }
 }

@@ -14,8 +14,8 @@ class User extends BaseController
         if ($role) $body->role = $role;
         $body->agent = $this->session->agent->code;
         $users = $portal->user_list($body);
-        if (!$users->status) return $this->response(null, $users->message, false);
-        return $this->response($users->data);
+        if (!$users->status) return $this->sendData(null, $users->message, false);
+        return $this->sendData($users->data);
     }
 
     public function add($role = null)
@@ -28,8 +28,8 @@ class User extends BaseController
         $body->agent = $this->session->agent->code;
         $body->add_by = $this->session->username;
         $user = $portal->user_add($body);
-        if (!$user->status) return $this->response(null, $user->message, false);
-        return $this->response($user->data);
+        if (!$user->status) return $this->sendData(null, $user->message, false);
+        return $this->sendData($user->data);
     }
 
     public function info()
@@ -39,8 +39,8 @@ class User extends BaseController
 
         $body->agent = $this->session->agent->code;
         $user = $portal->user_info($body);
-        if (!$user->status) return $this->response(null, $user->message, false);
-        return $this->response($user->data);
+        if (!$user->status) return $this->sendData(null, $user->message, false);
+        return $this->sendData($user->data);
     }
 
     public function info_update()
@@ -51,8 +51,8 @@ class User extends BaseController
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
         $user = $portal->user_info_update($body);
-        if (!$user->status) return $this->response(null, $user->message, false);
-        return $this->response($user->data);
+        if (!$user->status) return $this->sendData(null, $user->message, false);
+        return $this->sendData($user->data);
     }
 
     public function status_inactive()
@@ -63,8 +63,8 @@ class User extends BaseController
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
         $user = $portal->user_inactive($body);
-        if (!$user->status) return $this->response(null, $user->message, false);
-        return $this->response($user->data);
+        if (!$user->status) return $this->sendData(null, $user->message, false);
+        return $this->sendData($user->data);
     }
 
     public function status_active()
@@ -75,8 +75,8 @@ class User extends BaseController
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
         $user = $portal->user_active($body);
-        if (!$user->status) return $this->response(null, $user->message, false);
-        return $this->response($user->data);
+        if (!$user->status) return $this->sendData(null, $user->message, false);
+        return $this->sendData($user->data);
     }
 
     public function record_delete()
@@ -86,7 +86,7 @@ class User extends BaseController
 
         $body->agent = $this->session->agent->code;
         $user = $portal->user_delete($body);
-        if (!$user->status) return $this->response(null, $user->message, false);
-        return $this->response($user->data);
+        if (!$user->status) return $this->sendData(null, $user->message, false);
+        return $this->sendData($user->data);
     }
 }

@@ -13,70 +13,70 @@ class Wheel extends BaseController
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
-        if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
+        if (!$agent) return $this->sendData(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
 
         $wheelModel = new WheelModel();
         $wheels = $wheelModel->where("agent", $agent->code)->findAll();
 
-        return $this->response($wheels);
+        return $this->sendData($wheels);
     }
     public function add()
     {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
-        if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
+        if (!$agent) return $this->sendData(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
 
         $wheelModel = new WheelModel();
         $body->add_date = date('Y-m-d H:i:s');
         $id = $wheelModel->insert($body);
         $wheel = $wheelModel->find($id);
-        return $this->response($wheel);
+        return $this->sendData($wheel);
     }
     public function info()
     {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
-        if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
+        if (!$agent) return $this->sendData(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
 
         $wheelModel = new WheelModel();
         $wheel = $wheelModel->where("id", $body->id)->where("agent", $agent->code)->findAll();
-        if (!$wheel) return $this->response(null, "Wheel not found !", false);
+        if (!$wheel) return $this->sendData(null, "Wheel not found !", false);
 
-        return $this->response($wheel);
+        return $this->sendData($wheel);
     }
     public function info_update()
     {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
-        if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
-        if (!$this->is_number($body->deposit_rule)) return $this->response(null, "Invalide Deposit rules !", false);
+        if (!$agent) return $this->sendData(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
+        if (!$this->is_number($body->deposit_rule)) return $this->sendData(null, "Invalide Deposit rules !", false);
 
         $wheelModel = new WheelModel();
         $body->edit_date = date('Y-m-d H:i:s');
         $wheelModel->save($body);
         $wheel = $wheelModel->find($body->id);
-        return $this->response($wheel);
+        return $this->sendData($wheel);
     }
     public function first()
     {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
-        if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
+        if (!$agent) return $this->sendData(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
 
         $wheelModel = new WheelModel();
         $wheel = $wheelModel->where("agent", $agent->code)->where("status", 1)->first();
-        if (!$wheel) return $this->response(null, "Wheel not found !", false);
+        if (!$wheel) return $this->sendData(null, "Wheel not found !", false);
 
-        return $this->response($wheel);
+        return $this->sendData($wheel);
     }
 
     public function roll()
@@ -84,16 +84,16 @@ class Wheel extends BaseController
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
-        if (!$agent) return $this->response(null, "Invalide agent !", false);
-        if ($agent->key != $body->key) return $this->response(null, "Invalide agent !", false);
+        if (!$agent) return $this->sendData(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
 
         $wheelModel = new WheelModel();
         $wheel = $wheelModel->where("id", $body->id)->where("agent", $agent->code)->findAll();
-        if (!$wheel) return $this->response(null, "Wheel not found !", false);
+        if (!$wheel) return $this->sendData(null, "Wheel not found !", false);
 
         $segmentModel = new SegmentModel();
         $segments = $segmentModel->where("wheel", $body->id)->where("agent", $agent->code)->findAll();
-        if (!$segments) return $this->response(null, "Segment not found !", false);
+        if (!$segments) return $this->sendData(null, "Segment not found !", false);
 
         shuffle($segments);
         $rate_min = 1;
@@ -110,6 +110,6 @@ class Wheel extends BaseController
             if ($lucky_number >= $segment->rate_min && $lucky_number <= $segment->rate_max) break;
         }
 
-        return $this->response($lucky_roll);
+        return $this->sendData($lucky_roll);
     }
 }

@@ -13,8 +13,8 @@ class Wheel extends BaseController
 
         $body->agent = $this->session->agent->code;
         $wheels = $portal->wheel_list($body);
-        if (!$wheels->status) return $this->response(null, $wheels->message, false);
-        return $this->response($wheels->data);
+        if (!$wheels->status) return $this->sendData(null, $wheels->message, false);
+        return $this->sendData($wheels->data);
     }
 
     public function info()
@@ -24,8 +24,8 @@ class Wheel extends BaseController
 
         $body->agent = $this->session->agent->code;
         $wheel = $portal->wheel_info($body);
-        if (!$wheel->status) return $this->response(null, $wheel->message, false);
-        return $this->response($wheel->data);
+        if (!$wheel->status) return $this->sendData(null, $wheel->message, false);
+        return $this->sendData($wheel->data);
     }
     public function first()
     {
@@ -34,12 +34,12 @@ class Wheel extends BaseController
 
         $body->agent = $this->session->agent->code;
         $wheel = $portal->wheel_first($body);
-        if ($wheel->status) return $this->response($wheel->data);
+        if ($wheel->status) return $this->sendData($wheel->data);
 
         $body->agent = $this->session->agent->code;
         $wheel = $portal->wheel_add($body);
-        if (!$wheel->status) return $this->response(null, $wheel->message, false);
-        return $this->response($wheel->data);
+        if (!$wheel->status) return $this->sendData(null, $wheel->message, false);
+        return $this->sendData($wheel->data);
     }
 
     public function info_update()
@@ -50,7 +50,7 @@ class Wheel extends BaseController
         $body->agent = $this->session->agent->code;
         $body->edit_by = $this->session->username;
         $wheel = $portal->wheel_info_update($body);
-        if (!$wheel->status) return $this->response(null, $wheel->message, false);
-        return $this->response($wheel->data);
+        if (!$wheel->status) return $this->sendData(null, $wheel->message, false);
+        return $this->sendData($wheel->data);
     }
 }

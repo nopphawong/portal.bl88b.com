@@ -25,7 +25,7 @@ class Bl88 extends BaseController
             "s_password" => $body->password,
         ];
         $login = $this->post("Authen/Login", $form);
-        return $this->response($login->data, $login->message, $login->status);
+        return $this->sendData($login->data, $login->message, $login->status);
     }
     public function register()
     {
@@ -38,13 +38,13 @@ class Bl88 extends BaseController
             "s_account_no" => $body->bank_no,
         ];
         $register = $this->post("Authen/RegisterPlayer", $form);
-        return $this->response($register->data, $register->message, $register->status);
+        return $this->sendData($register->data, $register->message, $register->status);
         // { data: { username, endpoint } }
     }
     public function bank_list()
     {
         $banks = $this->get("Bank/InquiryBankList");
-        return $this->response($banks->data, $banks->message, $banks->status, ["image_path" => "https://www.bl88enjoy.com/assets/images/iconbank/"]);
+        return $this->sendData($banks->data, $banks->message, $banks->status, ["image_path" => "https://www.bl88enjoy.com/assets/images/iconbank/"]);
     }
 
     protected function post($path, $data = array())
@@ -114,6 +114,11 @@ class Bl88 extends BaseController
             $response = json_decode($response);
             if ($response->statusCode == 0) return (object)[
                 "status" => true,
+                "message" => $response->statusDesc,
+                "data" => $response->data,
+            ];
+            return (object)[
+                "status" => false,
                 "message" => $response->statusDesc,
                 "data" => $response->data,
             ];
