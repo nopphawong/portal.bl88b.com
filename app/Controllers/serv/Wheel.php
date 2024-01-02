@@ -36,6 +36,7 @@ class Wheel extends BaseController
         $wheel = $portal->wheel_first($body);
         if ($wheel->status) return $this->sendData($wheel->data);
 
+        $body->deposit_rule = 100;
         $body->agent = $this->session->agent->code;
         $wheel = $portal->wheel_add($body);
         if (!$wheel->status) return $this->sendData(null, $wheel->message, false);
