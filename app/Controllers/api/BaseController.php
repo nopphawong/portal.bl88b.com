@@ -27,6 +27,7 @@ class BaseController extends ResourceController
 
     protected function is_number($str)
     {
+        return is_numeric($str);
         return preg_match("/^[0-9]{1,}$/", $str);
     }
     protected function validate_phone($tel)
