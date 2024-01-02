@@ -18,6 +18,7 @@ $routes->get('forbidden', 'Page::forbidden', $pageauth);
 $routes->get('agent/info', 'Page::agent_info', $pageauth);
 $routes->get('banner', 'Page::banner', $pageauth);
 $routes->get('wheel/info', 'Page::wheel_info', $pageauth);
+$routes->get('checkin/info', 'Page::checkin_info', $pageauth);
 
 $pageagent = ['filter' => \App\Filters\PageAgent::class];
 $routes->get('admin', 'Page::admin', $pageagent);
@@ -56,6 +57,18 @@ $routes->post('segment/list', 'serv\Segment::list', $servauth);
 $routes->post('segment/shuffle', 'serv\Segment::shuffle', $servauth);
 $routes->post('segment/info', 'serv\Segment::info', $servauth);
 $routes->post('segment/info/update', 'serv\Segment::info_update', $servauth);
+
+$routes->post('checkin/add', 'serv\Checkin::add', $servauth);
+$routes->post('checkin/list', 'serv\Checkin::list', $servauth);
+$routes->post('checkin/first', 'serv\Checkin::first', $servauth);
+$routes->post('checkin/add', 'serv\Checkin::add', $servauth);
+$routes->post('checkin/info', 'serv\Checkin::info', $servauth);
+$routes->post('checkin/info/update', 'serv\Checkin::info_update', $servauth);
+
+$routes->post('progress/add', 'serv\Progress::add', $servauth);
+$routes->post('progress/list', 'serv\Progress::list', $servauth);
+$routes->post('progress/info', 'serv\Progress::info', $servauth);
+$routes->post('progress/info/update', 'serv\Progress::info_update', $servauth);
 
 // $routes->post('user/list', 'serv\User::list', $servauth);
 // $routes->post('user/add', 'serv\User::add', $servauth);
@@ -139,7 +152,6 @@ $routes->group('api', static function ($routes) {
         $routes->post('first', 'api\Wheel::first');
         $routes->post('roll', 'api\Wheel::roll');
     });
-
     $routes->group('segment', static function ($routes) {
         // api/segment/{{ function }}
         $routes->post('add', 'api\Segment::add');
@@ -147,6 +159,22 @@ $routes->group('api', static function ($routes) {
         $routes->post('shuffle', 'api\Segment::shuffle');
         $routes->post('info', 'api\Segment::info');
         $routes->post('info/update', 'api\Segment::info_update');
+    });
+
+    $routes->group('checkin', static function ($routes) {
+        // api/checkin/{{ function }}
+        $routes->post('add', 'api\Checkin::add');
+        $routes->post('info', 'api\Checkin::info');
+        $routes->post('info/update', 'api\Checkin::info_update');
+        $routes->post('list', 'api\Checkin::list');
+        $routes->post('first', 'api\Checkin::first');
+    });
+    $routes->group('progress', static function ($routes) {
+        // api/progress/{{ function }}
+        $routes->post('add', 'api\Progress::add');
+        $routes->post('list', 'api\Progress::list');
+        $routes->post('info', 'api\Progress::info');
+        $routes->post('info/update', 'api\Progress::info_update');
     });
 
     $routes->group('bl88', static function ($routes) {

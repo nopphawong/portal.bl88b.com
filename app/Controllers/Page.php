@@ -67,6 +67,10 @@ class Page extends BaseController
     {
         return view("adminlte/pages/wheel_info", $this->viewData);
     }
+    public function checkin_info()
+    {
+        return view("adminlte/pages/checkin_info", $this->viewData);
+    }
     public function agent()
     {
         session()->remove("agent");

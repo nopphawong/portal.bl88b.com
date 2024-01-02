@@ -160,6 +160,46 @@ class Portal
     {
         return self::post("segment/info/update", $data);
     }
+
+    // checkin
+    public function checkin_add($data = array())
+    {
+        return self::post("checkin/add", $data);
+    }
+    public function checkin_list($data = array())
+    {
+        return self::post("checkin/list", $data);
+    }
+    public function checkin_first($data = array())
+    {
+        return self::post("checkin/first", $data);
+    }
+    public function checkin_info($data = array())
+    {
+        return self::post("checkin/info", $data);
+    }
+    public function checkin_info_update($data = array())
+    {
+        return self::post("checkin/info/update", $data);
+    }
+
+    // progress
+    public function progress_add($data = array())
+    {
+        return self::post("progress/add", $data);
+    }
+    public function progress_list($data = array())
+    {
+        return self::post("progress/list", $data);
+    }
+    public function progress_info($data = array())
+    {
+        return self::post("progress/info", $data);
+    }
+    public function progress_info_update($data = array())
+    {
+        return self::post("progress/info/update", $data);
+    }
     /* ========================================================================== */
 
     protected function post($path, $data = array())

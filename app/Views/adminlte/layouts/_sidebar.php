@@ -70,6 +70,12 @@
                               <p>Wheel</p>
                           </a>
                       </li>
+                      <li class="nav-item">
+                          <a href="<?= site_url("checkin/info") ?>" class="nav-link <?= $path == "checkin/info" ? "active" : "" ?>">
+                              <i class="nav-icon fa fa-check-circle"></i>
+                              <p>Checkin</p>
+                          </a>
+                      </li>
                   <?php endif  ?>
 
                   <?php  ?>
