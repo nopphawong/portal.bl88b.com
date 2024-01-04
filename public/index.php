@@ -63,8 +63,8 @@ if (!defined('ENVIRONMENT')) {
  * the pieces all working together.
  */
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Request-Method");
+header("Access-Control-Allow-Origin: {$_ENV["app.corsOrigin"]}");
+header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: GET, POST");
 $method = $_SERVER['REQUEST_METHOD'];
 if ($method == "OPTIONS") die();
