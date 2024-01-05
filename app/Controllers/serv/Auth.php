@@ -3,8 +3,6 @@
 namespace App\Controllers\serv;
 
 use App\Libraries\Portal;
-use App\Models\AgentModel;
-use App\Models\UserModel;
 
 class Auth extends BaseController
 {
