@@ -33,12 +33,12 @@
                     </div>
                 </form>
                 <div class="p-2"></div>
-                <p class="mb-1">
+                <!-- <p class="mb-1">
                     <a href="forgot-password">I forgot my password</a>
                 </p>
                 <p class="mb-0">
                     <a href="register" class="text-center">Register a new membership</a>
-                </p>
+                </p> -->
             </div>
         </div>
     </div>
