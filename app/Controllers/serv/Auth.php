@@ -22,7 +22,7 @@ class Auth extends BaseController
         $portal = new Portal();
         $login = $portal->login($body);
         if (!$login->status) return $this->sendData(null, $login->message, false);
-        return $this->sendData(["url" => $login->data->url]);
+        return $this->sendData($login->data);
     }
     public function register()
     {

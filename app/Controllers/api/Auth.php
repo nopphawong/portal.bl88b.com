@@ -48,6 +48,9 @@ class Auth extends BaseController
         $ect = new Encrypter();
         $plaintext = $ect->data_to_plaintext($session_data);
         $encoded = $ect->encode($plaintext);
-        return $this->sendData(["url" => site_url("detect/{$encoded}")], $encoded);
+        return $this->sendData([
+            "url" => site_url("detect/{$encoded}"),
+            "path" => "detect/{$encoded}",
+        ]);
     }
 }

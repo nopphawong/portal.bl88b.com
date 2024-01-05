@@ -62,7 +62,8 @@
                 this.loading = false
                 if (!status) return showAlert.warning(message)
                 return showAlert.success(message, () => {
-                    if (data?.url) open_link(data.url)
+                    if (data?.path) return open_link(`<?= base_url() ?>${data.path}`)
+                    if (data?.url) return open_link(data.url)
                 }, 1000)
             }
         },
