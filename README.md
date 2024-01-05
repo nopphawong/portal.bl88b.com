@@ -29,7 +29,6 @@ Copy `env` to `.env` and tailor for your app, specifically the baseURL
 and any database settings.
 
 app.baseURL
-app.webKey
 
 api.portalURL
 api.botboURL
