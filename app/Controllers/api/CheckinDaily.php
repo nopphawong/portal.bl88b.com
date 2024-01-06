@@ -21,10 +21,12 @@ class CheckinDaily extends BaseController
         if (!$agent) return $this->sendData(null, "Invalide agent !", false);
         if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
 
+        // return $this->sendData($body);
         $checkinDailyModel = new CheckinDailyModel();
-        if ($body->user) $checkinDailyModel->where("user", $body->user);
-        if ($body->checkin) $checkinDailyModel->where("checkin", $body->checkin);
-        if ($type == $this->types["HISTORY"]) $checkinDailyModel->where("status", 1)->where("ifnull(date_use,'') != ''");
+        if (isset($body->user) && $body->user) $checkinDailyModel->where("user", $body->user);
+        if (isset($body->checkin) && $body->checkin) $checkinDailyModel->where("checkin", $body->checkin);
+        if (isset($body->date) && $body->date) $checkinDailyModel->where("date_format(date,'%Y%m')", date_format(date_create($body->date), "Ym"));
+        if ($type == $this->types["HISTORY"]) $checkinDailyModel->where("status", 1)->where("ifnull(date_use,'') != ''")->where("ifnull(value,'') != ''");
         if ($type == $this->types["USABLE"]) $checkinDailyModel->where("status", 1)->where("ifnull(date_use,'') = ''");
         if ($type == $this->types["CLAIMABLE"]) $checkinDailyModel->where("status", 1)->where("ifnull(date_use,'') != ''")->where("ifnull(date_claim,'') = ''");
         $checkinDailies = $checkinDailyModel->where("agent", $agent->code)->findAll();

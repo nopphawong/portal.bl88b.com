@@ -37,7 +37,7 @@ class Segment extends BaseController
 
         shuffle($segments);
         foreach ($segments as $index => &$segment) {
-            $segment->index = $index;
+            $segment->index = $index + 1;
             $segmentModel->save($segment);
         }
 
