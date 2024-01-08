@@ -30,7 +30,7 @@ class WheelDaily extends BaseController
 
         return $this->sendData($wheelDailies);
     }
-    public function add()
+    public function addable()
     {
         $body = $this->getPost();
         $agentModel = new AgentModel();
@@ -45,7 +45,25 @@ class WheelDaily extends BaseController
             ->where("date", $body->date)
             ->where("status", 1);
         $wheelDaily = $wheelDailyModel->first();
-        if ($wheelDaily) return $this->sendData(null, "Can't add same date !", false);
+        if ($wheelDaily) return $this->sendData(false, "Can't add same date !");
+        return $this->sendData(true, "Can add today !");
+    }
+    public function add()
+    {
+        $body = $this->getPost();
+        $agentModel = new AgentModel();
+        $agent = $agentModel->where("secret", $body->secret)->first();
+        if (!$agent) return $this->sendData(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
+
+        $wheelDailyModel = new WheelDailyModel();
+        // $wheelDaily = $wheelDailyModel
+        //     ->where("agent", $agent->code)
+        //     ->where("user", $body->user)
+        //     ->where("date", $body->date)
+        //     ->where("status", 1);
+        // $wheelDaily = $wheelDailyModel->first();
+        // if ($wheelDaily) return $this->sendData(null, "Can't add same date !", false);
 
         $body->agent = $agent->code;
         $body->add_date = date('Y-m-d H:i:s');

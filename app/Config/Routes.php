@@ -139,6 +139,7 @@ $routes->group('api', static function ($routes) {
         $routes->post('list/claimable', 'api\WheelDaily::list/claimable');
         $routes->post('list/history', 'api\WheelDaily::list/history');
         $routes->post('info', 'api\WheelDaily::info');
+        $routes->post('addable', 'api\WheelDaily::addable');
         $routes->post('add', 'api\WheelDaily::add');
         $routes->post('roll', 'api\WheelDaily::roll');
         $routes->post('claim', 'api\WheelDaily::claim');
