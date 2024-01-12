@@ -138,4 +138,30 @@ class WheelDaily extends BaseController
         $wheelDaily = $wheelDailyModel->find($body->id);
         return $this->sendData($wheelDaily);
     }
+    public function unclaim()
+    {
+        $body = $this->getPost();
+        $agentModel = new AgentModel();
+        $agent = $agentModel->where("secret", $body->secret)->first();
+        if (!$agent) return $this->sendData(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
+
+        $wheelDailyModel = new WheelDailyModel();
+        $wheelDailyModel
+            ->where("id", $body->id)
+            ->where("agent", $agent->code)
+            ->where("user", $body->user)
+            ->where("wheel", $body->wheel)
+            ->where("status", 1)
+            ->where("ifnull(date_use,'') != ''")
+            ->where("ifnull(date_claim,'') != ''");
+        $wheelDaily = $wheelDailyModel->first();
+        if (!$wheelDaily) return $this->sendData(null, "Can't reset claim !", false);
+
+        $body->date_claim = null;
+        $body->edit_date = date('Y-m-d H:i:s');
+        $wheelDailyModel->update($body->id, $body);
+        $wheelDaily = $wheelDailyModel->find($body->id);
+        return $this->sendData($wheelDaily);
+    }
 }

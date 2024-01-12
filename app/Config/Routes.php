@@ -143,6 +143,7 @@ $routes->group('api', static function ($routes) {
         $routes->post('add', 'api\WheelDaily::add');
         $routes->post('roll', 'api\WheelDaily::roll');
         $routes->post('claim', 'api\WheelDaily::claim');
+        $routes->post('unclaim', 'api\WheelDaily::unclaim');
     });
     $routes->group('checkindaily', static function ($routes) {
         // api/checkindaily/{{ function }}
@@ -153,6 +154,7 @@ $routes->group('api', static function ($routes) {
         $routes->post('usable', 'api\CheckinDaily::usable');
         $routes->post('add', 'api\CheckinDaily::add');
         $routes->post('claim', 'api\CheckinDaily::claim');
+        $routes->post('unclaim', 'api\CheckinDaily::unclaim');
     });
 
     $routes->group('wheel', static function ($routes) {

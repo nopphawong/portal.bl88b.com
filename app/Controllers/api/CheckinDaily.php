@@ -164,4 +164,30 @@ class CheckinDaily extends BaseController
         $checkinDaily = $checkinDailyModel->find($body->id);
         return $this->sendData($checkinDaily);
     }
+    public function unclaim()
+    {
+        $body = $this->getPost();
+        $agentModel = new AgentModel();
+        $agent = $agentModel->where("secret", $body->secret)->first();
+        if (!$agent) return $this->sendData(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
+
+        $checkinDailyModel = new CheckinDailyModel();
+        $checkinDailyModel
+            ->where("id", $body->id)
+            ->where("agent", $agent->code)
+            ->where("user", $body->user)
+            ->where("checkin", $body->checkin)
+            ->where("status", 1)
+            ->where("ifnull(date_use,'') != ''")
+            ->where("ifnull(date_claim,'') != ''");
+        $checkinDaily = $checkinDailyModel->first();
+        if (!$checkinDaily) return $this->sendData(null, "Can't reset claim !", false);
+
+        $body->date_claim = null;
+        $body->edit_date = date('Y-m-d H:i:s');
+        $checkinDailyModel->update($body->id, $body);
+        $checkinDaily = $checkinDailyModel->find($body->id);
+        return $this->sendData($checkinDaily);
+    }
 }
