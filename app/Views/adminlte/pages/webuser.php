@@ -62,19 +62,19 @@
                                     <td>
                                         <div class="btn-group" v-if="+data.status">
                                             <button type="button" class="btn btn-xs btn-success">Active</button>
-                                            <button type="button" class="btn btn-xs btn-success" @click="toggle(data.web_username, data.status)">
+                                            <button type="button" class="btn btn-xs btn-success" :disabled="loading || data.date_use" @click="toggle(data.web_username, data.status)">
                                                 <i class="fa fa-redo-alt"></i>
                                             </button>
                                         </div>
                                         <div class="btn-group" v-else>
                                             <button type="button" class="btn btn-xs btn-warning">Inactive</button>
-                                            <button type="button" class="btn btn-xs btn-warning" @click="toggle(data.web_username, data.status)">
+                                            <button type="button" class="btn btn-xs btn-warning" :disabled="loading || data.date_use" @click="toggle(data.web_username, data.status)">
                                                 <i class="fa fa-redo-alt"></i>
                                             </button>
                                         </div>
                                     </td>
                                     <td>
-                                        <button class="btn btn-xs btn-danger" @click="remove(data.web_username)" :disabled="loading">
+                                        <button class="btn btn-xs btn-danger" @click="remove(data.web_username)" :disabled="loading || data.date_use">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>
