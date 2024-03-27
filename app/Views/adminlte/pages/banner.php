@@ -145,7 +145,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`banner/list`)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 this.table.data = data
                 this.filter_banner()
             },
@@ -166,7 +166,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`banner/info`, { id: banner.id })
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 let { id, name, detail, image } = data
                 this.modal.form = { id, name, detail, image, image_upload: `` }
                 this.modal.target.modal(`show`)
@@ -177,7 +177,7 @@
                 let endpoint = this.modal.form.id ? `banner/info/update` : `banner/add`
                 let { status, message, data } = await post(endpoint, this.modal.form)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 let { id, name, detail, image } = data
                 this.modal.form = { id, name, detail, image, image_upload: `` }
                 let vm = this
@@ -211,7 +211,7 @@
                 this.loading = true
                 let { status, message } = await post(`banner/${type}`, { id: banner.id })
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 let vm = this
                 return showAlert.success(message, function() {
                     vm.list()

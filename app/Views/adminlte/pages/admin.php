@@ -142,7 +142,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`user/admin/list`)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 this.table.data = data
                 this.filter_admin()
             },
@@ -163,7 +163,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`user/info`, { id: admin.id })
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 let { id, name, tel, username, password } = data
                 this.modal.form = { id, name, tel, username, password }
                 this.modal.target.modal(`show`)
@@ -174,7 +174,7 @@
                 let endpoint = this.modal.form.id ? `user/info/update` : `user/admin/add`
                 let { status, message, data } = await post(endpoint, this.modal.form)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 let { id, name, tel, username, password } = data
                 this.modal.form = { id, name, tel, username, password }
                 let vm = this
@@ -208,7 +208,7 @@
                 this.loading = true
                 let { status, message } = await post(`user/${type}`, { id: admin.id })
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 let vm = this
                 return showAlert.success(message, function() {
                     vm.list()

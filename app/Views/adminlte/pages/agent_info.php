@@ -105,7 +105,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`agent/info`)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
 
                 let { logo, url, name, description, line_id, line_link } = data
                 this.form = { logo, url, name, description, line_id, line_link }
@@ -118,7 +118,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`agent/info/update`, this.form)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 return showAlert.success(message, () => {
                     this.info(e)
                 })

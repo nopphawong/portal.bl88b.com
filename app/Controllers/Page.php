@@ -76,6 +76,10 @@ class Page extends BaseController
         session()->remove("agent");
         return view("adminlte/pages/agent", $this->viewData);
     }
+    public function webuser()
+    {
+        return view("adminlte/pages/webuser", $this->viewData);
+    }
     public function agent_view($code, $key, $secret)
     {
         $portal = new Portal((object) array("key" => $key, "secret" => $secret,));

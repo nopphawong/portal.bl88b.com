@@ -18,6 +18,14 @@ class BaseController extends ResourceController
         if ($custom) $data = array_merge($data, $custom);
         return $this->respond($data);
     }
+    protected function sendError($message = "Fail !", $data = null) {
+        $data = array(
+            "status" => false,
+            "message" => $message,
+            "data" => $data,
+        );
+        return $this->respond($data);
+    }
     protected function getPost($index = false)
     {
         if ($this->request->is('json')) $body = !$index ? $this->request->getVar() : $this->request->getVar($index);

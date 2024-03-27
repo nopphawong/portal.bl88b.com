@@ -90,6 +90,20 @@ const showAlert = {
         return _alert(`info`, message, callback, timer)
     },
 }
+const flashAlert = {
+    "success": (message, callback, timer = 1000) => {
+        return _alert(`success`, message, callback, timer)
+    },
+    "error": (message, callback, timer = 1000) => {
+        return _alert(`error`, message, callback, timer)
+    },
+    "warning": (message, callback, timer = 1000) => {
+        return _alert(`warning`, message, callback, timer)
+    },
+    "info": (message, callback, timer = 1000) => {
+        return _alert(`info`, message, callback, timer)
+    },
+}
 
 function _alert(icon, title, callback, timer = 0) {
     Swal.fire({
@@ -99,14 +113,12 @@ function _alert(icon, title, callback, timer = 0) {
         confirmButtonText: `OK`,
         timer: timer,
         allowOutsideClick: false,
-        didOpen: () => {
-            document.addEventListener(`keypress`, check_keypress)
-            document.addEventListener(`keyup`, check_keypress)
-        },
+        didOpen: () => {},
+        didClose:()=>{}
     }).then((result) => {
-        document.removeEventListener(`keypress`, check_keypress)
-        document.addEventListener(`keyup`, check_keypress)
         if (typeof callback == `function`) return callback(result)
+    }).finally(()=>{
+
     })
 }
 function showConfirm(message, callback) {
@@ -118,12 +130,9 @@ function showConfirm(message, callback) {
         cancelButtonText: `No`,
         allowOutsideClick: false,
         didOpen: () => {
-            document.addEventListener(`keypress`, check_keypress)
-            document.addEventListener(`keyup`, check_keypress)
+            
         },
     }).then((result) => {
-        document.removeEventListener(`keypress`, check_keypress)
-        document.addEventListener(`keyup`, check_keypress)
         if (typeof callback == `function`) return callback(result)
     })
     // if (!_f.isConfirmed) return

@@ -168,7 +168,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`checkin/first`)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
 
                 let { id, title, detail, deposit_rule } = data
                 this.form = { id, title, detail, deposit_rule }
@@ -180,7 +180,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`checkin/info/update`, this.form)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 return showAlert.success(message, () => {
                     this.info(e)
                 })
@@ -215,7 +215,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`progress/list`, { checkin: this.checkin })
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 this.table.data = data
                 this.filter_progress()
             },
@@ -236,7 +236,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`progress/info`, { id: progress.id })
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 let { id, index, title, type, value } = data
                 this.modal.form = { id, index, title, type, value }
                 this.modal.target.modal(`show`)
@@ -247,7 +247,7 @@
                 let endpoint = this.modal.form.id ? `progress/info/update` : `progress/add`
                 let { status, message, data } = await post(endpoint, this.modal.form)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 let { id, index, title, type, value } = data
                 this.modal.form = { id, index, title, type, value }
                 let vm = this

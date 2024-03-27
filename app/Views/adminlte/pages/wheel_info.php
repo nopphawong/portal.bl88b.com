@@ -281,7 +281,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`wheel/first`)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
 
                 let { id, title, detail, deposit_rule, background_image, new_background_image, arrow_image, new_arrow_image } = data
                 this.form = { id, title, detail, deposit_rule, background_image, new_background_image, arrow_image, new_arrow_image }
@@ -293,7 +293,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`wheel/info/update`, this.form)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 return showAlert.success(message, () => {
                     this.info(e)
                 })
@@ -357,7 +357,7 @@
                     this.loading = true
                     let { status, message, data } = await post(`segment/shuffle`, { wheel: this.wheel })
                     this.loading = false
-                    if (!status) return showAlert.warning(message)
+                    if (!status) return flashAlert.warning(message)
                     this.table.data = data
                     this.filter_segment()
                 })
@@ -366,7 +366,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`segment/list`, { wheel: this.wheel })
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 this.table.data = data
                 this.filter_segment()
                 this.mode.active = this.mode.display
@@ -388,7 +388,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`segment/info`, { id: segment.id })
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 let { id, index, title, type, value, rate, hex, image } = data
                 this.modal.form = { id, index, title, type, value, rate, hex, image, image_upload: `` }
                 this.modal.target.modal(`show`)
@@ -399,7 +399,7 @@
                 let endpoint = this.modal.form.id ? `segment/info/update` : `segment/add`
                 let { status, message, data } = await post(endpoint, this.modal.form)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 let { id, index, title, type, value, rate, hex, image } = data
                 this.modal.form = { id, index, title, type, value, rate, hex, image, image_upload: `` }
                 let vm = this
@@ -413,7 +413,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`segment/list/update`, { wheel: this.wheel, segments: this.table.data })
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 let vm = this
                 return showAlert.success(message, function() {
                     vm.list()

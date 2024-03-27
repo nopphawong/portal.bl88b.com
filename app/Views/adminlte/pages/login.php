@@ -60,7 +60,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`auth/login`, this.form)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 return showAlert.success(message, () => {
                     if (data?.path) return open_link(`<?= base_url() ?>${data.path}`)
                     if (data?.url) return open_link(data.url)

@@ -140,7 +140,7 @@
                 this.loading = true
                 let { status, message, data } = await post(`agent/list`)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 this.table.data = data
                 this.filter_agent()
             },
@@ -170,7 +170,7 @@
                 let endpoint = !this.modal.form.id ? `agent/add` : `agent/config`
                 let { status, message, data } = await post(endpoint, this.modal.form)
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 let vm = this
                 return showAlert.success(message, function() {
                     if (data) return vm.info(data)
@@ -197,7 +197,7 @@
                 let { id, code, key, secret, web } = agent
                 let { status, message } = await post(`agent/${type}`, { id, code, key, secret, web })
                 this.loading = false
-                if (!status) return showAlert.warning(message)
+                if (!status) return flashAlert.warning(message)
                 let vm = this
                 return showAlert.success(message, function() {
                     vm.list()

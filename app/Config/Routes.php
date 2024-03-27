@@ -27,6 +27,8 @@ $pagemaster = ['filter' => \App\Filters\PageMaster::class];
 $routes->get('agent', 'Page::agent', $pagemaster);
 $routes->get('agent/(:segment)/(:segment)/(:segment)', 'Page::agent_view/$1/$2/$3', $pagemaster);
 
+$routes->get('webuser', 'Page::webuser', $pagemaster);
+
 // SERV
 $routes->get('unauthen', 'serv\Auth::unauthen');
 $routes->get('deny', 'serv\Auth::deny');
@@ -89,6 +91,11 @@ $routes->post('agent/add', 'serv\Agent::add', $servmaster);
 $routes->post('agent/config', 'serv\Agent::config', $servmaster);
 $routes->post('agent/active', 'serv\Agent::status_active', $servmaster);
 $routes->post('agent/inactive', 'serv\Agent::status_inactive', $servmaster);
+
+$routes->post('webuser/list', 'serv\Webuser::list', $servmaster);
+$routes->post('webuser/add', 'serv\Webuser::add', $servmaster);
+$routes->post('webuser/toggle/(:segment)/(:num)', 'serv\Webuser::toggle/$1/$2', $servmaster);
+$routes->post('webuser/remove/(:segment)', 'serv\Webuser::remove/$1', $servmaster);
 
 // API
 $routes->group('api', static function ($routes) {
@@ -190,6 +197,10 @@ $routes->group('api', static function ($routes) {
         $routes->post('list', 'api\Progress::list');
         $routes->post('info', 'api\Progress::info');
         $routes->post('info/update', 'api\Progress::info_update');
+    });
+    $routes->group('webuser', static function ($routes) {
+        // api/Webuser/{{ function }}
+        $routes->post('register', 'api\Webuser::register');
     });
 
     $routes->group('bl88', static function ($routes) {
