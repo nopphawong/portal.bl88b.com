@@ -54,6 +54,7 @@ $routes->post('wheel/info/update', 'serv\Wheel::info_update', $servauth);
 
 $routes->post('segment/add', 'serv\Segment::add', $servauth);
 $routes->post('segment/list', 'serv\Segment::list', $servauth);
+$routes->post('segment/list/update', 'serv\Segment::list_update', $servauth);
 $routes->post('segment/shuffle', 'serv\Segment::shuffle', $servauth);
 $routes->post('segment/info', 'serv\Segment::info', $servauth);
 $routes->post('segment/info/update', 'serv\Segment::info_update', $servauth);

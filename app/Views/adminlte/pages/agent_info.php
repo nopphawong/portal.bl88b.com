@@ -30,7 +30,7 @@
                                     <input type="file" id="logo" class="custom-file-input" placeholder="Logo" accept="image/png, image/jpeg" @change="onFileChange" :disabled="mode.active == mode.display">
                                     <label class="custom-file-label" for="logo">Choose file</label>
                                 </div>
-                                <span class="input-group-append">
+                                <span v-if="form.logo_upload" class="input-group-append">
                                     <button type="button" class="btn btn-warning btn-flat" data-target="logo" @click="removeImage" :disabled="mode.active == mode.display">Remove</button>
                                 </span>
                             </div>

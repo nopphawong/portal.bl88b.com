@@ -4,6 +4,7 @@ namespace App\Controllers\serv;
 
 use App\Libraries\Portal;
 use App\Models\SegmentMasterModel;
+use App\Libraries\Base64fileUploads;
 
 class Segment extends BaseController
 {
@@ -28,6 +29,36 @@ class Segment extends BaseController
             $segment = $new_segment->data;
         }
         return $this->sendData($segments);
+    }
+    public function list_update()
+    {
+        $body = $this->getPost();
+        $portal = new Portal($this->session->agent);
+        $file = new Base64fileUploads();
+
+        foreach ($body->segments as $data) {
+            $segment = (object) [];
+            $segment->id = $data->id;
+            $segment->wheel = $data->wheel;
+            $segment->title = $data->title;
+            $segment->type = $data->type;
+            $segment->value = $data->value;
+            $segment->rate = $data->rate;
+            $segment->hex = $data->hex;
+
+            if (!empty($data->new_image)) {
+                $this->unlink_image($data->image);
+                $image = $file->du_uploads($data->new_image, "images", "{$this->session->agent->code}segment_" . uniqid());
+                $this->resize_image($image->file_path, 160, 123);
+                $segment->image = site_url($image->file_path);
+            }
+
+            $segment->agent = $this->session->agent->code;
+            $segment->edit_by = $this->session->username;
+            $segment = $portal->segment_info_update($segment);
+            if (!$segment->status) return $this->sendData(null, $segment->message, false);
+        }
+        return $this->sendData($body);
     }
     public function shuffle()
     {
