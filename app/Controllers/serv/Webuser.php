@@ -23,6 +23,7 @@ class Webuser extends BaseController {
         where 1=1
         order by u.status desc, u.date_use, u.add_date desc";
         $Webusers = $db->query($sql)->getResult();
+        $db->close();
         return $this->sendData($Webusers);
     }
     public function add() {
