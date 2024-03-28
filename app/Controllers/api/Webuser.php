@@ -34,6 +34,10 @@ class Webuser extends BaseController {
 
         $WebuserModel->save($Webuser);
 
-        return $this->sendData(["web_username" => $Webuser->web_username, "web_password" => $Webuser->web_password]);
+        return $this->sendData([
+            "web_username" => $Webuser->web_username, 
+            "web_password" => $Webuser->web_password,
+            "web_agent" => $Webuser->web_agent,
+        ]);
     }
 }

@@ -27,7 +27,11 @@
                             <input type="text" class="form-control" placeholder="Password" pattern="^[a-zA-Z0-9]{4,}" id="password" v-model="modal.form.password" />
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary w-100">Add</button>
+                            <label class="form-label">Agent</label>
+                            <input type="text" class="form-control" placeholder="Agent" pattern="^[a-zA-Z0-9]{4,}" id="agent" v-model="modal.form.agent" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary w-100" :disabled="loading">Add</button>
                         </div>
                     </div>
                 </form>
@@ -35,16 +39,33 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="d-flex flex-row justify-content-between">
-                            <input type="search" class="form-control w-50" placeholder="Search..." v-model="filter" @input="filter_webuser">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="search" class="form-control" placeholder="Search..." v-model="filter" @input="filter_webuser">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div v-if="excel" class="input-group-prepend">
+                                        <button type="button" class="btn btn-warning btn-flat" data-target="excel" :disabled="loading" @click="removeFile">Remove</button>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" id="excel" class="custom-file-input" placeholder=".xlsx" accept=".xlsx, .xls, .csv" @change="onFileChange">
+                                        <label class="custom-file-label" for="excel">{{ excel?.name || `Choose file` }}</label>
+                                    </div>
+                                    <span v-if="excel" class="input-group-append">
+                                        <button type="button" class="btn btn-primary btn-flat" data-target="excel" :disabled="loading" @click="upload">Upload</button>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body table-responsive">
                         <table id="webuser-table" class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Username</th>
-                                    <th>Password</th>
+                                    <th>Web Username</th>
+                                    <th>Web Password</th>
+                                    <th>Web Agent</th>
                                     <th>Use Date</th>
                                     <th>Use by</th>
                                     <th>Use Tel</th>
@@ -56,6 +77,7 @@
                                 <tr v-for="(data, index) in table.filtered">
                                     <td>{{data.web_username}}</td>
                                     <td>{{data.web_password}}</td>
+                                    <td>{{data.web_agent}}</td>
                                     <td>{{data.date_use}}</td>
                                     <td>{{data.agent_name}}</td>
                                     <td>{{data.tel}}</td>
@@ -95,10 +117,11 @@
             return {
                 loading: false,
                 filter: ``,
+                excel: null,
                 modal: {
                     target: null,
                     form: {},
-                    darft: { username: ``, password: ``, }
+                    darft: { username: ``, password: ``, agent: `` }
                 },
                 table: {
                     filtered: [],
@@ -127,7 +150,7 @@
 
                 if (!this.modal.form.username) return $(`#username`)[0].focus()
                 if (!this.modal.form.password) return $(`#password`)[0].focus()
-
+                if (!this.modal.form.agent) return $(`#agent`)[0].focus()
 
                 this.loading = true
                 let { status, message, data } = await post(`webuser/add`, { ...this.modal.form })
@@ -136,6 +159,18 @@
                 $(`#username`)[0].focus()
                 if (!status) return flashAlert.warning(message)
                 await this.list()
+            },
+            async upload(e) {
+                e?.preventDefault()
+                this.loading = true
+                let body = new FormData()
+                body.append(`excel`, this.excel)
+                let { status, message, data } = await multipath(`webuser/import`, body)
+                this.loading = false
+                if (!status) return flashAlert.warning(message)
+                flashAlert.success(message)
+                await this.list()
+                this.removeFile(e)
             },
             async remove(username) {
                 return showConfirm(`Confirm !`, async (_f) => {
@@ -158,7 +193,19 @@
                     await this.list()
                     return flashAlert.success(message)
                 })
-            }
+            },
+            onFileChange(e) {
+                e?.preventDefault()
+                let files = e.target.files || e.dataTransfer.files
+                if (!files.length) return
+                this.excel = files[0]
+            },
+            removeFile: function(e) {
+                e?.preventDefault()
+                let target = e?.target.dataset.target
+                this.excel = ``
+                $(`#${target}`).val(``)
+            },
         },
         async mounted() {
             this.modal.form = { ...this.modal.darft }

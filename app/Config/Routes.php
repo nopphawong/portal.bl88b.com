@@ -94,6 +94,7 @@ $routes->post('agent/inactive', 'serv\Agent::status_inactive', $servmaster);
 
 $routes->post('webuser/list', 'serv\Webuser::list', $servmaster);
 $routes->post('webuser/add', 'serv\Webuser::add', $servmaster);
+$routes->post('webuser/import', 'serv\Webuser::import'/*, $servmaster*/);
 $routes->post('webuser/toggle/(:segment)/(:num)', 'serv\Webuser::toggle/$1/$2', $servmaster);
 $routes->post('webuser/remove/(:segment)', 'serv\Webuser::remove/$1', $servmaster);
 

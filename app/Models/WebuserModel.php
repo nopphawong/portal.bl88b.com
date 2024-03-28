@@ -11,6 +11,7 @@ class WebuserModel extends Model {
     protected $allowedFields = [
         'web_username',
         'web_password',
+        'web_agent',
         'agent',
         'tel',
         'date_use', 

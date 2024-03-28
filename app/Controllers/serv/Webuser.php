@@ -3,13 +3,16 @@
 namespace App\Controllers\serv;
 
 use App\Models\WebuserModel;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class Webuser extends BaseController {
+    private $WebuserModel;
     public function list() {
         $db = db_connect();
         $sql = "select 
             u.web_username
             ,u.web_password
+            ,u.web_agent
             ,u.agent
             ,a.`name` as agent_name
             ,u.tel
@@ -27,17 +30,42 @@ class Webuser extends BaseController {
         if (empty($body)) return $this->sendData(null, "Empty !", false);
         if (!isset($body->username) || empty($body->username)) return $this->sendData(null, "Username must be Empty !", false);
         if (!isset($body->password) || empty($body->password)) return $this->sendData(null, "Password must be Empty !", false);
+        if (!isset($body->agent) || empty($body->agent)) return $this->sendData(null, "Agent must be Empty !", false);
 
-        $WebuserModel = new WebuserModel();
+        $this->save($body->username, $body->password, $body->agent, $this->session->username);
+        return $this->sendData($body);
+    }
+    public function import() {
+        $excel = $this->request->getFile("excel");
+        $spreadsheet = IOFactory::load((string) $excel);
+        $result = [];
+        for ($i = 0; $i < $spreadsheet->getSheetCount(); $i++) {
+            $sheet = $spreadsheet->getSheet($i);
+            $dataArray = $sheet->toArray();
+            foreach ($dataArray as $idx => $data) {
+                if ($idx == 0) continue;
+                if (!isset($data[0]) || empty($data[0])) continue;
+                if (!isset($data[1]) || empty($data[1])) continue;
+                if (!isset($data[2]) || empty($data[2])) continue;
+                $ok = $this->save($data[0], $data[1], $data[2], $this->session->username);
+                if ($ok) $result[] = $data;
+            }
+        }
+        return $this->sendData($result);
+    }
+    protected function save($username, $password, $agent, $add_by) {
+        if (empty($this->WebuserModel)) $this->WebuserModel = new WebuserModel();
+        $user = $this->WebuserModel->find($username);
+        if ($user) return false;
         $user = (object)[
-            "web_username" => $body->username,
-            "web_password" => $body->password,
+            "web_username" => $this->clean($username),
+            "web_password" => $this->clean($password),
+            "web_agent" => $this->clean($agent),
             "status" => 1,
             "add_date" => date("Y-m-d H:i:s"),
-            "add_by" => $this->session->username,
+            "add_by" => $add_by,
         ];
-        $WebuserModel->insert($user);
-        return $this->sendData($user);
+        return $this->WebuserModel->insert($user);
     }
     public function toggle($username, $status) {
         $WebuserModel = new WebuserModel();
