@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1 class="text-center">Web Users</h1>
+                <h1 class="text-center">Web Users <?= session()->agent && session()->agent->name ? "(" . session()->agent->name . ")" : "" ?></h1>
             </div>
         </div>
     </div>
