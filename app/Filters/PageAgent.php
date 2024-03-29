@@ -26,7 +26,7 @@ class PageAgent implements FilterInterface {
         // if user not logged in
         if (!session()->logged_in) return redirect()->to(site_url("login"));
         if (!session()->agent && is_master(session()->role)) return redirect()->to(site_url("agent"));
-        if (!is_agent(session()->role) && !is_master(session()->role)) return redirect()->to(site_url("deny"));
+        if (!is_agent(session()->role) && !is_admin(session()->role)) return redirect()->to(site_url("forbidden"));
         // if (!session()->agent) return redirect()->to(site_url());
     }
 

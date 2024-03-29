@@ -27,7 +27,7 @@ class PageMaster implements FilterInterface
     {
         // if user not logged in
         if (!session()->logged_in) return redirect()->to(site_url("login"));
-        if (!is_master(session()->role)) return redirect()->to(site_url("deny"));
+        if (!is_master(session()->role)) return redirect()->to(site_url("forbidden"));
     }
 
     /**
