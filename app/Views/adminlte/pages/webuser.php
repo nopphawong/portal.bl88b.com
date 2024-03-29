@@ -20,15 +20,15 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label class="form-label">Username</label>
-                            <input type="text" class="form-control" placeholder="Username" pattern="^[a-zA-Z0-9]{4,}" id="username" v-model="modal.form.username" />
+                            <input type="text" class="form-control" placeholder="Username" id="username" v-model="modal.form.username" />
                         </div>
                         <div class="form-group">
                             <label class="form-label">Password</label>
-                            <input type="text" class="form-control" placeholder="Password" pattern="^[a-zA-Z0-9]{4,}" id="password" v-model="modal.form.password" />
+                            <input type="text" class="form-control" placeholder="Password" id="password" v-model="modal.form.password" />
                         </div>
                         <div class="form-group">
                             <label class="form-label">Agent</label>
-                            <input type="text" class="form-control" placeholder="Agent" pattern="^[a-zA-Z0-9]{4,}" id="agent" v-model="modal.form.agent" />
+                            <input type="text" class="form-control" placeholder="Agent" id="agent" v-model="modal.form.agent" />
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary w-100" :disabled="loading">Add</button>

@@ -60,9 +60,9 @@ class Webuser extends BaseController {
         $user = $this->WebuserModel->find($username);
         if ($user) return false;
         $user = (object)[
-            "web_username" => $this->clean($username),
-            "web_password" => $this->clean($password),
-            "web_agent" => $this->clean($agent),
+            "web_username" => $username,
+            "web_password" => $password,
+            "web_agent" => $agent,
             "agent" => $agen_code,
             "status" => 1,
             "add_date" => date("Y-m-d H:i:s"),
