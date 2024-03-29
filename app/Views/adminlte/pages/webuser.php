@@ -40,6 +40,11 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
+                            <div class="col-12">
+                                <small style="float: right;">Example: <?= anchor(base_url("files/webuser.xlsx"), "WebUser.xlsx") ?></small><br>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-4">
                                 <input type="search" class="form-control" placeholder="Search..." v-model="filter" @input="filter_webuser">
                             </div>
@@ -56,7 +61,6 @@
                                         <button type="button" class="btn btn-primary btn-flat" data-target="excel" :disabled="loading" @click="upload">Upload</button>
                                     </span>
                                 </div>
-                                <small style="float: right;">Example: <?=anchor(base_url("files/webuser.xlsx"),"WebUser.xlsx") ?></small>
                             </div>
                         </div>
                     </div>
