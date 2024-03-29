@@ -36,12 +36,6 @@
 
                   <?php if (is_master(session()->role)) : ?>
                       <li class="nav-item">
-                          <a href="<?= site_url("webuser") ?>" class="nav-link <?= $path == "webuser" ? "active" : "" ?>">
-                              <i class="nav-icon fas fa-users"></i>
-                              <p>Web Users</p>
-                          </a>
-                      </li>
-                      <li class="nav-item">
                           <a href="<?= site_url("agent") ?>" class="nav-link <?= $path == "agent" ? "active" : "" ?>">
                               <i class="nav-icon fas fa-th"></i>
                               <p>Agents</p>
@@ -54,6 +48,12 @@
                           <a href="<?= site_url("agent/info") ?>" class="nav-link <?= $path == "agent/info" ? "active" : "" ?>">
                               <i class="nav-icon fa fa-info-circle"></i>
                               <p>Agent info</p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="<?= site_url("webuser") ?>" class="nav-link <?= $path == "webuser" ? "active" : "" ?>">
+                              <i class="nav-icon fas fa-globe"></i>
+                              <p>Web Users</p>
                           </a>
                       </li>
                       <li class="nav-item">

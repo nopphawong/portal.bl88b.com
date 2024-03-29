@@ -15,19 +15,24 @@ $routes->get('detect/(:segment)', 'Page::detect/$1');
 $pageauth = ['filter' => \App\Filters\PageAuth::class];
 $routes->get('/', 'Page::index', $pageauth);
 $routes->get('forbidden', 'Page::forbidden', $pageauth);
-$routes->get('agent/info', 'Page::agent_info', $pageauth);
-$routes->get('banner', 'Page::banner', $pageauth);
-$routes->get('wheel/info', 'Page::wheel_info', $pageauth);
-$routes->get('checkin/info', 'Page::checkin_info', $pageauth);
+// $routes->get('agent/info', 'Page::agent_info', $pageauth);
+// $routes->get('banner', 'Page::banner', $pageauth);
+// $routes->get('wheel/info', 'Page::wheel_info', $pageauth);
+// $routes->get('checkin/info', 'Page::checkin_info', $pageauth);
+// $routes->get('webuser', 'Page::webuser', $pageauth);
 
 $pageagent = ['filter' => \App\Filters\PageAgent::class];
 $routes->get('admin', 'Page::admin', $pageagent);
+$routes->get('agent/info', 'Page::agent_info', $pageagent);
+$routes->get('banner', 'Page::banner', $pageagent);
+$routes->get('wheel/info', 'Page::wheel_info', $pageagent);
+$routes->get('checkin/info', 'Page::checkin_info', $pageagent);
+$routes->get('webuser', 'Page::webuser', $pageagent);
 
 $pagemaster = ['filter' => \App\Filters\PageMaster::class];
 $routes->get('agent', 'Page::agent', $pagemaster);
 $routes->get('agent/(:segment)/(:segment)/(:segment)', 'Page::agent_view/$1/$2/$3', $pagemaster);
 
-$routes->get('webuser', 'Page::webuser', $pagemaster);
 
 // SERV
 $routes->get('unauthen', 'serv\Auth::unauthen');
@@ -81,9 +86,16 @@ $routes->post('user/inactive', 'serv\User::status_inactive', $servauth);
 $routes->post('user/active', 'serv\User::status_active', $servauth);
 $routes->post('user/delete', 'serv\User::record_delete');
 
+
 $servagent = ['filter' => \App\Filters\ServAgent::class];
 $routes->post('user/admin/list', 'serv\User::list/admin', $servagent);
 $routes->post('user/admin/add', 'serv\User::add/admin', $servagent);
+
+$routes->post('webuser/list', 'serv\Webuser::list', $servagent);
+$routes->post('webuser/add', 'serv\Webuser::add', $servagent);
+$routes->post('webuser/import', 'serv\Webuser::import', $servagent);
+$routes->post('webuser/toggle/(:segment)/(:num)', 'serv\Webuser::toggle/$1/$2', $servagent);
+$routes->post('webuser/remove/(:segment)', 'serv\Webuser::remove/$1', $servagent);
 
 $servmaster = ['filter' => \App\Filters\ServMaster::class];
 $routes->post('agent/list', 'serv\Agent::list', $servmaster);
@@ -91,12 +103,6 @@ $routes->post('agent/add', 'serv\Agent::add', $servmaster);
 $routes->post('agent/config', 'serv\Agent::config', $servmaster);
 $routes->post('agent/active', 'serv\Agent::status_active', $servmaster);
 $routes->post('agent/inactive', 'serv\Agent::status_inactive', $servmaster);
-
-$routes->post('webuser/list', 'serv\Webuser::list', $servmaster);
-$routes->post('webuser/add', 'serv\Webuser::add', $servmaster);
-$routes->post('webuser/import', 'serv\Webuser::import'/*, $servmaster*/);
-$routes->post('webuser/toggle/(:segment)/(:num)', 'serv\Webuser::toggle/$1/$2', $servmaster);
-$routes->post('webuser/remove/(:segment)', 'serv\Webuser::remove/$1', $servmaster);
 
 // API
 $routes->group('api', static function ($routes) {
@@ -202,6 +208,7 @@ $routes->group('api', static function ($routes) {
     $routes->group('webuser', static function ($routes) {
         // api/Webuser/{{ function }}
         $routes->post('register', 'api\Webuser::register');
+        $routes->post('unlink', 'api\Webuser::unlink');
     });
 
     $routes->group('bl88', static function ($routes) {

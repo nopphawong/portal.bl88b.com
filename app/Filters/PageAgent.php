@@ -6,8 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class PageAgent implements FilterInterface
-{
+class PageAgent implements FilterInterface {
     /**
      * Do whatever processing this filter needs to do.
      * By default it should not return anything during
@@ -23,10 +22,10 @@ class PageAgent implements FilterInterface
      *
      * @return mixed
      */
-    public function before(RequestInterface $request, $arguments = null)
-    {
+    public function before(RequestInterface $request, $arguments = null) {
         // if user not logged in
         if (!session()->logged_in) return redirect()->to(site_url("login"));
+        if (!session()->agent && is_master(session()->role)) return redirect()->to(site_url("agent"));
         if (!is_agent(session()->role) && !is_master(session()->role)) return redirect()->to(site_url("deny"));
         // if (!session()->agent) return redirect()->to(site_url());
     }
@@ -43,8 +42,7 @@ class PageAgent implements FilterInterface
      *
      * @return mixed
      */
-    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
-    {
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {
         //
     }
 }

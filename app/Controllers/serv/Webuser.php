@@ -21,8 +21,9 @@ class Webuser extends BaseController {
         from tb_webuser u
         left join tb_agent a on a.`code` = u.agent
         where 1=1
+        and u.agent = :agent:
         order by u.status desc, u.date_use, u.add_date desc";
-        $Webusers = $db->query($sql)->getResult();
+        $Webusers = $db->query($sql, ["agent" => $this->session->agent->code])->getResult();
         $db->close();
         return $this->sendData($Webusers);
     }
@@ -33,7 +34,7 @@ class Webuser extends BaseController {
         if (!isset($body->password) || empty($body->password)) return $this->sendData(null, "Password must be Empty !", false);
         if (!isset($body->agent) || empty($body->agent)) return $this->sendData(null, "Agent must be Empty !", false);
 
-        $this->save($body->username, $body->password, $body->agent, $this->session->username);
+        $this->save($body->username, $body->password, $body->agent, $this->session->username, $this->session->agent->code);
         return $this->sendData($body);
     }
     public function import() {
@@ -48,13 +49,13 @@ class Webuser extends BaseController {
                 if (!isset($data[0]) || empty($data[0])) continue;
                 if (!isset($data[1]) || empty($data[1])) continue;
                 if (!isset($data[2]) || empty($data[2])) continue;
-                $ok = $this->save($data[0], $data[1], $data[2], $this->session->username);
+                $ok = $this->save($data[0], $data[1], $data[2], $this->session->username, $this->session->agent->code);
                 if ($ok) $result[] = $data;
             }
         }
         return $this->sendData($result);
     }
-    protected function save($username, $password, $agent, $add_by) {
+    protected function save($username, $password, $agent, $add_by, $agen_code) {
         if (empty($this->WebuserModel)) $this->WebuserModel = new WebuserModel();
         $user = $this->WebuserModel->find($username);
         if ($user) return false;
@@ -62,6 +63,7 @@ class Webuser extends BaseController {
             "web_username" => $this->clean($username),
             "web_password" => $this->clean($password),
             "web_agent" => $this->clean($agent),
+            "agent" => $agen_code,
             "status" => 1,
             "add_date" => date("Y-m-d H:i:s"),
             "add_by" => $add_by,

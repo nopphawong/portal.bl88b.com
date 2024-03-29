@@ -67,8 +67,8 @@
                                     <th>Web Username</th>
                                     <th>Web Password</th>
                                     <th>Web Agent</th>
+                                    <!-- <th>Owner Agent</th> -->
                                     <th>Use Date</th>
-                                    <th>Use by</th>
                                     <th>Use Tel</th>
                                     <th>Status</th>
                                     <th>#</th>
@@ -79,8 +79,8 @@
                                     <td>{{data.web_username}}</td>
                                     <td>{{data.web_password}}</td>
                                     <td>{{data.web_agent}}</td>
+                                    <!-- <td>{{data.agent_name}}</td> -->
                                     <td>{{data.date_use}}</td>
-                                    <td>{{data.agent_name}}</td>
                                     <td>{{data.tel}}</td>
                                     <td>
                                         <div class="btn-group" v-if="+data.status">
