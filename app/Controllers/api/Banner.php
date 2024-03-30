@@ -2,13 +2,12 @@
 
 namespace App\Controllers\api;
 
+use App\Controllers\RestController;
 use App\Models\AgentModel;
 use App\Models\BannerModel;
 
-class Banner extends BaseController
-{
-    public function list($status = null)
-    {
+class Banner extends RestController {
+    public function list($status = null) {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -22,8 +21,7 @@ class Banner extends BaseController
         return $this->sendData($banners);
     }
 
-    public function add()
-    {
+    public function add() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -37,8 +35,7 @@ class Banner extends BaseController
         return $this->sendData($banner);
     }
 
-    public function info()
-    {
+    public function info() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -52,8 +49,7 @@ class Banner extends BaseController
         return $this->sendData($banner);
     }
 
-    public function info_update()
-    {
+    public function info_update() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -67,8 +63,7 @@ class Banner extends BaseController
         return $this->sendData($banner);
     }
 
-    public function status_inactive()
-    {
+    public function status_inactive() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -84,8 +79,7 @@ class Banner extends BaseController
         return $this->sendData($banner);
     }
 
-    public function status_active()
-    {
+    public function status_active() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -101,8 +95,7 @@ class Banner extends BaseController
         return $this->sendData($banner);
     }
 
-    public function record_delete()
-    {
+    public function record_delete() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();

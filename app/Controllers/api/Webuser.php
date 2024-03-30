@@ -2,10 +2,11 @@
 
 namespace App\Controllers\api;
 
+use App\Controllers\RestController;
 use App\Models\AgentModel;
 use App\Models\WebuserModel;
 
-class Webuser extends BaseController {
+class Webuser extends RestController {
     public function register() {
         $body = $this->getPost();
         $agentModel = new AgentModel();

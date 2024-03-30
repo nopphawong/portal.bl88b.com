@@ -2,14 +2,13 @@
 
 namespace App\Controllers\serv;
 
+use App\Controllers\RestController;
 use App\Libraries\Portal;
 use App\Models\SegmentMasterModel;
 use App\Libraries\Base64fileUploads;
 
-class Segment extends BaseController
-{
-    public function list()
-    {
+class Segment extends RestController {
+    public function list() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -30,8 +29,7 @@ class Segment extends BaseController
         }
         return $this->sendData($segments);
     }
-    public function list_update()
-    {
+    public function list_update() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
         $file = new Base64fileUploads();
@@ -60,8 +58,7 @@ class Segment extends BaseController
         }
         return $this->sendData($body);
     }
-    public function shuffle()
-    {
+    public function shuffle() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -71,8 +68,7 @@ class Segment extends BaseController
         return $this->sendData($segments->data);
     }
 
-    public function add()
-    {
+    public function add() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -83,8 +79,7 @@ class Segment extends BaseController
         return $this->sendData($segment->data);
     }
 
-    public function info()
-    {
+    public function info() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -94,8 +89,7 @@ class Segment extends BaseController
         return $this->sendData($segment->data);
     }
 
-    public function info_update()
-    {
+    public function info_update() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 

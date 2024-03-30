@@ -2,14 +2,13 @@
 
 namespace App\Controllers\api;
 
+use App\Controllers\RestController;
 use App\Libraries\Encrypter;
 use App\Models\AgentModel;
 use App\Models\UserModel;
 
-class Auth extends BaseController
-{
-    public function login()
-    {
+class Auth extends RestController {
+    public function login() {
         $body = $this->getPost();
 
         $userModel = new UserModel();
@@ -28,8 +27,7 @@ class Auth extends BaseController
         return $this->return_sendData($user, $agent);
     }
 
-    protected function return_sendData($user, $agent = null)
-    {
+    protected function return_sendData($user, $agent = null) {
         $session_data = [
             "logged_in" => true,
             "username" => $user->username,

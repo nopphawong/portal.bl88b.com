@@ -2,12 +2,11 @@
 
 namespace App\Controllers\api;
 
+use App\Controllers\RestController;
 use App\Models\AgentModel;
 
-class Agent extends BaseController
-{
-    public function list()
-    {
+class Agent extends RestController {
+    public function list() {
         // $body = $this->getPost();
         $agentModel = new AgentModel();
         $agents = $agentModel->findAll();
@@ -15,8 +14,7 @@ class Agent extends BaseController
         return $this->sendData($agents);
     }
 
-    public function info()
-    {
+    public function info() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -26,8 +24,7 @@ class Agent extends BaseController
         return $this->sendData($agent);
     }
 
-    public function info_update()
-    {
+    public function info_update() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -42,8 +39,7 @@ class Agent extends BaseController
         return $this->sendData($agent, "Update successful !");
     }
 
-    public function add()
-    {
+    public function add() {
         $body = $this->getPost();
         if (empty($body->key) || empty($body->secret))  return $this->sendData(null, "Agent key or secret is empty !", false);
 
@@ -65,8 +61,7 @@ class Agent extends BaseController
         return $this->sendData($agent, "Add successful !");
     }
 
-    public function config()
-    {
+    public function config() {
         $body = $this->getPost();
         if (empty($body->key) || empty($body->secret))  return $this->sendData(null, "Agent key or secret is empty !", false);
 
@@ -83,8 +78,7 @@ class Agent extends BaseController
         return $this->sendData($agent, "Config successful !");
     }
 
-    public function status_inactive()
-    {
+    public function status_inactive() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -98,8 +92,7 @@ class Agent extends BaseController
         return $this->sendData($agent);
     }
 
-    public function status_active()
-    {
+    public function status_active() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();

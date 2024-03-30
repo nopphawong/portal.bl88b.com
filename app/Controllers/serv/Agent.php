@@ -2,13 +2,12 @@
 
 namespace App\Controllers\serv;
 
+use App\Controllers\RestController;
 use App\Libraries\Portal;
 use App\Libraries\Base64fileUploads;
 
-class Agent extends BaseController
-{
-    public function info()
-    {
+class Agent extends RestController {
+    public function info() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -18,8 +17,7 @@ class Agent extends BaseController
         return $this->sendData($agent->data);
     }
 
-    public function info_update()
-    {
+    public function info_update() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
         $file = new Base64fileUploads();
@@ -38,8 +36,7 @@ class Agent extends BaseController
         return $this->sendData($agent->data);
     }
 
-    public function list()
-    {
+    public function list() {
         $body = $this->getPost();
         $portal = new Portal();
 
@@ -48,8 +45,7 @@ class Agent extends BaseController
         return $this->sendData($agents->data);
     }
 
-    public function add()
-    {
+    public function add() {
         $body = $this->getPost();
         $portal = new Portal($body);
 
@@ -59,8 +55,7 @@ class Agent extends BaseController
         return $this->sendData($agent->data);
     }
 
-    public function config()
-    {
+    public function config() {
         $body = $this->getPost();
         $portal = new Portal($body);
 
@@ -70,8 +65,7 @@ class Agent extends BaseController
         return $this->sendData($agent->data);
     }
 
-    public function status_inactive()
-    {
+    public function status_inactive() {
         $body = $this->getPost();
         $portal = new Portal($body);
 
@@ -81,8 +75,7 @@ class Agent extends BaseController
         return $this->sendData($agent->data);
     }
 
-    public function status_active()
-    {
+    public function status_active() {
         $body = $this->getPost();
         $portal = new Portal($body);
 

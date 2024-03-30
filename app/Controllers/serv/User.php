@@ -2,12 +2,11 @@
 
 namespace App\Controllers\serv;
 
+use App\Controllers\RestController;
 use App\Libraries\Portal;
 
-class User extends BaseController
-{
-    public function list($role = null)
-    {
+class User extends RestController {
+    public function list($role = null) {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -18,8 +17,7 @@ class User extends BaseController
         return $this->sendData($users->data);
     }
 
-    public function add($role = null)
-    {
+    public function add($role = null) {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -32,8 +30,7 @@ class User extends BaseController
         return $this->sendData($user->data);
     }
 
-    public function info()
-    {
+    public function info() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -43,8 +40,7 @@ class User extends BaseController
         return $this->sendData($user->data);
     }
 
-    public function info_update()
-    {
+    public function info_update() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -55,8 +51,7 @@ class User extends BaseController
         return $this->sendData($user->data);
     }
 
-    public function status_inactive()
-    {
+    public function status_inactive() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -67,8 +62,7 @@ class User extends BaseController
         return $this->sendData($user->data);
     }
 
-    public function status_active()
-    {
+    public function status_active() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -79,8 +73,7 @@ class User extends BaseController
         return $this->sendData($user->data);
     }
 
-    public function record_delete()
-    {
+    public function record_delete() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 

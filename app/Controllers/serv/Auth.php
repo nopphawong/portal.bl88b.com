@@ -2,28 +2,24 @@
 
 namespace App\Controllers\serv;
 
+use App\Controllers\RestController;
 use App\Libraries\Portal;
 
-class Auth extends BaseController
-{
-    public function unauthen()
-    {
+class Auth extends RestController {
+    public function unauthen() {
         return $this->sendData(null, "Please Login !", false);
     }
-    public function deny()
-    {
+    public function deny() {
         return $this->sendData(null, "Access deny !", false);
     }
-    public function login()
-    {
+    public function login() {
         $body = $this->getPost();
         $portal = new Portal();
         $login = $portal->login($body);
         if (!$login->status) return $this->sendData(null, $login->message, false);
         return $this->sendData($login->data);
     }
-    public function register()
-    {
+    public function register() {
         $body = $this->getPost();
 
         return $this->sendData($body, "Welcome !", false);

@@ -2,13 +2,12 @@
 
 namespace App\Controllers\api;
 
+use App\Controllers\RestController;
 use App\Models\AgentModel;
 use App\Models\CheckinModel;
 
-class Checkin extends BaseController
-{
-    public function list()
-    {
+class Checkin extends RestController {
+    public function list() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -20,8 +19,7 @@ class Checkin extends BaseController
 
         return $this->sendData($checkins);
     }
-    public function add()
-    {
+    public function add() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -34,8 +32,7 @@ class Checkin extends BaseController
         $checkin = $checkinModel->find($id);
         return $this->sendData($checkin);
     }
-    public function info()
-    {
+    public function info() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -48,8 +45,7 @@ class Checkin extends BaseController
 
         return $this->sendData($checkin);
     }
-    public function info_update()
-    {
+    public function info_update() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -63,8 +59,7 @@ class Checkin extends BaseController
         $checkin = $checkinModel->find($body->id);
         return $this->sendData($checkin);
     }
-    public function first()
-    {
+    public function first() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();

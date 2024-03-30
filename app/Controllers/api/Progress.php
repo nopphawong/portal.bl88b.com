@@ -2,13 +2,12 @@
 
 namespace App\Controllers\api;
 
+use App\Controllers\RestController;
 use App\Models\AgentModel;
 use App\Models\ProgressModel;
 
-class Progress extends BaseController
-{
-    public function list()
-    {
+class Progress extends RestController {
+    public function list() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -20,8 +19,7 @@ class Progress extends BaseController
 
         return $this->sendData($progresses);
     }
-    public function add()
-    {
+    public function add() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -34,8 +32,7 @@ class Progress extends BaseController
         $progress = $progressModel->find($id);
         return $this->sendData($progress);
     }
-    public function info()
-    {
+    public function info() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -48,8 +45,7 @@ class Progress extends BaseController
 
         return $this->sendData($progress);
     }
-    public function info_update()
-    {
+    public function info_update() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();

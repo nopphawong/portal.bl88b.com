@@ -2,13 +2,12 @@
 
 namespace App\Controllers\serv;
 
+use App\Controllers\RestController;
 use App\Libraries\Base64fileUploads;
 use App\Libraries\Portal;
 
-class Wheel extends BaseController
-{
-    public function list()
-    {
+class Wheel extends RestController {
+    public function list() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -18,8 +17,7 @@ class Wheel extends BaseController
         return $this->sendData($wheels->data);
     }
 
-    public function info()
-    {
+    public function info() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -28,8 +26,7 @@ class Wheel extends BaseController
         if (!$wheel->status) return $this->sendData(null, $wheel->message, false);
         return $this->sendData($wheel->data);
     }
-    public function first()
-    {
+    public function first() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -44,8 +41,7 @@ class Wheel extends BaseController
         return $this->sendData($wheel->data);
     }
 
-    public function info_update()
-    {
+    public function info_update() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
         $file = new Base64fileUploads();

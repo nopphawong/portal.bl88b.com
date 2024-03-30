@@ -2,13 +2,12 @@
 
 namespace App\Controllers\api;
 
+use App\Controllers\RestController;
 use App\Models\AgentModel;
 use App\Models\UserModel;
 
-class User extends BaseController
-{
-    public function list()
-    {
+class User extends RestController {
+    public function list() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -22,8 +21,7 @@ class User extends BaseController
         return $this->sendData($banners);
     }
 
-    public function add()
-    {
+    public function add() {
         $body = $this->getPost();
         if (!$this->validate_username($body->username)) return $this->sendData(null, "Invalide username !", false);
         if (!$this->validate_password($body->password)) return $this->sendData(null, "Invalide password !", false);
@@ -43,8 +41,7 @@ class User extends BaseController
         return $this->sendData($user);
     }
 
-    public function info()
-    {
+    public function info() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -58,8 +55,7 @@ class User extends BaseController
         return $this->sendData($user);
     }
 
-    public function info_update()
-    {
+    public function info_update() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -75,8 +71,7 @@ class User extends BaseController
         return $this->sendData($user);
     }
 
-    public function status_inactive()
-    {
+    public function status_inactive() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -92,8 +87,7 @@ class User extends BaseController
         return $this->sendData($user);
     }
 
-    public function status_active()
-    {
+    public function status_active() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -109,8 +103,7 @@ class User extends BaseController
         return $this->sendData($user);
     }
 
-    public function record_delete()
-    {
+    public function record_delete() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();

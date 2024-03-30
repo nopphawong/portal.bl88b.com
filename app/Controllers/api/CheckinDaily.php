@@ -2,19 +2,18 @@
 
 namespace App\Controllers\api;
 
+use App\Controllers\RestController;
 use App\Models\AgentModel;
 use App\Models\CheckinDailyModel;
 use App\Models\ProgressModel;
 
-class CheckinDaily extends BaseController
-{
+class CheckinDaily extends RestController {
     protected $types = array(
         "USABLE" => "usable",
         "CLAIMABLE" => "claimable",
         "HISTORY" => "history",
     );
-    public function list($type = null)
-    {
+    public function list($type = null) {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -55,8 +54,7 @@ class CheckinDaily extends BaseController
         $checkinDaily = $checkinDailyModel->find($id);
         return $this->sendData($checkinDaily);
     } */
-    public function add()
-    {
+    public function add() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -91,8 +89,7 @@ class CheckinDaily extends BaseController
         $checkinDaily = $checkinDailyModel->find($id);
         return $this->sendData($checkinDaily);
     }
-    public function info()
-    {
+    public function info() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -107,8 +104,7 @@ class CheckinDaily extends BaseController
 
         return $this->sendData($checkinDaily);
     }
-    public function usable()
-    {
+    public function usable() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -138,8 +134,7 @@ class CheckinDaily extends BaseController
 
         return $this->sendData(true);
     }
-    public function claim()
-    {
+    public function claim() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -164,8 +159,7 @@ class CheckinDaily extends BaseController
         $checkinDaily = $checkinDailyModel->find($body->id);
         return $this->sendData($checkinDaily);
     }
-    public function unclaim()
-    {
+    public function unclaim() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();

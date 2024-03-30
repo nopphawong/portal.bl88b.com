@@ -2,13 +2,12 @@
 
 namespace App\Controllers\serv;
 
+use App\Controllers\RestController;
 use App\Libraries\Portal;
 use App\Libraries\Base64fileUploads;
 
-class Banner extends BaseController
-{
-    public function list()
-    {
+class Banner extends RestController {
+    public function list() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -18,8 +17,7 @@ class Banner extends BaseController
         return $this->sendData($banners->data);
     }
 
-    public function add()
-    {
+    public function add() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
         $file = new Base64fileUploads();
@@ -38,8 +36,7 @@ class Banner extends BaseController
         return $this->sendData($banner->data);
     }
 
-    public function info()
-    {
+    public function info() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -49,8 +46,7 @@ class Banner extends BaseController
         return $this->sendData($banner->data);
     }
 
-    public function info_update()
-    {
+    public function info_update() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
         $file = new Base64fileUploads();
@@ -69,8 +65,7 @@ class Banner extends BaseController
         return $this->sendData($banner->data);
     }
 
-    public function status_inactive()
-    {
+    public function status_inactive() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -81,8 +76,7 @@ class Banner extends BaseController
         return $this->sendData($banner->data);
     }
 
-    public function status_active()
-    {
+    public function status_active() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -93,8 +87,7 @@ class Banner extends BaseController
         return $this->sendData($banner->data);
     }
 
-    public function record_delete()
-    {
+    public function record_delete() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 

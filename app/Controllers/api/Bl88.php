@@ -2,22 +2,20 @@
 
 namespace App\Controllers\api;
 
+use App\Controllers\RestController;
 use Exception;
 
-class Bl88 extends BaseController
-{
+class Bl88 extends RestController {
     private $url = "https://www.bl88-api.com/";
     private $code = "ag024";
     private $token = "7506d35fe9fe68d7785a44ddaee346e7";
     private $reffix = "blbet789.com";
     private $prefix = "bl789";
     private $curl;
-    public function __construct()
-    {
+    public function __construct() {
         $this->curl = curl_init();
     }
-    public function login()
-    {
+    public function login() {
         $body = $this->getPost();
         if (substr($body->username, 0, strlen($this->prefix)) != $this->prefix) $body->username = "{$this->prefix}{$body->username}";
         $form = [
@@ -27,8 +25,7 @@ class Bl88 extends BaseController
         $login = $this->post("Authen/Login", $form);
         return $this->sendData($login->data, $login->message, $login->status);
     }
-    public function register()
-    {
+    public function register() {
         $body = $this->getPost();
         $form = [
             "s_firstname" => $body->name,
@@ -41,14 +38,12 @@ class Bl88 extends BaseController
         return $this->sendData($register->data, $register->message, $register->status);
         // { data: { username, endpoint } }
     }
-    public function bank_list()
-    {
+    public function bank_list() {
         $banks = $this->get("Bank/InquiryBankList");
         return $this->sendData($banks->data, $banks->message, $banks->status, ["image_path" => "https://www.bl88enjoy.com/assets/images/iconbank/"]);
     }
 
-    protected function post($path, $data = array())
-    {
+    protected function post($path, $data = array()) {
         curl_setopt_array($this->curl, array(
             CURLOPT_URL => "{$this->url}{$path}",
             CURLOPT_RETURNTRANSFER => true,
@@ -90,8 +85,7 @@ class Bl88 extends BaseController
             ];
         }
     }
-    protected function get($path)
-    {
+    protected function get($path) {
         curl_setopt_array($this->curl, array(
             CURLOPT_URL => "{$this->url}{$path}",
             CURLOPT_RETURNTRANSFER => true,

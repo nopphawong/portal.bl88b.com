@@ -2,13 +2,12 @@
 
 namespace App\Controllers\serv;
 
+use App\Controllers\RestController;
 use App\Libraries\Portal;
 use App\Models\ProgressMasterModel;
 
-class Progress extends BaseController
-{
-    public function list()
-    {
+class Progress extends RestController {
+    public function list() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -30,8 +29,7 @@ class Progress extends BaseController
         return $this->sendData($progresses);
     }
 
-    public function add()
-    {
+    public function add() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -42,8 +40,7 @@ class Progress extends BaseController
         return $this->sendData($progress->data);
     }
 
-    public function info()
-    {
+    public function info() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -53,8 +50,7 @@ class Progress extends BaseController
         return $this->sendData($progress->data);
     }
 
-    public function info_update()
-    {
+    public function info_update() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 

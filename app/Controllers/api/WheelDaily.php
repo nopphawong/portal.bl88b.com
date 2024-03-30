@@ -2,18 +2,17 @@
 
 namespace App\Controllers\api;
 
+use App\Controllers\RestController;
 use App\Models\AgentModel;
 use App\Models\WheelDailyModel;
 
-class WheelDaily extends BaseController
-{
+class WheelDaily extends RestController {
     protected $types = array(
         "USABLE" => "usable",
         "CLAIMABLE" => "claimable",
         "HISTORY" => "history",
     );
-    public function list($type = null)
-    {
+    public function list($type = null) {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -30,8 +29,7 @@ class WheelDaily extends BaseController
 
         return $this->sendData($wheelDailies);
     }
-    public function addable()
-    {
+    public function addable() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -48,8 +46,7 @@ class WheelDaily extends BaseController
         if ($wheelDaily) return $this->sendData(false, "Can't add same date !");
         return $this->sendData(true, "Can add today !");
     }
-    public function add()
-    {
+    public function add() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -71,8 +68,7 @@ class WheelDaily extends BaseController
         $wheelDaily = $wheelDailyModel->find($id);
         return $this->sendData($wheelDaily);
     }
-    public function info()
-    {
+    public function info() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -87,8 +83,7 @@ class WheelDaily extends BaseController
 
         return $this->sendData($wheelDaily);
     }
-    public function roll()
-    {
+    public function roll() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -112,8 +107,7 @@ class WheelDaily extends BaseController
         $wheelDaily = $wheelDailyModel->find($body->id);
         return $this->sendData($wheelDaily);
     }
-    public function claim()
-    {
+    public function claim() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();
@@ -138,8 +132,7 @@ class WheelDaily extends BaseController
         $wheelDaily = $wheelDailyModel->find($body->id);
         return $this->sendData($wheelDaily);
     }
-    public function unclaim()
-    {
+    public function unclaim() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
         $agent = $agentModel->where("secret", $body->secret)->first();

@@ -2,10 +2,11 @@
 
 namespace App\Controllers\serv;
 
+use App\Controllers\RestController;
 use App\Models\WebuserModel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-class Webuser extends BaseController {
+class Webuser extends RestController {
     private $WebuserModel;
     public function list() {
         $db = db_connect();

@@ -2,12 +2,11 @@
 
 namespace App\Controllers\serv;
 
+use App\Controllers\RestController;
 use App\Libraries\Portal;
 
-class Checkin extends BaseController
-{
-    public function list()
-    {
+class Checkin extends RestController {
+    public function list() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -17,8 +16,7 @@ class Checkin extends BaseController
         return $this->sendData($checkins->data);
     }
 
-    public function info()
-    {
+    public function info() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -27,8 +25,7 @@ class Checkin extends BaseController
         if (!$checkin->status) return $this->sendData(null, $checkin->message, false);
         return $this->sendData($checkin->data);
     }
-    public function first()
-    {
+    public function first() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
@@ -43,8 +40,7 @@ class Checkin extends BaseController
         return $this->sendData($checkin->data);
     }
 
-    public function info_update()
-    {
+    public function info_update() {
         $body = $this->getPost();
         $portal = new Portal($this->session->agent);
 
