@@ -8,13 +8,14 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 // PAGE
-$routes->get('login', 'Page::login');
-$routes->get('logout', 'Page::logout');
-$routes->get('detect/(:segment)', 'Page::detect/$1');
+$routes->get('login', 'Auth::login');
+$routes->get('logout', 'Auth::logout');
+$routes->get('detect/(:segment)', 'Auth::detect/$1');
+$routes->get('forbidden', 'Auth::forbidden');
 
 $pageauth = ['filter' => \App\Filters\PageAuth::class];
 $routes->get('/', 'Page::index', $pageauth);
-$routes->get('forbidden', 'Page::forbidden', $pageauth);
+$routes->get('forbidden', 'Auth::forbidden', $pageauth);
 // $routes->get('agent/info', 'Page::agent_info', $pageauth);
 // $routes->get('banner', 'Page::banner', $pageauth);
 // $routes->get('wheel/info', 'Page::wheel_info', $pageauth);

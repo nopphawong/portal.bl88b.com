@@ -3,85 +3,35 @@
 namespace App\Controllers;
 
 use App\Libraries\Portal;
-use App\Libraries\Encrypter;
 
-class Page extends BaseController
-{
-    public function forbidden()
-    {
-        return view("adminlte/pages/forbidden", $this->viewData);
-    }
-    public function index()
-    {
+class Page extends BaseController {
+    public function index() {
         if (is_master(session()->role)) return redirect()->to(site_url("agent"));
         return redirect()->to(site_url("agent/info"));
     }
-
-    public function detect($bin)
-    {
-        $ect = new Encrypter();
-        $decoded = $ect->decode($bin);
-        $session_data = $ect->plaintext_to_data($decoded);
-        if (!$this->set_session($session_data)) return redirect()->to(site_url("login"));
-        return redirect()->to(site_url("/"));
+    public function agent_info() {
+        return $this->setView("adminlte/pages/agent_info");
     }
-    protected function set_session($session_data)
-    {
-        if (!$session_data) return false;
-        $session_data = (object) $session_data;
-        if (!isset($session_data->logged_in)) return false;
-        if (!isset($session_data->username)) return false;
-        if (!isset($session_data->role)) return false;
-        // if (!isset($session_data->agent)) return false;
-        // if (!isset($session_data->agent->key)) return false;
-        // if (!isset($session_data->agent->secret)) return false;
-        // if (!isset($session_data->agent->code)) return false;
-        session()->set((array) $session_data);
-        return true;
+    public function banner() {
+        return $this->setView("adminlte/pages/banner");
     }
-
-    public function login()
-    {
-        return view("adminlte/pages/login", $this->viewData);
+    public function admin() {
+        return $this->setView("adminlte/pages/admin");
     }
-
-    public function logout()
-    {
-        session()->destroy();
-        return redirect()->to(site_url("login"));
+    public function wheel_info() {
+        return $this->setView("adminlte/pages/wheel_info");
     }
-
-    public function agent_info()
-    {
-        return view("adminlte/pages/agent_info", $this->viewData);
+    public function checkin_info() {
+        return $this->setView("adminlte/pages/checkin_info");
     }
-    public function banner()
-    {
-        return view("adminlte/pages/banner", $this->viewData);
-    }
-    public function admin()
-    {
-        return view("adminlte/pages/admin", $this->viewData);
-    }
-    public function wheel_info()
-    {
-        return view("adminlte/pages/wheel_info", $this->viewData);
-    }
-    public function checkin_info()
-    {
-        return view("adminlte/pages/checkin_info", $this->viewData);
-    }
-    public function agent()
-    {
+    public function agent() {
         session()->remove("agent");
-        return view("adminlte/pages/agent", $this->viewData);
+        return $this->setView("adminlte/pages/agent");
     }
-    public function webuser()
-    {
-        return view("adminlte/pages/webuser", $this->viewData);
+    public function webuser() {
+        return $this->setView("adminlte/pages/webuser");
     }
-    public function agent_view($code, $key, $secret)
-    {
+    public function agent_view($code, $key, $secret) {
         $portal = new Portal((object) array("key" => $key, "secret" => $secret,));
         $agent = $portal->agent_info(["code" => $code,]);
         if (!$agent) return redirect()->to(previous_url());

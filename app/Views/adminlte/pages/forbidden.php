@@ -1,4 +1,4 @@
-<?= $this->extend("adminlte/layouts/basic") ?>
+<?= $this->extend("adminlte/layouts/blank") ?>
 
 <?= $this->section("content") ?>
 

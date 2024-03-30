@@ -17,15 +17,10 @@
     <!-- Theme style -->
     <?= link_tag("assets/css/adminlte.min.css") ?>
     <?= link_tag("assets/vendors/fonts/boxicons.css") ?>
+
     <?php foreach ($includes_css as $css) : ?>
         <?= link_tag($css) ?>
     <?php endforeach ?>
-
-    <?php if (isset($lib_datatable)) : ?>
-        <?php foreach ($lib_datatable->css as $css) : ?>
-            <?= link_tag($css) ?>
-        <?php endforeach ?>
-    <?php endif ?>
 
     <!-- jQuery -->
     <?= script_tag("assets/plugins/jquery/jquery.min.js") ?>
@@ -36,17 +31,14 @@
 
     <?= script_tag("https://cdn.jsdelivr.net/npm/sweetalert2@11") ?>
 
-    <?php if (isset($lib_datatable)) : ?>
-        <?php foreach ($lib_datatable->js as $js) : ?>
-            <?= script_tag($js) ?>
-        <?php endforeach ?>
-    <?php endif ?>
-
     <?php foreach ($includes_js as $js) : ?>
         <?= script_tag($js) ?>
     <?php endforeach ?>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <?php foreach ($vuejs as $js) : ?>
+        <?= script_tag($js) ?>
+    <?php endforeach ?>
 </head>
 
 <body>
