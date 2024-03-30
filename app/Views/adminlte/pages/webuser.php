@@ -65,49 +65,44 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive">
-                        <table id="webuser-table" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Web Username</th>
-                                    <th>Web Password</th>
-                                    <th>Web Agent</th>
-                                    <!-- <th>Owner Agent</th> -->
-                                    <th>Use Date</th>
-                                    <th>Use Tel</th>
-                                    <th>Status</th>
-                                    <th>#</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(data, index) in table.filtered">
-                                    <td>{{data.web_username}}</td>
-                                    <td>{{data.web_password}}</td>
-                                    <td>{{data.web_agent}}</td>
-                                    <!-- <td>{{data.agent_name}}</td> -->
-                                    <td>{{data.date_use}}</td>
-                                    <td>{{data.tel}}</td>
-                                    <td>
-                                        <div class="btn-group" v-if="+data.status">
-                                            <button type="button" class="btn btn-xs btn-success">Active</button>
-                                            <button type="button" class="btn btn-xs btn-success" :disabled="loading || data.date_use" @click="toggle(data.web_username, data.status)">
-                                                <i class="fa fa-redo-alt"></i>
-                                            </button>
-                                        </div>
-                                        <div class="btn-group" v-else>
-                                            <button type="button" class="btn btn-xs btn-warning">Inactive</button>
-                                            <button type="button" class="btn btn-xs btn-warning" :disabled="loading || data.date_use" @click="toggle(data.web_username, data.status)">
-                                                <i class="fa fa-redo-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-xs btn-danger" @click="remove(data.web_username)" :disabled="loading || data.date_use">
-                                            <i class="fa fa-trash"></i>
+                        <Datatable :value="table.filtered" :size="`small`" :paginator="rows.perpage > 0" :rows="rows.perpage">
+                            <Column field="web_username" header="Web Username"></Column>
+                            <Column field="web_password" header="Web Password"></Column>
+                            <Column field="web_agent" header="Web Agent"></Column>
+                            <Column field="date_use" header="Used"></Column>
+                            <Column field="tel" header="Tel"></Column>
+                            <Column field="status" header="Status">
+                                <template #body="slotProps">
+                                    <div class="btn-group" v-if="+slotProps.data.status">
+                                        <button type="button" class="btn btn-xs btn-success">Active</button>
+                                        <button type="button" class="btn btn-xs btn-success" :disabled="loading || slotProps.data.date_use" @click="toggle(slotProps.data.web_username, slotProps.data.status)">
+                                            <i class="fa fa-redo-alt"></i>
                                         </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                    </div>
+                                    <div class="btn-group" v-else>
+                                        <button type="button" class="btn btn-xs btn-warning">Inactive</button>
+                                        <button type="button" class="btn btn-xs btn-warning" :disabled="loading || slotProps.data.date_use" @click="toggle(slotProps.data.web_username, slotProps.data.status)">
+                                            <i class="fa fa-redo-alt"></i>
+                                        </button>
+                                    </div>
+                                </template>
+                            </Column>
+                            <Column header="#">
+                                <template #body="slotProps">
+                                    <button class="btn btn-xs btn-danger" @click="remove(slotProps.data.web_username)" :disabled="loading || slotProps.data.date_use">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </template>
+                            </Column>
+                            <template #footer>
+                                <div class="d-flex justify-content-center">
+                                    <select v-model="rows.perpage">
+                                        <option v-for="value in rows.list" :value="value">{{ value }}</option>
+                                        <option value="0">All</option>
+                                    </select>
+                                </div>
+                            </template>
+                        </Datatable>
                     </div>
                     <div class="card-footer"></div>
                 </div>
@@ -117,7 +112,7 @@
 </section>
 
 <script>
-    Vue.createApp({
+    const webuserBox = Vue.createApp({
         data() {
             return {
                 loading: false,
@@ -131,6 +126,10 @@
                 table: {
                     filtered: [],
                     data: [],
+                },
+                rows: {
+                    perpage: 10,
+                    list: [5, 10, 20, 50, 100],
                 },
             }
         },
@@ -216,7 +215,12 @@
             this.modal.form = { ...this.modal.darft }
             await this.list()
         }
-    }).mount('#webuser-box')
+    })
+    webuserBox.use(primevue.config.default)
+    webuserBox.component(`Datatable`, primevue.datatable)
+    webuserBox.component(`Column`, primevue.column)
+    webuserBox.component(`Dropdown`, primevue.dropdown)
+    webuserBox.mount('#webuser-box')
 </script>
 
 <?= $this->endSection() ?>

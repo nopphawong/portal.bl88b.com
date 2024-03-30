@@ -69,8 +69,8 @@ abstract class BaseController extends Controller {
         else if (is_string($css)) $this->viewData[$key][] = $css;
     }
     public function usePrimevue() {
+        $this->addCss("https://unpkg.com/primevue/resources/themes/lara-light-green/theme.css");
         $this->addJs("https://unpkg.com/primevue/core/core.min.js", "vuejs");
-        $this->addCss("https://unpkg.com/primevue/resources/themes/lara-light-green/theme.css", "vuejs");
     }
     public function usePrimevueLib($name) {
         $this->addJs("https://unpkg.com/primevue/{$name}/{$name}.min.js", "vuejs");
