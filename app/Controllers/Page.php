@@ -32,7 +32,6 @@ class Page extends BaseController {
         $this->usePrimevue();
         $this->usePrimevueLib("datatable");
         $this->usePrimevueLib("column");
-        $this->usePrimevueLib("dropdown");
         return $this->setView("adminlte/pages/webuser");
     }
     public function agent_view($code, $key, $secret) {

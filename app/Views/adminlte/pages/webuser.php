@@ -219,7 +219,6 @@
     webuserBox.use(primevue.config.default)
     webuserBox.component(`Datatable`, primevue.datatable)
     webuserBox.component(`Column`, primevue.column)
-    webuserBox.component(`Dropdown`, primevue.dropdown)
     webuserBox.mount('#webuser-box')
 </script>
 
