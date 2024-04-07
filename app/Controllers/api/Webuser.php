@@ -29,12 +29,12 @@ class Webuser extends RestController {
         if (!$Webuser) return $this->sendError("ไม่พบ Web User ที่ใช้งานได้ !");
 
         $Webuser->tel = $body->tel;
-        // $Webuser->agent = $agent->code;
         $Webuser->date_use = date("Y-m-d H:i:s");
         $Webuser->edit_date = date("Y-m-d H:i:s");
         $Webuser->edit_by = "API";
 
-        $WebuserModel->save($Webuser);
+        $success = $WebuserModel->save($Webuser);
+        if (!$success) return $this->sendError("ผูก Web User ไม่สำเร็จ !");
 
         return $this->sendData([
             "web_username" => $Webuser->web_username,
