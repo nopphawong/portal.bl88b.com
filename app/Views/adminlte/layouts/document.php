@@ -15,6 +15,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
+    <?= link_tag("https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css") ?>
     <?= link_tag("assets/css/adminlte.min.css") ?>
     <?= link_tag("assets/vendors/fonts/boxicons.css") ?>
 
@@ -35,7 +36,7 @@
         <?= script_tag($js) ?>
     <?php endforeach ?>
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/vue@3.4.21/dist/vue.global.prod.js"></script>
     <?php foreach ($vuejs as $js) : ?>
         <?= script_tag($js) ?>
     <?php endforeach ?>

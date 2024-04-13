@@ -65,7 +65,16 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive">
-                        <Datatable :value="table.filtered" :size="`small`" :paginator="rows.perpage > 0" :rows="rows.perpage">
+                        <Datatable class="table table-striped" :value="table.filtered" :size="`small`" :paginator="rows.perpage > 0" :rows="rows.perpage">
+                            <template #paginatorstart>
+                                <select class="form-select" v-model="rows.perpage">
+                                    <option v-for="value in rows.list" :value="value">{{ value }}</option>
+                                    <option value="0">All</option>
+                                </select>
+                            </template>
+                            <template #paginatorend>
+                                Total: {{ table.filtered.length }}
+                            </template>
                             <Column field="web_username" header="Web Username"></Column>
                             <Column field="web_password" header="Web Password"></Column>
                             <Column field="web_agent" header="Web Agent"></Column>
@@ -96,10 +105,6 @@
                             </Column>
                             <template #footer>
                                 <div class="d-flex justify-content-center">
-                                    <select v-model="rows.perpage">
-                                        <option v-for="value in rows.list" :value="value">{{ value }}</option>
-                                        <option value="0">All</option>
-                                    </select>
                                 </div>
                             </template>
                         </Datatable>
@@ -146,10 +151,10 @@
                 let _filter = this.filter
                 if (!_filter) return this.table.filtered = this.table.data
                 this.table.filtered = this.table.data?.filter((item) => {
-                    return item.web_username?.indexOf(_filter) > -1 
-                    || item.web_password?.indexOf(_filter) > -1
-                    || item.web_agent?.indexOf(_filter) > -1
-                    || item.tel?.indexOf(_filter) > -1
+                    return item.web_username?.indexOf(_filter) > -1 ||
+                        item.web_password?.indexOf(_filter) > -1 ||
+                        item.web_agent?.indexOf(_filter) > -1 ||
+                        item.tel?.indexOf(_filter) > -1
                 }) || []
             },
             async submit(e) {
