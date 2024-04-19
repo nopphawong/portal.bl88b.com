@@ -65,16 +65,7 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive">
-                        <Datatable class="table table-striped" :value="table.filtered" :size="`small`" :paginator="rows.perpage > 0" :rows="rows.perpage">
-                            <template #paginatorstart>
-                                <select class="form-select" v-model="rows.perpage">
-                                    <option v-for="value in rows.list" :value="value">{{ value }}</option>
-                                    <option value="0">All</option>
-                                </select>
-                            </template>
-                            <template #paginatorend>
-                                Total: {{ table.filtered.length }}
-                            </template>
+                        <Datatable class="table table-striped" :value="table.filtered" :size="`small`" paginator :rows="rows.perpage">
                             <Column field="web_username" header="Web Username"></Column>
                             <Column field="web_password" header="Web Password"></Column>
                             <Column field="web_agent" header="Web Agent"></Column>
@@ -103,9 +94,14 @@
                                     </button>
                                 </template>
                             </Column>
-                            <template #footer>
-                                <div class="d-flex justify-content-center">
-                                </div>
+                            <template #paginatorstart>
+                                <select class="form-select" v-model="rows.perpage">
+                                    <option v-for="value in rows.list" :value="value">{{ value }}</option>
+                                    <!-- <option value="0">All</option> -->
+                                </select>
+                            </template>
+                            <template #paginatorend>
+                                Total: {{ table.filtered.length }}
                             </template>
                         </Datatable>
                     </div>
