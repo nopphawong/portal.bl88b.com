@@ -18,6 +18,9 @@ class Page extends BaseController {
     public function admin() {
         return $this->setView("adminlte/pages/admin");
     }
+    public function channel() {
+        return $this->setView("adminlte/pages/channel");
+    }
     public function wheel_info() {
         return $this->setView("adminlte/pages/wheel_info");
     }

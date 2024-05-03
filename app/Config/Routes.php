@@ -23,6 +23,7 @@ $routes->get('forbidden', 'Auth::forbidden', $pageauth);
 // $routes->get('webuser', 'Page::webuser', $pageauth);
 
 $pageagent = ['filter' => \App\Filters\PageAgent::class];
+$routes->get('channel', 'Page::channel', $pageagent);
 $routes->get('admin', 'Page::admin', $pageagent);
 $routes->get('agent/info', 'Page::agent_info', $pageagent);
 $routes->get('banner', 'Page::banner', $pageagent);
@@ -97,6 +98,12 @@ $routes->post('webuser/add', 'serv\Webuser::add', $servagent);
 $routes->post('webuser/import', 'serv\Webuser::import', $servagent);
 $routes->post('webuser/toggle/(:segment)/(:num)', 'serv\Webuser::toggle/$1/$2', $servagent);
 $routes->post('webuser/remove/(:segment)', 'serv\Webuser::remove/$1', $servagent);
+
+$routes->post('channel/list', 'serv\Channel::list', $servagent);
+$routes->post('channel/save', 'serv\Channel::save', $servagent);
+$routes->post('channel/info', 'serv\Channel::info', $servagent);
+$routes->post('channel/delete', 'serv\Channel::remove', $servagent);
+$routes->post('channel/active/(:num)', 'serv\Channel::active/$1', $servagent);
 
 $servmaster = ['filter' => \App\Filters\ServMaster::class];
 $routes->post('agent/list', 'serv\Agent::list', $servmaster);
@@ -210,6 +217,10 @@ $routes->group('api', static function ($routes) {
         // api/Webuser/{{ function }}
         $routes->post('register', 'api\Webuser::register');
         $routes->post('unlink', 'api\Webuser::unlink');
+    });
+    $routes->group('channel', static function ($routes) {
+        // api/channel/{{ function }}
+        $routes->post('list', 'api\Channel::list');
     });
 
     $routes->group('bl88', static function ($routes) {

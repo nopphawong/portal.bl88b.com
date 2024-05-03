@@ -6,27 +6,27 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1 class="text-center">Admins</h1>
+                <h1 class="text-center">Channels</h1>
             </div>
         </div>
     </div>
 </section>
 
-<section class="content" id="admin-box">
+<section class="content" id="channel-box">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="search" class="form-control w-50" placeholder="Search..." v-model="filter" @input="filter_admin">
+                            <input type="search" class="form-control w-50" placeholder="Search..." v-model="filter" @input="filter_channel">
                             <button class="btn btn-success" @click="add" :disabled="loading">
                                 <i class="fa fa-plus"></i> Add
                             </button>
                         </div>
                     </div>
                     <div class="card-body table-responsive">
-                        <table id="admin-table" class="table table-striped">
+                        <table id="channel-table" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>
@@ -34,9 +34,10 @@
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </th>
-                                    <th>Username</th>
+                                    <th>Ref</th>
                                     <th>Name</th>
-                                    <th>Tel</th>
+                                    <th>Descript</th>
+                                    <th>Link</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -47,9 +48,15 @@
                                             <i class="fa fa-pen"></i>
                                         </button>
                                     </td>
-                                    <td>{{ data.username }}</td>
+                                    <td>{{ data.ref }}</td>
                                     <td>{{ data.name }}</td>
-                                    <td>{{ data.tel }}</td>
+                                    <td>{{ data.description }}</td>
+                                    <td>
+                                        <button class="btn btn-xs btn-warning" @click="copyToClipboard(data)">
+                                            <i class="fa fa-copy"></i>
+                                        </button>
+                                        {{ data.link }}
+                                    </td>
                                     <td>
                                         <div class="btn-group" v-if="+data.status">
                                             <button type="button" class="btn btn-xs btn-success">Active</button>
@@ -74,40 +81,23 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="admin-modal" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="channel-modal" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <form class="modal-content" @submit="submit">
                 <div class="modal-header">
-                    <h4 class="modal-title">Admin info</h4>
+                    <h4 class="modal-title">Channel info</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body" v-if="modal.form">
-                    <div class="form-group" v-if="+modal.form.id">
-                        <label class="form-label">Username</label>
-                        <input type="text" class="form-control" placeholder="Username" v-model="modal.form.username" disabled />
-                    </div>
-                    <div class="form-group" v-else>
-                        <label class="form-label">Username</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><?= session()->agent->code ?></span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Username" v-model="modal.form.username" maxlength="12">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Password</label>
-                        <input type="password" class="form-control" placeholder="Password" v-model="modal.form.password" />
-                    </div>
                     <div class="form-group">
                         <label class="form-label">Name</label>
-                        <input type="text" class="form-control" placeholder="Name" v-model="modal.form.name" />
+                        <input type="text" class="form-control" placeholder="Name." v-model="modal.form.name" />
                     </div>
                     <div class="form-group">
-                        <label class="form-label">tel</label>
-                        <input type="text" class="form-control" placeholder="Tel no." v-model="modal.form.tel" />
+                        <label class="form-label">Description</label>
+                        <input type="text" class="form-control" placeholder="Description." v-model="modal.form.description" />
                     </div>
                 </div>
                 <div class="modal-footer justify-content-end">
@@ -130,7 +120,7 @@
                 modal: {
                     target: null,
                     form: null,
-                    darft: { id: ``, username: ``, password: ``, name: ``, tel: `` }
+                    darft: { id: ``, name: ``, description: ``, link: `` }
                 },
                 table: {
                     filtered: [],
@@ -141,17 +131,17 @@
         methods: {
             async list() {
                 this.loading = true
-                let { status, message, data } = await post(`user/admin/list`)
+                let { status, message, data } = await post(`channel/list`)
                 this.loading = false
                 if (!status) return flashAlert.warning(message)
                 this.table.data = data
-                this.filter_admin()
+                this.filter_channel()
             },
-            filter_admin() {
+            filter_channel() {
                 let _filter = this.filter
                 if (!_filter) return this.table.filtered = this.table.data
                 this.table.filtered = this.table.data?.filter((item) => {
-                    return item.username?.indexOf(_filter) > -1 || item.name?.indexOf(_filter) > -1 || item.tel?.indexOf(_filter) > -1
+                    return item.name?.indexOf(_filter) > -1 || item.description?.indexOf(_filter) > -1
                 }) || []
             },
             add(e) {
@@ -159,21 +149,20 @@
                 this.modal.form = { ...this.modal.darft }
                 this.modal.target.modal(`show`)
             },
-            async info(admin) {
-                if (!admin) return
+            async info(channel) {
+                if (!channel) return
                 this.loading = true
-                let { status, message, data } = await post(`user/info`, { id: admin.id })
+                let { status, message, data } = await post(`channel/info`, { id: channel.id })
                 this.loading = false
                 if (!status) return flashAlert.warning(message)
-                let { id, name, tel, username, password } = data
-                this.modal.form = { id, name, tel, username, password }
+                let { id, name, description, link } = data
+                this.modal.form = { id, name, description, link }
                 this.modal.target.modal(`show`)
             },
             async submit(e) {
                 e?.preventDefault()
                 this.loading = true
-                let endpoint = this.modal.form.id ? `user/info/update` : `user/admin/add`
-                let { status, message, data } = await post(endpoint, this.modal.form)
+                let { status, message, data } = await post(`channel/save`, this.modal.form)
                 this.loading = false
                 if (!status) return flashAlert.warning(message)
                 let { id, name, tel, username, password } = data
@@ -184,18 +173,18 @@
                     vm.modal.target.modal(`hide`)
                 })
             },
-            status_inactive(admin) {
+            status_inactive(channel) {
                 let vm = this
                 return showConfirm(`Confirm Inactive ?`, function(_f) {
                     if (!_f.isConfirmed) return
-                    return vm.status(`inactive`, admin)
+                    return vm.status(`active/0`, channel)
                 })
             },
-            status_active(admin) {
+            status_active(channel) {
                 let vm = this
                 return showConfirm(`Confirm Active ?`, function(_f) {
                     if (!_f.isConfirmed) return
-                    return vm.status(`active`, admin)
+                    return vm.status(`active/1`, channel)
                 })
             },
             record_delete(banner) {
@@ -205,9 +194,9 @@
                     return vm.status(`delete`, banner)
                 })
             },
-            async status(type, admin) {
+            async status(type, channel) {
                 this.loading = true
-                let { status, message } = await post(`user/${type}`, { id: admin.id })
+                let { status, message } = await post(`channel/${type}`, { id: channel.id })
                 this.loading = false
                 if (!status) return flashAlert.warning(message)
                 let vm = this
@@ -238,12 +227,16 @@
                 this.modal.form[`${target}_upload`] = ``
                 $(`#${target}`).val(``)
             },
+            copyToClipboard(channel) {
+                flashAlert.success(`Copy: ${channel.link}`)
+                return copyToClipboard(channel.link)
+            },
         },
         async mounted() {
-            this.modal.target = $(`#admin-modal`)
+            this.modal.target = $(`#channel-modal`)
             await this.list()
         }
-    }).mount('#admin-box')
+    }).mount('#channel-box')
 </script>
 
 <?= $this->endSection() ?>

@@ -71,6 +71,12 @@
                           </li>
                       <?php endif ?>
                       <li class="nav-item">
+                          <a href="<?= site_url("channel") ?>" class="nav-link <?= $path == "channel" ? "active" : "" ?>">
+                              <i class="nav-icon fa fa-solid fa-network-wired"></i>
+                              <p>Channels</p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
                           <a href="<?= site_url("wheel/info") ?>" class="nav-link <?= $path == "wheel/info" ? "active" : "" ?>">
                               <i class="nav-icon fa fa-circle"></i>
                               <p>Wheel</p>
