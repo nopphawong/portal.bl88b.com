@@ -147,10 +147,10 @@
                 let _filter = this.filter
                 if (!_filter) return this.table.filtered = this.table.data
                 this.table.filtered = this.table.data?.filter((item) => {
-                    return item.web_username?.indexOf(_filter) > -1 ||
-                        item.web_password?.indexOf(_filter) > -1 ||
-                        item.web_agent?.indexOf(_filter) > -1 ||
-                        item.tel?.indexOf(_filter) > -1
+                    return `${item.web_username}`.toLowerCase()?.indexOf(_filter.toLowerCase()) > -1 ||
+                        `${item.web_password}`.toLowerCase()?.indexOf(_filter.toLowerCase()) > -1 ||
+                        `${item.web_agent}`.toLowerCase()?.indexOf(_filter.toLowerCase()) > -1 ||
+                        `${item.tel}`.toLowerCase()?.indexOf(_filter.toLowerCase()) > -1
                 }) || []
             },
             async submit(e) {
