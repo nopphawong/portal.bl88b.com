@@ -36,6 +36,9 @@ class Webuser extends RestController {
         $success = $WebuserModel->save($Webuser);
         if (!$success) return $this->sendError("ผูก Web User ไม่สำเร็จ !");
 
+        $body->web_username = $Webuser->web_username;
+        log_message("alert", "WEBUSER-LINK :: " . json_encode($body));
+
         return $this->sendData([
             "web_username" => $Webuser->web_username,
             "web_password" => $Webuser->web_password,
@@ -50,7 +53,6 @@ class Webuser extends RestController {
         if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
 
         $WebuserModel = new WebuserModel();
-
         $WebuserModel->where("agent", $agent->code);
         $WebuserModel->where("web_username", $body->web_username);
         $Webuser = $WebuserModel->first();
@@ -61,6 +63,8 @@ class Webuser extends RestController {
         $Webuser->edit_date = date("Y-m-d H:i:s");
         $Webuser->edit_by = "API";
         $WebuserModel->save($Webuser);
+
+        log_message("alert", "WEBUSER-UNLINK :: " . json_encode($body));
 
         return $this->sendData();
     }
