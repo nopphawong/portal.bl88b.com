@@ -56,6 +56,10 @@
                             <label class="form-label">Line link</label>
                             <input type="text" class="form-control" placeholder="Line link" v-model="form.line_link" :disabled="mode.active == mode.display" />
                         </div>
+                        <div class="form-group">
+                            <label class="form-label">Meta Tag</label>
+                            <textarea class="form-control" placeholder="Meta Tag from Facebook." rows="10" v-model="form.meta_tag" :disabled="mode.active == mode.display"></textarea>
+                        </div>
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end gap-1">
@@ -96,6 +100,7 @@
                     description: ``,
                     line_id: ``,
                     line_link: ``,
+                    meta_tag: ``,
                 },
             }
         },
@@ -107,14 +112,15 @@
                 this.loading = false
                 if (!status) return flashAlert.warning(message)
 
-                let { logo, url, name, description, line_id, line_link } = data
-                this.form = { logo, url, name, description, line_id, line_link }
+                let { logo, url, name, description, line_id, line_link, meta_tag } = data
+                this.form = { logo, url, name, description, line_id, line_link, meta_tag }
 
                 this.mode.active = this.mode.display
                 this.removeImage(e)
             },
             async submit(e) {
                 e?.preventDefault()
+                // return console.log(this.form)
                 this.loading = true
                 let { status, message, data } = await post(`agent/info/update`, this.form)
                 this.loading = false
