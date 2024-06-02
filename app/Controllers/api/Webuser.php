@@ -4,6 +4,7 @@ namespace App\Controllers\api;
 
 use App\Controllers\RestController;
 use App\Models\AgentModel;
+use App\Models\ChannelModel;
 use App\Models\WebuserModel;
 
 class Webuser extends RestController {
@@ -14,8 +15,17 @@ class Webuser extends RestController {
         if (!$agent) return $this->sendData(null, "Invalide agent !", false);
         if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
 
-        $WebuserModel = new WebuserModel();
+        $Chanel = (object)["ref" => null, "name" => null];
+        if (isset($body->ref) && !empty($body->ref)) {
+            $ChannelModel = new ChannelModel();
+            $ch = $ChannelModel->where("agent", $agent->code)->where("status", 1)->where("ref", $body->ref)->first();
+            if ($ch) {
+                $Chanel->ref = $ch->ref;
+                $Chanel->name = $ch->name;
+            }
+        }
 
+        $WebuserModel = new WebuserModel();
         $WebuserModel->where("agent", $agent->code);
         $WebuserModel->where("tel", $body->tel);
         $WebuserModel->where("status", 1);
@@ -43,6 +53,8 @@ class Webuser extends RestController {
             "web_username" => $Webuser->web_username,
             "web_password" => $Webuser->web_password,
             "web_agent" => $Webuser->web_agent,
+            "chanel_ref" => $Chanel->ref,
+            "chanel_name" => $Chanel->name,
         ]);
     }
     public function unlink() {
