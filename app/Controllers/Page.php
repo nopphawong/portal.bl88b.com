@@ -33,8 +33,8 @@ class Page extends BaseController {
     }
     public function webuser() {
         $this->usePrimevue();
-        $this->usePrimevueLib("datatable");
-        $this->usePrimevueLib("column");
+        // $this->usePrimevueLib("datatable");
+        // $this->usePrimevueLib("column");
         return $this->setView("adminlte/pages/webuser");
     }
     public function agent_view($code, $key, $secret) {
