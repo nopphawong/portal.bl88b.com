@@ -220,9 +220,11 @@
             await this.list()
         }
     })
-    webuserBox.use(primevue.config.default)
-    webuserBox.component(`Datatable`, primevue.datatable)
-    webuserBox.component(`Column`, primevue.column)
+    webuserBox.use(PrimeVue.Config, {
+        theme: { preset: PrimeVue.Themes.Aura }
+    })
+    webuserBox.component(`Datatable`, PrimeVue.DataTable)
+    webuserBox.component(`Column`, PrimeVue.Column)
     webuserBox.mount('#webuser-box')
 </script>
 
