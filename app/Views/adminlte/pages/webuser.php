@@ -65,13 +65,13 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive">
-                        <Datatable class="table table-striped" :value="table.filtered" :size="`small`" paginator :rows="rows.perpage">
-                            <Column field="web_username" header="Web Username"></Column>
-                            <Column field="web_password" header="Web Password"></Column>
-                            <Column field="web_agent" header="Web Agent"></Column>
-                            <Column field="date_use" header="Used"></Column>
-                            <Column field="tel" header="Tel"></Column>
-                            <Column field="status" header="Status">
+                        <p-datatable class="table table-striped" :value="table.filtered" :size="`small`" paginator :rows="rows.perpage">
+                            <p-column field="web_username" header="Web Username"></p-column>
+                            <p-column field="web_password" header="Web Password"></p-column>
+                            <p-column field="web_agent" header="Web Agent"></p-column>
+                            <p-column field="date_use" header="Used"></p-column>
+                            <p-column field="tel" header="Tel"></p-column>
+                            <p-column field="status" header="Status">
                                 <template #body="slotProps">
                                     <div class="btn-group" v-if="+slotProps.data.status">
                                         <button type="button" class="btn btn-xs btn-success">Active</button>
@@ -86,14 +86,14 @@
                                         </button>
                                     </div>
                                 </template>
-                            </Column>
-                            <Column header="#">
+                            </p-column>
+                            <p-column header="#">
                                 <template #body="slotProps">
                                     <button class="btn btn-xs btn-danger" @click="remove(slotProps.data.web_username)" :disabled="loading || slotProps.data.date_use">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </template>
-                            </Column>
+                            </p-column>
                             <template #paginatorstart>
                                 <select class="form-select" v-model="rows.perpage">
                                     <option v-for="value in rows.list" :value="value">{{ value }}</option>
@@ -103,7 +103,7 @@
                             <template #paginatorend>
                                 Total: {{ table.filtered.length }}
                             </template>
-                        </Datatable>
+                        </p-datatable>
                     </div>
                     <div class="card-footer"></div>
                 </div>
@@ -223,8 +223,8 @@
     webuserBox.use(PrimeVue.Config, {
         theme: { preset: PrimeVue.Themes.Aura }
     })
-    webuserBox.component(`Datatable`, PrimeVue.DataTable)
-    webuserBox.component(`Column`, PrimeVue.Column)
+    webuserBox.component(`p-datatable`, PrimeVue.DataTable)
+    webuserBox.component(`p-column`, PrimeVue.Column)
     webuserBox.mount('#webuser-box')
 </script>
 

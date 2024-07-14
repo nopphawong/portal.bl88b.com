@@ -14,11 +14,11 @@ class WebuserModel extends Model {
         'web_agent',
         'agent',
         'tel',
-        'date_use', 
-        'status', 
-        'add_date', 
-        'add_by', 
-        'edit_date', 
+        'date_use',
+        'status',
+        'add_date',
+        'add_by',
+        'edit_date',
         'edit_by'
     ];
     protected $returnType = 'object';

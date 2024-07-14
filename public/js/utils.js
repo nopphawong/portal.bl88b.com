@@ -59,7 +59,7 @@ function getFormObject(formId) {
     var form = document.getElementById(formId)
 
     var inputs = form.querySelectorAll(`input[name], select[name]`)
-    for (var i = 0; i < inputs.length; i++) {
+    for (var i = 0;i < inputs.length;i++) {
         var input = inputs[i]
         formObj[input.name] = input.value
     }
@@ -94,13 +94,13 @@ const flashAlert = {
     "success": (message, callback, timer = 1000) => {
         return _alert(`success`, message, callback, timer)
     },
-    "error": (message, callback, timer = 1000) => {
+    "error": (message, callback, timer = 2000) => {
         return _alert(`error`, message, callback, timer)
     },
-    "warning": (message, callback, timer = 1000) => {
+    "warning": (message, callback, timer = 2000) => {
         return _alert(`warning`, message, callback, timer)
     },
-    "info": (message, callback, timer = 1000) => {
+    "info": (message, callback, timer = 2000) => {
         return _alert(`info`, message, callback, timer)
     },
 }
@@ -114,10 +114,10 @@ function _alert(icon, title, callback, timer = 0) {
         timer: timer,
         allowOutsideClick: false,
         didOpen: () => {},
-        didClose:()=>{}
+        didClose: () => {}
     }).then((result) => {
         if (typeof callback == `function`) return callback(result)
-    }).finally(()=>{
+    }).finally(() => {
 
     })
 }
@@ -130,7 +130,7 @@ function showConfirm(message, callback) {
         cancelButtonText: `No`,
         allowOutsideClick: false,
         didOpen: () => {
-            
+
         },
     }).then((result) => {
         if (typeof callback == `function`) return callback(result)
@@ -158,4 +158,13 @@ function open_link(url, _blank = false) {
     if (_blank) anchor.target = `_blank`
     anchor.click()
 }
-
+function date_format(date, form, to) {
+    return moment(date, form).format(to)
+}
+const DATE_FORMAT = {
+    DB_DATE: `YYYY-MM-DD`,
+    DB_DATETIME: `YYYY-MM-DD HH:mm:ss`,
+    WEB_DATE: `DD/MM/YYYY`,
+    WEB_DATETIME: `DD/MM/YYYY HH:mm:ss`,
+    WEB_DATETIME_HM: `DD/MM/YYYY HH:mm`,
+}

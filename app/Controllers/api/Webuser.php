@@ -80,4 +80,30 @@ class Webuser extends RestController {
 
         return $this->sendData();
     }
+    public function checkup() {
+        $body = $this->getPost();
+        $agentModel = new AgentModel();
+        $agent = $agentModel->where("secret", $body->secret)->first();
+        if (!$agent) return $this->sendData(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
+
+        $WebuserModel = new WebuserModel();
+        $webuser = $WebuserModel->where("status", 1)->where("agent", $agent->code)->where("web_username", $body->webuser)->first();
+        if (!$webuser) {
+            $webuser = (object)[
+                "web_username" => $body->webuser,
+                "web_password" => $body->webpass,
+                "web_agent" => substr($body->webuser, 0, 7),
+                "agent" => $agent->code,
+                "tel" => $body->tel,
+                "date_use" => date("Y-m-d H:i:s"),
+                "status" => 1,
+                "add_date" => date("Y-m-d H:i:s"),
+                "add_by" => "auto_api",
+            ];
+            $WebuserModel->save($webuser);
+            return $this->sendData(false);
+        }
+        return $this->sendData(true);
+    }
 }

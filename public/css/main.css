@@ -4,3 +4,22 @@
 .ms-2 {
     margin-left: .5rem;
 }
+
+.form-control .p-datepicker-input,
+.form-control .p-inputtext,
+.p-select {
+    width: 100%;
+    padding: 0;
+    border: none;
+}
+
+.form-control:has(.p-inputtext:disabled) {
+    opacity: 1;
+    background: var(--p-inputtext-disabled-background);
+    color: var(--p-inputtext-disabled-color);
+}
+
+.p-select-overlay,
+.p-datepicker-panel {
+    z-index: 1050 !important;
+}

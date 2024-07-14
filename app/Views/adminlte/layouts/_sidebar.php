@@ -88,6 +88,26 @@
                               <p>Checkin</p>
                           </a>
                       </li>
+                      <li class="nav-item menu-is-opening menu-open">
+                          <a class="nav-link">
+                              <i class="nav-icon fa fa-solid fa-hashtag"></i>
+                              <p>Lotto <i class="fas fa-angle-left right"></i></p>
+                          </a>
+                          <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                  <a href="<?= site_url("lotto") ?>" class="nav-link <?= $path == "lotto" ? "active" : "" ?>">
+                                      <i class="nav-icon fa fa-solid fa-file"></i>
+                                      <p>จัดการ งวด/แผง</p>
+                                  </a>
+                              </li>
+                              <li class="nav-item">
+                                  <a href="<?= site_url("user/point") ?>" class="nav-link <?= $path == "user/point" ? "active" : "" ?>">
+                                      <i class="nav-icon fa fa-solid fa-list"></i>
+                                      <p>จัดการสิทธิการซื้อ</p>
+                                  </a>
+                              </li>
+                          </ul>
+                      </li>
                   <?php endif  ?>
 
                   <?php  ?>

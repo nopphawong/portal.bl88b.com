@@ -10,32 +10,40 @@ class Page extends BaseController {
         return redirect()->to(site_url("agent/info"));
     }
     public function agent_info() {
-        return $this->setView("adminlte/pages/agent_info");
+        return $this->renderView("adminlte/pages/agent_info");
     }
     public function banner() {
-        return $this->setView("adminlte/pages/banner");
+        return $this->renderView("adminlte/pages/banner");
     }
     public function admin() {
-        return $this->setView("adminlte/pages/admin");
+        return $this->renderView("adminlte/pages/admin");
     }
     public function channel() {
-        return $this->setView("adminlte/pages/channel");
+        return $this->renderView("adminlte/pages/channel");
+    }
+    public function lotto() {
+        $this->usePrimevue();
+        return $this->renderView("adminlte/pages/lotto");
+    }
+    public function user_point() {
+        $this->usePrimevue();
+        return $this->renderView("adminlte/pages/user_point");
     }
     public function wheel_info() {
-        return $this->setView("adminlte/pages/wheel_info");
+        return $this->renderView("adminlte/pages/wheel_info");
     }
     public function checkin_info() {
-        return $this->setView("adminlte/pages/checkin_info");
+        return $this->renderView("adminlte/pages/checkin_info");
     }
     public function agent() {
         session()->remove("agent");
-        return $this->setView("adminlte/pages/agent");
+        return $this->renderView("adminlte/pages/agent");
     }
     public function webuser() {
         $this->usePrimevue();
         // $this->usePrimevueLib("datatable");
         // $this->usePrimevueLib("column");
-        return $this->setView("adminlte/pages/webuser");
+        return $this->renderView("adminlte/pages/webuser");
     }
     public function agent_view($code, $key, $secret) {
         $portal = new Portal((object) array("key" => $key, "secret" => $secret,));

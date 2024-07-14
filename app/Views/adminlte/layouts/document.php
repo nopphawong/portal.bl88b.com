@@ -31,13 +31,14 @@
     <?= script_tag("assets/js/adminlte.js") ?>
 
     <?= script_tag("https://cdn.jsdelivr.net/npm/sweetalert2@11") ?>
+    <?= script_tag("https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js") ?>
 
     <?php foreach ($includes_js as $js) : ?>
         <?= script_tag($js) ?>
     <?php endforeach ?>
 
     <script src="https://unpkg.com/vue@3.4.21/dist/vue.global.prod.js"></script>
-    <?php foreach ($vuejs as $js) : ?>
+    <?php foreach ($includes_vuejs as $js) : ?>
         <?= script_tag($js) ?>
     <?php endforeach ?>
 </head>

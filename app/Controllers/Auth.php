@@ -6,7 +6,7 @@ use App\Libraries\Encrypter;
 
 class Auth extends BaseController {
     public function forbidden() {
-        return $this->setView("adminlte/pages/forbidden");
+        return $this->renderView("adminlte/pages/forbidden");
     }
     public function detect($bin) {
         $ect = new Encrypter();
@@ -29,7 +29,7 @@ class Auth extends BaseController {
         return true;
     }
     public function login() {
-        return $this->setView("adminlte/pages/login");
+        return $this->renderView("adminlte/pages/login");
     }
     public function logout() {
         session()->destroy();

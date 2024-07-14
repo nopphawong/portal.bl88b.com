@@ -38,7 +38,7 @@ abstract class BaseController extends Controller {
     protected $viewData = [
         "includes_js" => [],
         "includes_css" => [],
-        "vuejs" => [],
+        "includes_vuejs" => [],
     ];
 
     /**
@@ -54,8 +54,8 @@ abstract class BaseController extends Controller {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
-        $this->addJs(base_url("js/utils.js?v=0.01a"));
-        $this->addCss(base_url("css/main.css"));
+        $this->addJs(base_url("js/utils.js?v=0.01aa"));
+        $this->addCss(base_url("css/main.css?v=0.01"));
 
         $this->viewData['title'] = 'UFA PORTAL';
         $this->viewData['path'] = implode("/", $request->uri->getSegments());
@@ -68,15 +68,18 @@ abstract class BaseController extends Controller {
         if (is_array($css)) $this->viewData[$key] = array_merge($this->viewData[$key], $css);
         else if (is_string($css)) $this->viewData[$key][] = $css;
     }
+    public function addVueJs($js) {
+        $this->addJs($js, "includes_vuejs");
+    }
     public function usePrimevue() {
         // $this->addCss("https://unpkg.com/primevue/resources/themes/lara-light-green/theme.css");
-        $this->addJs("https://unpkg.com/primevue@4.0.0/umd/primevue.min.js", "vuejs");
-        $this->addJs("https://unpkg.com/@primevue/themes@4.0.0/umd/aura.min.js", "vuejs");
+        $this->addVueJs("https://unpkg.com/primevue@4.0.0/umd/primevue.min.js");
+        $this->addVueJs("https://unpkg.com/@primevue/themes@4.0.0/umd/aura.min.js");
     }
     public function usePrimevueLib($name) {
-        $this->addJs("https://unpkg.com/primevue/{$name}/{$name}.min.js", "vuejs");
+        $this->addVueJs("https://unpkg.com/primevue/{$name}/{$name}.min.js");
     }
-    public function setView($path) {
+    public function renderView($path) {
         return view($path, $this->viewData);
     }
 }

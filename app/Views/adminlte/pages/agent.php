@@ -45,7 +45,7 @@
                                 <tr v-for="(data, index) in table.filtered">
                                     <td>
                                         <button class="btn btn-xs btn-primary" @click="info(data)" :disabled="loading">
-                                            <i class="fa fa-pen"></i>
+                                            <i class="fa fa-search"></i>
                                         </button>
                                         <button class="btn btn-xs btn-secondary ms-1" @click="config(data)" :disabled="loading">
                                             <i class="fa fa-wrench"></i>

@@ -24,12 +24,14 @@ $routes->get('forbidden', 'Auth::forbidden', $pageauth);
 
 $pageagent = ['filter' => \App\Filters\PageAgent::class];
 $routes->get('channel', 'Page::channel', $pageagent);
+$routes->get('lotto', 'Page::Lotto', $pageagent);
 $routes->get('admin', 'Page::admin', $pageagent);
 $routes->get('agent/info', 'Page::agent_info', $pageagent);
 $routes->get('banner', 'Page::banner', $pageagent);
 $routes->get('wheel/info', 'Page::wheel_info', $pageagent);
 $routes->get('checkin/info', 'Page::checkin_info', $pageagent);
 $routes->get('webuser', 'Page::webuser', $pageagent);
+$routes->get('user/point', 'Page::user_point', $pageagent);
 
 $pagemaster = ['filter' => \App\Filters\PageMaster::class];
 $routes->get('agent', 'Page::agent', $pagemaster);
@@ -104,6 +106,25 @@ $routes->post('channel/save', 'serv\Channel::save', $servagent);
 $routes->post('channel/info', 'serv\Channel::info', $servagent);
 $routes->post('channel/delete', 'serv\Channel::remove', $servagent);
 $routes->post('channel/active/(:num)', 'serv\Channel::active/$1', $servagent);
+
+$routes->post('lotto/list', 'serv\Lotto::list', $servagent);
+$routes->post('lotto/info', 'serv\Lotto::info', $servagent);
+$routes->post('lotto/save', 'serv\Lotto::save', $servagent);
+$routes->post('lotto/bing/update', 'serv\Lotto::bingo_update', $servagent);
+$routes->post('lotto/remove/(:num)', 'serv\Lotto::remove/$1', $servagent);
+$routes->post('lotto/active/(:segment)/(:num)', 'serv\Lotto::active/$1/$2', $servagent);
+
+$routes->post('lotto/type/list', 'serv\Lotto::type_list', $servagent);
+
+$routes->post('lotto/number/list', 'serv\Lotto::number_list', $servagent);
+$routes->post('lotto/number/add', 'serv\Lotto::number_add', $servagent);
+$routes->post('lotto/number/remove/(:num)', 'serv\Lotto::number_remove/$1', $servagent);
+$routes->post('lotto/number/active/(:segment)/(:num)', 'serv\Lotto::number_active/$1/$2', $servagent);
+
+$routes->post('user/point/list', 'serv\User::point_list', $servagent);
+$routes->post('user/point/save', 'serv\User::point_save', $servagent);
+$routes->post('user/point/remove/(:num)', 'serv\User::point_remove/$1', $servagent);
+$routes->post('user/point/active/(:segment)/(:num)', 'serv\User::point_active/$1/$2', $servagent);
 
 $servmaster = ['filter' => \App\Filters\ServMaster::class];
 $routes->post('agent/list', 'serv\Agent::list', $servmaster);
@@ -216,11 +237,20 @@ $routes->group('api', static function ($routes) {
     $routes->group('webuser', static function ($routes) {
         // api/Webuser/{{ function }}
         $routes->post('register', 'api\Webuser::register');
-        $routes->post('unlink', 'api\Webuser::unlink');
+        $routes->post('register', 'api\Webuser::register');
+        $routes->post('checkup', 'api\Webuser::checkup');
     });
     $routes->group('channel', static function ($routes) {
         // api/channel/{{ function }}
         $routes->post('list', 'api\Channel::list');
+    });
+    $routes->group('lotto', static function ($routes) {
+        // api/channel/{{ function }}
+        $routes->post('running_number_master/(:segment)', 'api\Lotto::running_number_master/$1');
+        $routes->post('list', 'api\Lotto::list');
+        $routes->post('info', 'api\Lotto::info');
+        $routes->post('number/list', 'api\Lotto::number_list');
+        $routes->post('number/buy', 'api\Lotto::number_buy');
     });
 
     $routes->group('bl88', static function ($routes) {
