@@ -237,7 +237,7 @@ $routes->group('api', static function ($routes) {
     $routes->group('webuser', static function ($routes) {
         // api/Webuser/{{ function }}
         $routes->post('register', 'api\Webuser::register');
-        $routes->post('register', 'api\Webuser::register');
+        $routes->post('unlink', 'api\Webuser::unlink');
         $routes->post('checkup', 'api\Webuser::checkup');
     });
     $routes->group('channel', static function ($routes) {
