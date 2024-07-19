@@ -29,7 +29,20 @@ class Lotto extends RestController {
         $numbers = $NumberMasterModel->where("type", $type_code)->findAll();
         return $this->sendData($numbers);
     }
-    
+
+    public function point() {
+        $body = $this->getPost();
+        $agentModel = new AgentModel();
+        $agent = $agentModel->where("secret", $body->secret)->first();
+        if (!$agent) return $this->sendData(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
+
+        $UserPointModel = new UserPointModel();
+        $user = $UserPointModel->where("status", 1)->where("agent", $agent->code)->where("user", $body->webuser)->first();
+
+        return $this->sendData($user && $user->point ? $user->point : 0);
+    }
+
     public function list() {
         $body = $this->getPost();
         $agentModel = new AgentModel();
@@ -42,7 +55,7 @@ class Lotto extends RestController {
             "select id, type, period, start, expire, reward, price, bingo
                 ,(select count(0) from tb_number_master where tb_number_master.`status` = 1 and tb_number_master.type = tb_lotto.type) as stock
                 ,(select count(0) from tb_number where tb_number.`status` = 1 and tb_number.lotto = tb_lotto.id) as sold
-            from tb_lotto where tb_lotto.`status` = 1 and tb_lotto.agent = :agent: and `start` <= :start: order by period desc",
+            from tb_lotto where tb_lotto.`status` = 1 and tb_lotto.agent = :agent: and :start: between `start` and period order by period desc",
             ["agent" => $agent->code, "start" => date("Y-m-d H:i:s")]
         )->getResultArray();
         $db->close();

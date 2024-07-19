@@ -249,6 +249,7 @@ $routes->group('api', static function ($routes) {
         $routes->post('running_number_master/(:segment)', 'api\Lotto::running_number_master/$1');
         $routes->post('list', 'api\Lotto::list');
         $routes->post('info', 'api\Lotto::info');
+        $routes->post('point', 'api\Lotto::point');
         $routes->post('number/list', 'api\Lotto::number_list');
         $routes->post('number/buy', 'api\Lotto::number_buy');
     });
