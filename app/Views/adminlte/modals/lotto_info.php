@@ -24,6 +24,14 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="form-label">ชื่อแผง</label>
+                                <input type="text" class="form-control" v-model="form.name" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-8">
                             <div class="form-group">
                                 <label class="form-label">วันที่เริ่มขาย</label>
@@ -72,6 +80,7 @@
                 form_default: {
                     id: null,
                     type: null,
+                    name: null,
                     period: null,
                     start_date: null,
                     start_time: new Date(`2024-01-01 00:00:00`),
@@ -127,6 +136,7 @@
 
                 if (!this.form.period) return flashAlert.warning(`งวด ไม่ถูกต้อง !`)
                 if (!this.form.type) return flashAlert.warning(`ประเภท ไม่ถูกต้อง !`)
+                if (!this.form.name) return flashAlert.warning(`ต้องระบุ ชื่อแผง !`)
                 if (!this.form.start_date) return flashAlert.warning(`วันที่เริ่มขาย ไม่ถูกต้อง !`)
                 if (!this.form.start_time) return flashAlert.warning(`วันที่เริ่มขาย ไม่ถูกต้อง !`)
                 if (!this.form.expire_date) return flashAlert.warning(`วันที่ปิดแผง ไม่ถูกต้อง !`)

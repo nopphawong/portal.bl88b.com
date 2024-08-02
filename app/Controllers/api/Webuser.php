@@ -86,6 +86,8 @@ class Webuser extends RestController {
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->sendData(null, "Invalide agent !", false);
         if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
+        
+        if (empty($body->webuser)) return $this->sendError("ต้องระบุ Webuser !");
 
         $WebuserModel = new WebuserModel();
         $webuser = $WebuserModel->where("status", 1)->where("agent", $agent->code)->where("web_username", $body->webuser)->first();

@@ -34,6 +34,7 @@
                                 </template>
                             </p-column>
                             <p-column field="period" header="งวด"></p-column>
+                            <p-column field="name" header="ชื่อแผง"></p-column>
                             <p-column field="type_name" header="ประเภท"></p-column>
                             <p-column field="start" header="วันที่เริ่มขาย">
                                 <template #body="slotProps">
@@ -122,7 +123,7 @@
                 modal: {
                     target: null,
                     form: {},
-                    darft: { type: ``, period: ``, start: ``, expire: ``, reward: ``, price: ``, bingo: ``, bingo: `` }
+                    darft: { type: ``, name: ``, period: ``, start: ``, expire: ``, reward: ``, price: ``, bingo: ``, bingo: `` }
                 },
                 table: {
                     filtered: [],

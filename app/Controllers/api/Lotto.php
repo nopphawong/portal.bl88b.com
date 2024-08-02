@@ -52,7 +52,7 @@ class Lotto extends RestController {
 
         $db = db_connect();
         $lottoes = $db->query(
-            "select id, type, period, start, expire, reward, price, bingo
+            "select id, type, name, period, start, expire, reward, price, bingo
                 ,(select count(0) from tb_number_master where tb_number_master.`status` = 1 and tb_number_master.type = tb_lotto.type) as stock
                 ,(select count(0) from tb_number where tb_number.`status` = 1 and tb_number.lotto = tb_lotto.id) as sold
             from tb_lotto where tb_lotto.`status` = 1 and tb_lotto.agent = :agent: and :start: between `start` and period order by period desc",
@@ -68,13 +68,31 @@ class Lotto extends RestController {
         if (!$agent) return $this->sendData(null, "Invalide agent !", false);
         if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
 
+        if (empty($body->webuser)) return $this->sendError("ต้องระบุ Webuser !");
+
         $db = db_connect();
-        $lotto = $db->query("select l.id, lt.`name` as type, l.period, l.`start`, l.expire, l.reward, l.price, l.bingo, up.`point`
+
+        $lotto = $db->query("select l.id, l.`name`, lt.`name` as type, l.period, l.`start`, l.expire, l.reward, l.price, l.bingo, up.`point`
         from tb_lotto l left join tb_lotto_type lt on lt.`code` = l.type and lt.`status` = 1
         left join tb_user_point up on up.`status` = 1 and up.`user` = :user:
         where l.`status` = 1 and l.id = :lotto:", ["lotto" => $body->lotto, "user" => $body->webuser])->getResult()[0];
+        if (!$lotto) return $this->sendError("ไม่พบข้อมูลแผง !");
+
+        $numbers = $db->query(
+            "select nm.`no`
+                , if(ifnull(n.`user`, '') = '', 0, 1) as `sold`
+                , if(ifnull(n.`user`, '') = :user:, 1, 0) as `owner`
+            from tb_lotto l
+            left join tb_number_master nm on nm.type = l.type and nm.`status` = 1
+            left join tb_number n on n.lotto = l.id and n.`no` = nm.`no` and n.`status` = 1
+            where l.`status` = 1 and l.agent = :agent: and l.id = :lotto:
+            order by nm.`no`",
+            ["agent" => $agent->code, "lotto" => $body->lotto, "user" => $body->webuser]
+        )->getResultArray();
+        if (!$numbers) return $this->sendError("ไม่พบข้อมูลแผง !");
+        $lotto->numbers = $numbers;
+
         $db->close();
-        if (!$lotto) return $this->sendError("ไม่พบข้อมูล !");
 
         return $this->sendData($lotto);
     }
@@ -84,6 +102,8 @@ class Lotto extends RestController {
         $agent = $agentModel->where("secret", $body->secret)->first();
         if (!$agent) return $this->sendData(null, "Invalide agent !", false);
         if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
+
+        if (empty($body->webuser)) return $this->sendError("ต้องระบุ Webuser !");
 
         $db = db_connect();
         $numbers = $db->query(
@@ -107,22 +127,11 @@ class Lotto extends RestController {
         if (!$agent) return $this->sendData(null, "Invalide agent !", false);
         if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
 
+        if (empty($body->webuser)) return $this->sendError("ต้องระบุ Webuser !");
+
         $WebuserModel = new WebuserModel();
         $webuser = $WebuserModel->where("status", 1)->where("agent", $agent->code)->where("web_username", $body->webuser)->first();
-        if (!$webuser) {
-            $webuser = (object)[
-                "web_username" => $body->webuser,
-                "web_password" => $body->webpass,
-                "web_agent" => substr($body->webuser, 0, 7),
-                "agent" => $agent->code,
-                "tel" => $body->tel,
-                "date_use" => date("Y-m-d H:i:s"),
-                "status" => 1,
-                "add_date" => date("Y-m-d H:i:s"),
-                "add_by" => "auto_api",
-            ];
-            $WebuserModel->save($webuser);
-        }
+        if (!$webuser) return $this->sendError("ไม่พบ Webuser !");
 
         $UserPointModel = new UserPointModel();
         $user = $UserPointModel->where("status", 1)->where("agent", $agent->code)->where("user", $webuser->web_username)->first();
@@ -163,5 +172,28 @@ class Lotto extends RestController {
             $result = $UserPointModel->save($user);
         }
         return $this->sendData($result);
+    }
+    public function history() {
+        $body = $this->getPost();
+        $agentModel = new AgentModel();
+        $agent = $agentModel->where("secret", $body->secret)->first();
+        if (!$agent) return $this->sendData(null, "Invalide agent !", false);
+        if ($agent->key != $body->key) return $this->sendData(null, "Invalide agent !", false);
+
+        if (empty($body->webuser)) return $this->sendError("ต้องระบุ Webuser !");
+
+        $db = db_connect();
+        $lottoes = $db->query(
+            "select l.period, l.`name`, lt.`name` as type, l.bingo, n.`no`, n.sold_date, wu.tel, n.`user`
+            from tb_lotto l
+            inner join tb_number n on n.lotto = l.id and n.`status` = l.`status`
+            inner join tb_webuser wu on wu.web_username = n.`user`
+            left join tb_lotto_type lt on lt.`code` = l.type
+            where 1 = 1 and l.`status` = 1 and l.agent = :agent: and n.`user` = :webuser:
+            order by n.add_date desc",
+            ["agent" => $agent->code, "webuser" => $body->webuser]
+        )->getResultArray();
+        $db->close();
+        return $this->sendData($lottoes);
     }
 }

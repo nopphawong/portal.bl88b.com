@@ -72,9 +72,13 @@ abstract class BaseController extends Controller {
         $this->addJs($js, "includes_vuejs");
     }
     public function usePrimevue() {
+        $v = "4.0.0";
         // $this->addCss("https://unpkg.com/primevue/resources/themes/lara-light-green/theme.css");
-        $this->addVueJs("https://unpkg.com/primevue@4.0.0/umd/primevue.min.js");
-        $this->addVueJs("https://unpkg.com/@primevue/themes@4.0.0/umd/aura.min.js");
+        $this->addVueJs("https://unpkg.com/primevue@{$v}/umd/primevue.min.js");
+        $this->addVueJs("https://unpkg.com/@primevue/themes@{$v}/umd/aura.min.js");
+        // $this->addVueJs("https://unpkg.com/@primevue/themes@{$v}/umd/lara.min.js");
+        // $this->addVueJs("https://unpkg.com/@primevue/themes@{$v}/umd/nora.min.js");
+        // $this->addCss("/css/primevue-color.css");
     }
     public function usePrimevueLib($name) {
         $this->addVueJs("https://unpkg.com/primevue/{$name}/{$name}.min.js");
