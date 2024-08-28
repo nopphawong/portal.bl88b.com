@@ -9,8 +9,9 @@ use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
 
-class Filters extends BaseConfig
-{
+use App\Filters\AllowTH;
+
+class Filters extends BaseConfig {
     /**
      * Configures aliases for Filter classes to
      * make reading things nicer and simpler.
@@ -24,6 +25,7 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'allowth' => AllowTH::class,
     ];
 
     /**
@@ -35,6 +37,7 @@ class Filters extends BaseConfig
      */
     public array $globals = [
         'before' => [
+            "allowth" => ['except' => ['forbidden', 'api/*']],
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
@@ -57,7 +60,9 @@ class Filters extends BaseConfig
      * permits any HTTP method to access a controller. Accessing the controller
      * with a method you don't expect could bypass the filter.
      */
-    public array $methods = [];
+    public array $methods = [
+        // 'GET'  => ['allowth'],
+    ];
 
     /**
      * List of filter aliases that should run on any

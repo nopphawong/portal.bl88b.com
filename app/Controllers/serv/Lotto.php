@@ -23,7 +23,7 @@ class Lotto extends RestController {
         left join tb_lotto_type lt on lt.`code` = l.type and l.`status` = 1
         where 1 = 1
         and l.agent = :agent:
-        order by l.`status` desc, l.period desc", ["agent" => $this->session->agent->code])->getResultArray();
+        order by l.`status` desc, l.period desc, l.id desc", ["agent" => $this->session->agent->code])->getResultArray();
         $db->close();
         return $this->sendData($lottoes);
     }

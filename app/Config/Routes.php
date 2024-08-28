@@ -257,6 +257,7 @@ $routes->group('api', static function ($routes) {
 
     $routes->group('bl88', static function ($routes) {
         // api/bl88/{{ function }}
+        $routes->post('test', 'api\Bl88::test', ['filter' => \App\Filters\Cors::class]);
         $routes->post('login', 'api\Bl88::login', ['filter' => \App\Filters\Cors::class]);
         $routes->post('register', 'api\Bl88::register', ['filter' => \App\Filters\Cors::class]);
         $routes->post('bank/list', 'api\Bl88::bank_list', ['filter' => \App\Filters\Cors::class]);

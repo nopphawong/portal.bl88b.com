@@ -33,17 +33,21 @@
                                     </button>
                                 </template>
                             </p-column>
-                            <p-column field="period" header="งวด"></p-column>
+                            <p-column field="period" header="งวด">
+                                <template #body="slotProps">
+                                    {{ web_datetime(slotProps.data.period) }}
+                                </template>
+                            </p-column>
                             <p-column field="name" header="ชื่อแผง"></p-column>
                             <p-column field="type_name" header="ประเภท"></p-column>
                             <p-column field="start" header="วันที่เริ่มขาย">
                                 <template #body="slotProps">
-                                    {{ web_format(slotProps.data.start) }}
+                                    {{ web_datetime_hm(slotProps.data.start) }}
                                 </template>
                             </p-column>
                             <p-column field="expire" header="วันที่ปิดแผง">
                                 <template #body="slotProps">
-                                    {{ web_format(slotProps.data.expire) }}
+                                    {{ web_datetime_hm(slotProps.data.expire) }}
                                 </template>
                             </p-column>
                             <p-column field="sold" header="การขาย" class="text-center">
@@ -173,7 +177,10 @@
             add() {
                 lottoModal.add()
             },
-            web_format(date) {
+            web_datetime(date) {
+                return date_format(date, DATE_FORMAT.DB_DATETIME, DATE_FORMAT.WEB_DATE)
+            },
+            web_datetime_hm(date) {
                 return date_format(date, DATE_FORMAT.DB_DATETIME, DATE_FORMAT.WEB_DATETIME_HM)
             },
             async bingo(id) {
